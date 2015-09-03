@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+
+
+.navbar{
+    border-top: none;
+}
+.navbar-default{
+    background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+    color: white;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    border-color: transparent;
+}
