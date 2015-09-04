@@ -66,14 +66,15 @@
     <div class="collapse navbar-collapse">
         <ul class='nav navbar-nav'>
             {% for site in all_sites %}
-            <li class='dropdown {% if site.domain == request.META.HTTP_HOST %}active{% endif %}'>
+            <li class='dropdown {% if site.domain == request.META.HTTP_HOST %}active{% endif %} {%if forloop.counter == 1%}open open{%endif%}'>
                 <a href='//{{ site.domain }}/articles/' {% if forloop.counter == 2 %} class='red' {% elif forloop.counter == 3 %} class='green' {% elif forloop.counter == 4 %} class='orange' {% endif %}> {{ site.name }} </a>
                 <ul class='dropdown-menu'>
                     <div class='container'>
                     <li class='dropdown-sub dropdown-category'>
                         {% for blogCat in site.all_cat %}
                             <a href='//{{ site.domain }}{% url "blog_post_list_category" blogCat.slug %}'>
-                            {{ blogCat.title|lower }}
+                                <i class='fa icon-angle-right'></i>
+                                {{ blogCat.title|lower }}
                             </a>
                         {% endfor %}
                     </li>
@@ -85,7 +86,7 @@
                                     <img src='{{ MEDIA_URL }}{% thumbnail BlogHighlight.featured_image 250 175 %}' />
                                 {% endif %}
                                 <h5 class='caption'>
-                                    <i class='fa icon-caret-right'></i> 
+                                    <i class='fa icon-angle-right'></i> 
                                     {{ BlogHighlight.title|capfirst|truncatechars:40 }}
                                 </h5>
                             </a>
