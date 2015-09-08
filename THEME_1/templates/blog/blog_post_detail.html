@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block main %}
-<h1 style='color: red'> {{ blog_post.id|BlogCatFromBlog }} XXX</h1>
+<h1 style='color: red'>{{ blog_post.id|BlogCatFromBlog }}</h1>
 {% block blog_post_detail_postedby %}
 {% editable blog_post.publish_date %}
 <h6 class="post-meta">

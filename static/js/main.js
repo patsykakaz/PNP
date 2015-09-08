@@ -17,6 +17,7 @@ $(document).ready(function(){
     // highlightsDrop.width(parentW*0.7-(logoDrop.outerWidth()+5));
     // highlightsDrop.css('margin-left','-5px');
     Navbar();
+    // mainArticles();
 });
 
 $(window).resize(function(){
@@ -36,3 +37,10 @@ function Navbar(){
         }
     });
 }
+
+// function mainArticles(){
+//     $('.mainArticle img').each(function(){
+//         parent = $(this).parent('.mainArticle');
+//         $(this).offset({ top: (parent.height()-$(this).height())/2, left: (parent.width()-$(this).width())/2 });
+//     });
+// }
