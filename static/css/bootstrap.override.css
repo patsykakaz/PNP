@@ -17,7 +17,11 @@
     color: white;
 }
 
-
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
     border-color: transparent;
+}
+
+.dropdown-menu{
+    border-radius: 0;
+    border: none;
 }

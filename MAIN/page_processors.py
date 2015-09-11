@@ -7,8 +7,8 @@ from .models import *
 
 from mezzanine.core.request import current_request
 
-@processor_for('/')
-def processor_home(request,page):
-    request = current_request()
+# @processor_for('/')
+# def processor_home(request,page):
+    # request = current_request()
     # print request.get_host().lower()
-    return locals()
+    # return locals()
