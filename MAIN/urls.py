@@ -36,7 +36,9 @@ urlpatterns += patterns('',
     # one homepage pattern, so if you use a different one, comment this
     # one out.
     url('^test$', 'MAIN.views.test', name='test'),
-    url('^test_login_req$', 'MAIN.views.test_login_req', name='test'),
+    url('^req$', 'MAIN.views.req', name='req'),
+    url('^kill$', 'MAIN.views.kill', name='kill'),
+    url('^get_client$', 'MAIN.views.get_client', name='get_client'),
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE

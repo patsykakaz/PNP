@@ -5,6 +5,7 @@
 .navbar{
     margin: 0;
     border-top: none;
+    border-radius: 0;
 }
 .navbar-default{
     background-color: #fff;

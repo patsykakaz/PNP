@@ -8,28 +8,37 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from models import *
 
-get_backends()
 
-# def test(request):
-#     user = request.user
-#     if user : 
-#         return HttpResponse(user)
-#     else: 
-#         return HttpResponse("OK")
+from pysimplesoap.client import SoapClient
+
+get_backends()
 
 def test(request):
 
-    from pysimplesoap.client import SoapClient
-
-    client = SoapClient(wsdl="http://dev.gesmag.com:8080/aboweb/abmWeb?wsdl", ns="web", trace=True)
+    client = SoapClient(wsdl="http://dev.aboweb.com/aboweb/ClientService?wsdl", ns="web", trace=False)
     client['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'mbc2015'}
-    result = client.ADM_ACCES_BASE(600,99,99)
-
+    bob = {'codeClient':0,'typeClient':'0','nom':'bob2', 'prenom':'bobby2', 'cp':'75011', 'email':'test2@test.test'}
+    result = client.createOrUpdateClientEx(client=bob)
 
     k = authenticate(username='test@test.test', password='test')
     login(request, k)
     return HttpResponse("result is -> {} <br /> user.is_staff = {}".format(result, k.is_staff))
 
+def get_client(request):
+
+    client = SoapClient(wsdl="http://dev.aboweb.com/aboweb/ClientService?wsdl", ns="web", trace=False)
+    client['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'mbc2015'}
+    print client
+    txt = client.getClient(codeClient=9)
+    return HttpResponse(txt)
+
+
+
 @login_required
-def test_login_req(request):
+def req(request):
+    print 'login is required for this view'
     return HttpResponse('superOK')
+
+def kill(request):
+    logout(request)
+    return HttpResponse('logged oug')
