@@ -39,6 +39,7 @@ urlpatterns += patterns('',
     url('^req$', 'MAIN.views.req', name='req'),
     url('^kill$', 'MAIN.views.kill', name='kill'),
     url('^get_client$', 'MAIN.views.get_client', name='get_client'),
+    url('^get_db_archive$', 'MAIN.views.get_db_archive', name='get_db_archive'),
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE

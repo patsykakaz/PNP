@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from models import *
 
+from .models import *
+
 
 from pysimplesoap.client import SoapClient
 
@@ -27,9 +29,8 @@ def test(request):
 def get_client(request):
 
     client = SoapClient(wsdl="http://dev.aboweb.com/aboweb/ClientService?wsdl", ns="web", trace=False)
-    client['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'mbc2015'}
-    print client
-    txt = client.getClient(codeClient=9)
+    client['AuthHeaderElement'] = {'Login': 'admin.webservices@mbc.com', 'Password': 'MBC1475'}
+    txt = client.getNbClients
     return HttpResponse(txt)
 
 
@@ -41,4 +42,17 @@ def req(request):
 
 def kill(request):
     logout(request)
-    return HttpResponse('logged oug')
+    return HttpResponse('logged out')
+
+def get_db_archive(request):
+    from db_PNP import DB
+    txt = ""
+    i=0
+    for item in DB:
+        content = item[4]
+        k = Archive(title=item[2].decode('utf-8'),content=content.decode('utf-8'))
+        k.save()
+    # txt = txt.decode('utf-8')
+
+    return HttpResponse(k.title)
+
