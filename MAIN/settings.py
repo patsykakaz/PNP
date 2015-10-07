@@ -55,17 +55,17 @@ from django.utils.translation import ugettext_lazy as _
 # field instance. When specifying the field class, the path
 # ``django.models.db.`` can be omitted for regular Django model fields.
 #
-# EXTRA_MODEL_FIELDS = (
-#     (
+EXTRA_MODEL_FIELDS = (
+    (
 #         # Dotted path to field.
-#         "mezzanine.blog.models.BlogPost.image",
+        "mezzanine.blog.models.BlogPost.archive",
 #         # Dotted path to field class.
-#         "somelib.fields.ImageField",
+        "BooleanField",
 #         # Positional args for field class.
-#         (_("Image"),),
+        (_("Archive"),),
 #         # Keyword args for field class.
-#         {"blank": True, "upload_to": "blog"},
-#     ),
+        {"blank": True, "default": False},
+    ),
 #     # Example of adding a field to *all* of Mezzanine's content types:
 #     (
 #         "mezzanine.pages.models.Page.another_field",
@@ -73,7 +73,7 @@ from django.utils.translation import ugettext_lazy as _
 #         (_("Another name"),),
 #         {"blank": True, "default": 1},
 #     ),
-# )
+)
 
 # Setting to turn on featured images for blog posts. Defaults to False.
 #
@@ -148,15 +148,15 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 DATABASES = {
     "default": {
         # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.db.backends.",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         # DB name or path to database file if using sqlite3.
-        "NAME": "",
+        "NAME": "PNPdb",
         # Not used with sqlite3.
-        "USER": "",
+        "USER": "patsykakaz",
         # Not used with sqlite3.
-        "PASSWORD": "",
+        "PASSWORD": "inyourface",
         # Set to empty string for localhost. Not used with sqlite3.
-        "HOST": "",
+        "HOST": "localhost",
         # Set to empty string for default. Not used with sqlite3.
         "PORT": "",
     }

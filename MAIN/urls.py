@@ -35,12 +35,13 @@ urlpatterns += patterns('',
     # commented out like the others, so it's the default. You only need
     # one homepage pattern, so if you use a different one, comment this
     # one out.
-    url('^test$', 'MAIN.views.test', name='test'),
-    url('^req$', 'MAIN.views.req', name='req'),
-    url('^kill$', 'MAIN.views.kill', name='kill'),
-    url('^get_client$', 'MAIN.views.get_client', name='get_client'),
-    url('^get_db_archive$', 'MAIN.views.get_db_archive', name='get_db_archive'),
-    url("^$", direct_to_template, {"template": "index.html"}, name="home"),
+    url(r'^test$', 'MAIN.views.test', name='test'),
+    url(r'^req$', 'MAIN.views.req', name='req'),
+    url(r'^kill$', 'MAIN.views.kill', name='kill'),
+    url(r'^get_client$', 'MAIN.views.get_client', name='get_client'),
+    url(r'^aboweb$', 'MAIN.views.aboweb', name='aboweb'),
+    url(r'^archive/(?P<start>.+)/(?P<end>.+)/$', 'MAIN.views.archive', name='archive'),
+    url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------

@@ -9,9 +9,10 @@ class Client(models.Model):
     email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=128)
     is_active = True
-    is_staff= True
+    is_staff= False
 
 class Archive(Page, RichText):
+    illustration = models.CharField(max_length=200,verbose_name='illustration',null=True,blank=True)
     #Overriding
     def save(self, *args, **kwargs):
         # in_menus empty pour exclure les archives des content_tree

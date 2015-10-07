@@ -38,7 +38,7 @@ a,a:hover{
     position: initial;
 }
 .navbar-default .navbar-nav > .active > a{
-    background: transparent;
+    background: red;
 }
 
 
