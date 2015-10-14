@@ -1,5 +1,6 @@
 {% extends "blog/blog_post_list.html" %}
 {% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags %}
+{% load custom_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -22,7 +23,7 @@
 {% endblock %}
 
 {% block main %}
-
+<h1 style='color: red'>{{ blog_post.id|BlogCatFromBlog }}</h1>
 {% block blog_post_detail_postedby %}
 {% editable blog_post.publish_date %}
 <h6 class="post-meta">

@@ -28,7 +28,9 @@
                     {{ blogPost.site.name}}
                 </div>
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blogPost.featured_image 300 200 %}' alt='illustration {{ blogPost.title }}' />
-                <h3>{{ blogPost.title }}</h3>
+		<div class='article-title'>
+                    <h4>{{ blogPost.title|truncatechars:65 }}</h4>
+		</div>
             </a>
         {% endfor%}
     </div>

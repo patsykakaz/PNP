@@ -50,7 +50,11 @@
 </head>
 
 <body id="{% block body_id %}body{% endblock %}">
-
+{% if habillage %}
+<div id='banner_layer' style='height: 200px'>
+    <a href='{{ habillage.lien }}' target='blank'><img src='{{ MEDIA_URL }}publicite/{{ habillage.media }}' /></a>
+</div>
+{% endif %}
 {% block contentNav %}
 <nav id='contentNav' class="navbar navbar-default" role="navigation">
 <div class="container">
@@ -61,7 +65,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><img src='//178.62.215.156{% static "img/logo_PNP.jpg" %}' alt='logo PNP' /></a>
+        <a class="navbar-brand" href="//lacoursedesgarconsdecafe.org"><img src='{% static "img/pnpapetier.jpg" %}' alt='logo PNP' /></a>
     </div>
     <div class="collapse navbar-collapse">
         <ul class='nav navbar-nav'>
@@ -127,10 +131,6 @@
         {% endnevercache %}
 
         {% block title %}{% endblock %}
-
-        {% spaceless %}
-        {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
-        {% endspaceless %}
 
     </div>
 

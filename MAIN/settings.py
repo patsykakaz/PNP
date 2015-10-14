@@ -8,6 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 # MEZZANINE SETTINGS #
 ######################
 
+# Make these unique, and don't share it with anybody.
+SECRET_KEY = "uay05_xz0)1ubk#7hlqtu$(r5j-l%4#jbg859nkfne%f++*x9r"
+NEVERCACHE_KEY = "bjwcn3pqtgb1*rt28(i2rr4=!^ktkgkt)zfy@26d++4(#t0$b5"
+
 # The following settings are already defined with default values in
 # the ``defaults.py`` module within each of Mezzanine's apps, but are
 # common enough to be put here, commented out, for conveniently
@@ -79,6 +83,7 @@ EXTRA_MODEL_FIELDS = (
 #
 BLOG_USE_FEATURED_IMAGE = True
 BLOG_SLUG = 'articles'
+BLOG_POST_PER_PAGE = 12
 
 # If True, the django-modeltranslation will be added to the
 # INSTALLED_APPS setting.
@@ -91,10 +96,14 @@ USE_MODELTRANSLATION = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['lacoursedesgarconsdecafe.org','philippedagognet-is-so-kewl.com']
+ALLOWED_HOSTS = ['*']
 
-HOST_THEMES = [('lacoursedesgarconsdecafe.org', 'THEME_1'),
-               ('philippedagognet-is-so-kewl.com', 'THEME_1')]
+HOST_THEMES = [
+                ('lacoursedesgarconsdecafe.org', 'THEME_1'),
+                ('pns.lacoursedesgarconsdecafe.org', 'THEME_2'),
+                ('tendances.lacoursedesgarconsdecafe.org', 'THEME_2'),
+                ('lalettre.lacoursedesgarconsdecafe.org', 'THEME_2'),
+            ]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -120,7 +129,7 @@ LANGUAGES = (
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
 # are displayed for error pages. Should always be set to ``False`` in
 # production. Best set to ``True`` in local_settings.py
-DEBUG = False
+DEBUG = True 
 
 # Whether a user's session cookie expires when the Web browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -212,6 +221,7 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
 INSTALLED_APPS = (
     "THEME_1",
+    "THEME_2",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -276,6 +286,7 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    "MAIN.middleware.PubMiddleware",
     "MAIN.middleware.TEMPMiddleware",
 )
 
@@ -329,3 +340,4 @@ except ImportError:
     pass
 else:
     set_dynamic_settings(globals())
+

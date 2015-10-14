@@ -26,8 +26,16 @@ a,a:hover{
     text-decoration: none;
     color: #333;
 }
+h4{
+    font-size: 16px;
+}
 
-
+#banner_layer{
+    overflow: hidden;
+    max-height: 150px;
+}#banner_layer img{
+    max-width: 100%;
+}
 .navbar-brand{
     padding: 0 15px;
 }
@@ -38,7 +46,7 @@ a,a:hover{
     position: initial;
 }
 .navbar-default .navbar-nav > .active > a{
-    background: red;
+    text-decoration: underline;
 }
 
 
@@ -162,6 +170,12 @@ a,a:hover{
 .highlight-box .caption{
     font-size: 16px;
     font-weight: 300;
+}
+
+.article-title{
+    overflow: hidden;
+    height: 60px;
+    padding: 0 10px;
 }
 
 .dropdown-logo{
@@ -336,6 +350,7 @@ a,a:hover{
 }.bloc_article.PNS .label{
     background-color: rgba(128,17,21,.9);
 }
+
 
 
 

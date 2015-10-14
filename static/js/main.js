@@ -22,6 +22,11 @@ $(document).ready(function(){
 
 $(window).resize(function(){
     Navbar();
+        if($(window).width()<970){
+            $('#banner_layer').height(($('#contentNav').outerWidth()/970)*150+'px');
+        }else{
+	    $('#banner_layer').height(150);
+        }
 });
 
 function Navbar(){

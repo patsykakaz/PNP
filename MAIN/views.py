@@ -40,7 +40,7 @@ client['wsse:Security'] = {
 
 def test(request):
 
-    result = client.getClients(132000)
+    result = client.getClients(offset=2000)
     print result
     # k = authenticate(username='test@test.test', password='test')
     # login(request, k)
@@ -80,10 +80,13 @@ def kill(request):
     return HttpResponse('logged out')
 
 def archive(request,start,end):
+    from django.contrib.sites.models import Site
     from mezzanine.blog.models import BlogPost
     from db_PNP import DB
     
     start,end = int(start), int(end)
+
+    site = Site.objects.get(name='LA LETTRE')
 
     for item in DB[start:end]:
         content = item[4].decode('utf-8').replace('src="','src="/archives/')
@@ -91,13 +94,13 @@ def archive(request,start,end):
         u = u.split(',')
         u = u[0].split(':')
         u = u[1].replace('"','').replace('\\','')
-
         if len(u) > 3:
             u = 'archives/'+u
         else:
             u = None
         if item[8] != "0000-00-00 00:00:00":
-            k = BlogPost(user_id=1,
+            k = BlogPost(site=site,
+                        user_id=1,
                         title=item[2].decode('utf-8'),
                         content=content,
                         featured_image=u,
@@ -105,7 +108,8 @@ def archive(request,start,end):
                         archive=True
                         )
         else: 
-            k = BlogPost(user_id=1,
+            k = BlogPost(site=site,
+                        user_id=1,
                         title=item[2].decode('utf-8'),
                         content=content,
                         featured_image=u,
@@ -114,7 +118,6 @@ def archive(request,start,end):
                         )
             print item[15]
         k.save()
-    # txt = txt.decode('utf-8')
+    return HttpResponse("archiving process ended.")
 
-    return HttpResponse(k.title)
 
