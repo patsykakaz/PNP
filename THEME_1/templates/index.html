@@ -23,9 +23,9 @@
 
     <div class='container'>
         {% for blogPost in last_blogPosts %}
-            <a class='bloc_article col-md-4 {% if blogPost.site.name == "PNP" %} PNP {% elif blogPost.site.name == "PNS" %} PNS {% endif %}' href='//{{ blogPost.site.domain }}{% url "blog_post_detail" blogPost.slug %}'>
+            <a class='bloc_article col-md-4 {% if blogPost.site.name == "PNP" %} PNP {% elif blogPost.site.name == "PNS" %} PNS {% elif blogPost.site.name == "LA LETTRE" %} LA_LETTRE {% endif %}' href='//{{ blogPost.site.domain }}{% url "blog_post_detail" blogPost.slug %}'>
                 <div class='label'>
-                    {{ blogPost.site.name}}
+                    {{ blogPost.site.name }}
                 </div>
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blogPost.featured_image 300 200 %}' alt='illustration {{ blogPost.title }}' />
 		<div class='article-title'>

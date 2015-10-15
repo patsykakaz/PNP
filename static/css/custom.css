@@ -46,7 +46,7 @@ h4{
     position: initial;
 }
 .navbar-default .navbar-nav > .active > a{
-    text-decoration: underline;
+    font-weight: bold;
 }
 
 
@@ -65,13 +65,13 @@ h4{
 .navbar-nav > .dropdown > a.green, .navbar-nav > .dropdown.open > a.green{
     border-color: rgb(116,149,19);
 }
-.navbar-nav > .dropdown > a.orange, .navbar-nav > .dropdown.open > a.orange{
+.navbar-nav > .dropdown.TENDANCES > a, .navbar-nav > .dropdown.open.TENDANCES > a{
     border-color: rgb(233,133,0);
 }
-.navbar-nav > .dropdown > a.purple, .navbar-nav > .dropdown.open > a.purple{
+.navbar-nav > .dropdown.PNS > a, .navbar-nav > .dropdown.open.PNS > a{
     border-color: rgb(171,60,111);
 }
-.navbar-nav > .dropdown > a.jaunePNP, .navbar-nav > .dropdown.open > a.jaunePNP{
+.navbar-nav > .dropdown.LA_LETTRE > a, .navbar-nav > .dropdown.open.LA_LETTRE > a{
     border-color: rgb(254,193,13);
 }
 
@@ -92,13 +92,13 @@ h4{
 .navbar-default .navbar-nav > .open > a.green ,.navbar-default .navbar-nav > .open > a.green:hover, .navbar-default .navbar-nav > .open > a.green:focus{
     background-color: rgb(116,149,19);
 }
-.navbar-default .navbar-nav > .open > a.orange ,.navbar-default .navbar-nav > .open > a.orange:hover, .navbar-default .navbar-nav > .open > a.orange:focus{
+.navbar-default .navbar-nav > .open.TENDANCES > a ,.navbar-default .navbar-nav > .open.TENDANCES > a:hover, .navbar-default .navbar-nav > .open.TENDANCES> a:focus{
     background-color: rgb(233,133,0);
 }
-.navbar-default .navbar-nav > .open > a.purple ,.navbar-default .navbar-nav > .open > a.purple:hover, .navbar-default .navbar-nav > .open > a.purple:focus{
+.navbar-default .navbar-nav > .open.PNS > a,.navbar-default .navbar-nav > .open.PNS > a:hover, .navbar-default .navbar-nav > .open.PNS > a:focus{
     background-color: rgb(171,60,111);
 }
-.navbar-default .navbar-nav > .open > a.jaunePNP ,.navbar-default .navbar-nav > .open > a.jaunePNP:hover, .navbar-default .navbar-nav > .open > a.jaunePNP:focus{
+.navbar-default .navbar-nav > .open.LA_LETTRE > a,.navbar-default .navbar-nav > .open.LA_LETTRE > a:hover, .navbar-default .navbar-nav > .open.LA_LETTRE > a:focus{
     background-color: rgb(254,193,13);
 }
 
@@ -109,7 +109,7 @@ h4{
     height: auto;
     padding: 25px 0 15px 0;
     box-shadow: none;
-    background-color: #f8f8f8;
+    background-color: rgba(246,246,246,.94);
 }
 
 .dropdown-sub{
@@ -168,7 +168,7 @@ h4{
     color: rgb(171,60,111);
 }
 .highlight-box .caption{
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 300;
 }
 
@@ -332,9 +332,9 @@ h4{
 .bloc_article img{
     min-width: 100%;
 }
-.bloc_article h3{
+.bloc_article h4{
     /*display: inline-block;*/
-    font-size: 20px;
+    font-size: 15px;
     padding: 0 5px;
     font-weight: 400;
 }
@@ -344,15 +344,51 @@ h4{
     top: -5px;
     right: 0px;
     padding: 8px;
-    background-color: rgba(0,0,0,.4);
+    background-color: rgba(0,0,0,.5);
 }.bloc_article.PNP .label{
     background-color: rgba(0,112,153,.9);
 }.bloc_article.PNS .label{
     background-color: rgba(128,17,21,.9);
+}.bloc_article.LA_LETTRE .label{
+   background-color: rgba(254,193,13,.7);
 }
 
 
 
+
+
+/*
+ blog
+*/
+#logo_blog{
+    height: 80px;    
+    margin: 30px 0;
+}#logo_blog img{
+    max-height: 100%;
+}
+#illustration{
+    position: relative;
+    overflow: hidden;
+    max-height: 300px;
+}
+#illustration img{
+    width: 100%;
+    height: auto;
+    position: relative;
+    bottom: 300px;
+}
+
+#blogTitle{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: lighter;
+}
+#blogContent{
+    padding: 20px 0;
+}
+#richTextZone{
+    padding: 20px 0 100px 0;
+}
 
 
 

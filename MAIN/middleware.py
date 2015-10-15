@@ -9,7 +9,7 @@ from mezzanine.blog.models import BlogCategory, BlogPost
 class PubMiddleware(object):
     def process_template_response(self, request, response):
         try:
-            habillage = Publicite.objects.get(formatPub='HABILLAGE')
+            habillage = Publicite._base_manager.get(formatPub='HABILLAGE')
             media = habillage.media.url.split('/')
             habillage.media = media[-1]
         except: 

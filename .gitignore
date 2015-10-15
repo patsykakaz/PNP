@@ -3,6 +3,7 @@
 *.db
 .DS_Store
 .coverage
+.swp
 local_settings.py
 /deploy
 !/static
