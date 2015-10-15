@@ -5,6 +5,7 @@
 .coverage
 .swp
 local_settings.py
+settings.py
 /deploy
 !/static
 /static/*
