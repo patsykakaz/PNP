@@ -56,14 +56,8 @@ h4{
     border-bottom: 4px solid;
     border-color: rgb(0,112,153);
 }
-.navbar-nav > .dropdown > a.blue, .navbar-nav > .dropdown.open > a.blue{
+.navbar-nav > .dropdown > a, .navbar-nav > .dropdown.open > a{
     border-color: rgb(0,112,153);
-}
-.navbar-nav > .dropdown > a.red, .navbar-nav > .dropdown.open > a.red{
-    border-color: rgb(204,7,30);
-}
-.navbar-nav > .dropdown > a.green, .navbar-nav > .dropdown.open > a.green{
-    border-color: rgb(116,149,19);
 }
 .navbar-nav > .dropdown.TENDANCES > a, .navbar-nav > .dropdown.open.TENDANCES > a{
     border-color: rgb(233,133,0);
@@ -75,31 +69,24 @@ h4{
     border-color: rgb(254,193,13);
 }
 
-
-.navbar-nav > .open > a, .navbar-nav > .open > a:hover{
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
     background-color: rgb(0,112,153);
     color: white;
 }
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
-    background-color: rgb(0,112,153);
-}
-.navbar-default .navbar-nav > .open > a.blue ,.navbar-default .navbar-nav > .open > a.blue:hover, .navbar-default .navbar-nav > .open > a.blue:focus{
-    background-color: rgb(0,112,153);
-}
-.navbar-default .navbar-nav > .open > a.red ,.navbar-default .navbar-nav > .open > a.red:hover, .navbar-default .navbar-nav > .open > a.red:focus{
-    background-color: rgb(204,7,30);
-}
-.navbar-default .navbar-nav > .open > a.green ,.navbar-default .navbar-nav > .open > a.green:hover, .navbar-default .navbar-nav > .open > a.green:focus{
-    background-color: rgb(116,149,19);
-}
 .navbar-default .navbar-nav > .open.TENDANCES > a ,.navbar-default .navbar-nav > .open.TENDANCES > a:hover, .navbar-default .navbar-nav > .open.TENDANCES> a:focus{
     background-color: rgb(233,133,0);
+}.navbar-nav > .active.TENDANCES > a{
+    color: rgb(233,133,0);
 }
 .navbar-default .navbar-nav > .open.PNS > a,.navbar-default .navbar-nav > .open.PNS > a:hover, .navbar-default .navbar-nav > .open.PNS > a:focus{
     background-color: rgb(171,60,111);
+}.navbar-nav > .active.PNS > a{
+    color: rgb(171,60,111);
 }
 .navbar-default .navbar-nav > .open.LA_LETTRE > a,.navbar-default .navbar-nav > .open.LA_LETTRE > a:hover, .navbar-default .navbar-nav > .open.LA_LETTRE > a:focus{
     background-color: rgb(254,193,13);
+}.navbar-nav > .active.LA_LETTRE > a{
+    color: rgb(254,193,13);
 }
 
 .dropdown-menu{
@@ -109,7 +96,7 @@ h4{
     height: auto;
     padding: 25px 0 15px 0;
     box-shadow: none;
-    background-color: rgba(246,246,246,.94);
+    background-color: rgb(238,238,238);
 }
 
 .dropdown-sub{
@@ -313,6 +300,7 @@ h4{
     font-weight: bold;
     font-size: 25px;
     color: white;
+    text-shadow: 0 0 2px rgba(140,140,140,.7);;
 }
 
 .mainArticle:first-child .caption{
@@ -333,8 +321,7 @@ h4{
     min-width: 100%;
 }
 .bloc_article h4{
-    /*display: inline-block;*/
-    font-size: 15px;
+    height: 2em;
     padding: 0 5px;
     font-weight: 400;
 }
@@ -361,9 +348,21 @@ h4{
  blog
 */
 #logo_blog{
-    height: 80px;    
+    width: 100%;
+    height: 145px;    
     margin: 30px 0;
-}#logo_blog img{
+    background-color: rgba(0,112,153,.9);
+}
+#logo_blog.PNS{
+    background-color: rgba(171,60,111,.9);
+}
+#logo_blog.TENDANCES{
+    background-color: rgba(233,133,0,.9);
+}
+#logo_blog.LA_LETTRE{
+    background-color: rgba(254,193,13,.9);
+}
+#logo_blog img{
     max-height: 100%;
 }
 #illustration{
@@ -389,6 +388,13 @@ h4{
 #richTextZone{
     padding: 20px 0 100px 0;
 }
+#richTextZone img{
+    display: block;
+    max-width: 100%;
+    padding: 10px 0;
+    margin: auto;
+}
+
 
 
 

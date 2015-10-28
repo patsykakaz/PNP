@@ -30,14 +30,15 @@ class PubMiddleware(object):
 class TEMPMiddleware(object):
     def process_template_response(self, request, response):
         all_sites = Site.objects.exclude(name='default').order_by('id')
-        last_blogPosts = BlogPost._base_manager.exclude(featured_image=None)[2:14]
+        last_blogPosts = BlogPost._base_manager.exclude(featured_image=None)[3:21]
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)
             site.highlights = BlogPost._base_manager.filter(site=site.id).exclude(featured_image='')[:3]
-        mainArticles = BlogPost._base_manager.exclude(featured_image=None)[:2]
+        mainArticles = BlogPost._base_manager.exclude(featured_image=None)[:3]
         response.context_data['all_sites'] = all_sites
         response.context_data['last_blogPosts'] = last_blogPosts
-        response.context_data['mainArticles'] = mainArticles
+        response.context_data['mainArticles'] = mainArticles[:2]
+	response.context_data['mainArticle2'] = mainArticles[2:3]
         return response
 
 

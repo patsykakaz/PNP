@@ -86,7 +86,7 @@
                             <div class='highlight-box'>
                                 <a href='//{{ site.domain }}{% url "blog_post_detail" BlogHighlight.slug %}'>
                                     {% if BlogHighlight.featured_image != '' %}
-                                        <img src='{{ MEDIA_URL }}{% thumbnail BlogHighlight.featured_image 250 175 %}' />
+                                        <img src='{{ MEDIA_URL }}{% thumbnail BlogHighlight.featured_image 250 120 %}' />
                                     {% endif %}
                                     <h5 class='caption'>
                                         <i class='fa fa-angle-right'></i>
@@ -97,7 +97,9 @@
                         {% endfor %}
                     </li>
                     <li class='dropdown-sub dropdown-logo'>
-                        <img src='{% static 'img/logo_PNP.png' %}' alt='logo categorie' />
+                        <img src=
+                        {% if site.name == "PNP" %}'{% static 'img/logo_PNP.png' %}'{% elif site.name == "PNS" %}'{% static 'img/logo_PNS.png' %}'{% elif site.name == "TENDANCES" %}'{% static 'img/logo_tendances.png' %}'{% elif site.name == "LA LETTRE" %}'{% static 'img/logo_la_lettre.png' %}'{% endif %}
+                        alt='logo magazine' />
                     </li>
                     </div>
                 </ul>

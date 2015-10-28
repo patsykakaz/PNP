@@ -40,11 +40,12 @@ client['wsse:Security'] = {
 
 def test(request):
 
-    result = client.getClients(offset=2000)
-    print result
+    results = client.getClients(offset=2000)
+    for result in results:
+        print result
     # k = authenticate(username='test@test.test', password='test')
     # login(request, k)
-    return HttpResponse("<h1>CLIENTS</h1> <br />{}".format(result))
+    return HttpResponse("<h1>CLIENTS</h1> <br />{}".format(results))
 
 def get_client(request):
 
@@ -59,11 +60,7 @@ def aboweb(request):
     print "user to work -> {}".format(bob)
     # bob = {'ville': 'PARIS', 'societe': 'FEDERATION FRANCAISE DES', 'adresse1': 'PAPETIERS ET SPECIALISTES', 'cp': '75001', 'adresse2': '12 RUE DES PYRAMIDES', 'nom': 'test', 'telephone': '01 42 96 38 99', 'prenom': 'test', 'typeClient': '1'}
     # bob['tauxRemiseAbo'] = double(bob['tauxRemiseAbo'])
-    print "**"
-    print bob['typeClient']
-    print type(bob['typeClient'])
-    print "**"
-    bob['typeClient'] = bob['typeClient'].encode('utf8')
+    # bob['typeClient'] = bob['typeClient'].encode('utf8')
     x = client.createOrUpdateClientEx(client=bob)
     # x = client.getClient(codeClient=655)
     # for k,v in x['client'].items():
