@@ -77,7 +77,7 @@
                         {% for blogCat in site.all_cat %}
                             <a href='//{{ site.domain }}{% url "blog_post_list_category" blogCat.slug %}'>
                                 <i class='fa fa-caret-right'></i>
-                                {{ blogCat.title|lower }}
+                                {{ blogCat.title|lower|capfirst }}
                             </a>
                         {% endfor %}
                     </li>
