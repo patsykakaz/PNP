@@ -12,17 +12,16 @@ class PubMiddleware(object):
             habillage = Publicite._base_manager.get(formatPub='HABILLAGE')
             media = habillage.media.url.split('/')
             habillage.media = media[-1]
-        except: 
+        except:
             habillage = False
         response.context_data['habillage'] = habillage
         try:
             squares = Publicite.objects.filter(formatPub='SQUARE')
-            for square in squares : 
+            for square in squares :
                 media = square.media.url.split('/')
                 square.media = media[-1]
         except:
             squares = "empty"
-        print squares
         response.context_data['squares'] = squares
         return response
 
@@ -34,11 +33,18 @@ class TEMPMiddleware(object):
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)
             site.highlights = BlogPost._base_manager.filter(site=site.id).exclude(featured_image='')[:3]
+            try:
+                siteExtension = SiteExtension._base_manager.filter(site=site.id).first()
+                site.color = siteExtension.color
+                site.title_sub = siteExtension.title_sub
+                site.baseline = siteExtension.baseline
+            except:
+                site.color = "#007099" 
+                site.title_sub = "---"
+                site.baseline = "baseline is empty"
         mainArticles = BlogPost._base_manager.exclude(featured_image=None)[:3]
         response.context_data['all_sites'] = all_sites
         response.context_data['last_blogPosts'] = last_blogPosts
         response.context_data['mainArticles'] = mainArticles[:2]
-	response.context_data['mainArticle2'] = mainArticles[2:3]
+        response.context_data['articleBanner'] = mainArticles[2:3]
         return response
-
-

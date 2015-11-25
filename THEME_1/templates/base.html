@@ -66,7 +66,10 @@
         <ul class='nav navbar-nav'>
             {% for site in all_sites %}
             <li class='dropdown {% if site.domain == request.META.HTTP_HOST %}active{% endif %} {% if site.name == "PNP" %}PNP{% elif site.name == "PNS" %}PNS{% elif site.name == "TENDANCES" %}TENDANCES{% elif site.name == "LA LETTRE" %}LA_LETTRE{% endif %}'>
-                <a href='//{{ site.domain }}/articles/'> {{ site.name }} </a>
+                <a class='Site' href='//{{ site.domain }}/articles/'>
+		    <div style='margin-bottom: 5px;'> {{ site.name }} </div>
+		    <div style='vertical-align:bottom;color:rgb(254,193,13); font-size:12px'> {{ site.title_sub }} </div>
+		</a>
                 <ul class='dropdown-menu'>
                     <div class='container'>
                     <li class='dropdown-sub dropdown-category'>

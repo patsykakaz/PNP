@@ -2,8 +2,10 @@
 
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.sites.models import *
 from mezzanine.pages.models import Page
 from mezzanine.core.models import RichText
+from colorfield.fields import ColorField
 from settings import MEDIA_ROOT
 
 class Publicite(Page):
@@ -37,4 +39,8 @@ class Archive(Page, RichText):
         #     self.pdfContent += u+'||'
         super(Archive, self).save(*args, **kwargs)
 
+class SiteExtension(Page):
+    color = ColorField(default='#007099')
+    title_sub = models.CharField(max_length=128, null=True, blank=True)
+    baseline = models.CharField(max_length=255, null=True, blank=True)
 

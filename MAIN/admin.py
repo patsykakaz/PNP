@@ -27,7 +27,19 @@ blog_fieldsets[0][1]["fields"].insert(-2, "archive")
 class MyBlogPostAdmin(BlogPostAdmin):
     fieldsets = blog_fieldsets
 
+SiteExtensionAdmin_extra_fieldsets = (
+                (None,
+                        {'fields': ('color','title_sub','baseline')
+                        }
+                ),
+        )
+
+
+class SiteExtensionAdmin(PageAdmin):
+    fieldsets = deepcopy(PageAdmin.fieldsets) + SiteExtensionAdmin_extra_fieldsets
+
 admin.site.register(Publicite, PubliciteAdmin)
 admin.site.register(Archive, ArchiveAdmin)
 admin.site.unregister(BlogPost)
 admin.site.register(BlogPost, MyBlogPostAdmin)
+admin.site.register(SiteExtension, SiteExtensionAdmin)
