@@ -29,7 +29,7 @@ class MyBlogPostAdmin(BlogPostAdmin):
 
 SiteExtensionAdmin_extra_fieldsets = (
                 (None,
-                        {'fields': ('color','title_sub','baseline')
+                        {'fields': ('color','illustration','title_sub','baseline')
                         }
                 ),
         )

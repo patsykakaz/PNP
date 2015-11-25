@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
 <meta name="description" content="{% block meta_description %}{% endblock %}">
-<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<title>{% block meta_title %}{% endblock %}{% if settings.sITE_TITLE %} | {{ settings.sITE_TITLE }}{% endif %}</title>
 <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
 
 {% ifinstalled mezzanine.blog %}
@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="{% static "css/bootstrap.override.css" %}">
 <link rel="stylesheet" href="{% static "css/custom.css" %}">
 <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
-<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700,800' rel='stylesheet' type='text/css'>
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
@@ -42,6 +42,32 @@
 <![endif]-->
 
 {% block extra_head %}{% endblock %}
+{% block edited_css %}
+<style type="text/css">
+    {% for site in all_sites %}
+    {% if site.css_class != 'default' %}
+
+    .navbar-nav > .dropdown.{{ site.css_class }} > a, .navbar-nav > .dropdown.open.{{ site.css_class }} > a{
+        border-color: {{ site.color }};
+    }
+
+    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a,.navbar-default .navbar-nav > .open.{{ site.css_class }} > a:hover, .navbar-default .navbar-nav > .open.{{ site.css_class }} > a:focus
+    {
+        background-color: {{ site.color }};
+    }.navbar-nav > .active.{{ site.css_class }} > a{
+        color: {{ site.color }};
+    }
+    .site_sub_title.{{ site.css_class }}{
+        color: {{ site.color }};
+    }
+
+    .{{ site.css_class }} .last_news, .{{ site.css_class }} .dropdown-category a:hover, .{{ site.css_class }} .highlight-box:hover a{
+        color: {{ site.color }};
+    }
+    {% endif %}
+    {% endfor %}
+</style>
+{% endblock %}
 </head>
 
 <body id="{% block body_id %}body{% endblock %}">
@@ -65,11 +91,11 @@
     <div class="collapse navbar-collapse">
         <ul class='nav navbar-nav'>
             {% for site in all_sites %}
-            <li class='dropdown {% if site.domain == request.META.HTTP_HOST %}active{% endif %} {% if site.name == "PNP" %}PNP{% elif site.name == "PNS" %}PNS{% elif site.name == "TENDANCES" %}TENDANCES{% elif site.name == "LA LETTRE" %}LA_LETTRE{% endif %}'>
-                <a class='Site' href='//{{ site.domain }}/articles/'>
-		    <div style='margin-bottom: 5px;'> {{ site.name }} </div>
-		    <div style='vertical-align:bottom;color:rgb(254,193,13); font-size:12px'> {{ site.title_sub }} </div>
-		</a>
+            <li class='dropdown {{ site.css_class }}'>
+                <a class='text-center' href='//{{ site.domain }}/articles/'>
+                <div class='site_title'> {{ site.name|upper }} </div>
+                <div class='site_sub_title {{ site.css_class }}'> {{ site.title_sub }} </div>
+        </a>
                 <ul class='dropdown-menu'>
                     <div class='container'>
                     <li class='dropdown-sub dropdown-category'>

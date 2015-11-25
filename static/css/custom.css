@@ -21,6 +21,7 @@ jaunePNP = rgb(254,193,13);
 
 body{
     background-color: white;
+    font-family: 'Open Sans', sans-serif;
 }
 a,a:hover{
     text-decoration: none;
@@ -61,34 +62,10 @@ h4{
 .navbar-nav > .dropdown > a, .navbar-nav > .dropdown.open > a{
     border-color: rgb(0,112,153);
 }
-.navbar-nav > .dropdown.TENDANCES > a, .navbar-nav > .dropdown.open.TENDANCES > a{
-    border-color: rgb(233,133,0);
-}
-.navbar-nav > .dropdown.PNS > a, .navbar-nav > .dropdown.open.PNS > a{
-    border-color: rgb(171,60,111);
-}
-.navbar-nav > .dropdown.LA_LETTRE > a, .navbar-nav > .dropdown.open.LA_LETTRE > a{
-    border-color: rgb(254,193,13);
-}
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
     background-color: rgb(0,112,153);
     color: white;
-}
-.navbar-default .navbar-nav > .open.TENDANCES > a ,.navbar-default .navbar-nav > .open.TENDANCES > a:hover, .navbar-default .navbar-nav > .open.TENDANCES> a:focus{
-    background-color: rgb(233,133,0);
-}.navbar-nav > .active.TENDANCES > a{
-    color: rgb(233,133,0);
-}
-.navbar-default .navbar-nav > .open.PNS > a,.navbar-default .navbar-nav > .open.PNS > a:hover, .navbar-default .navbar-nav > .open.PNS > a:focus{
-    background-color: rgb(171,60,111);
-}.navbar-nav > .active.PNS > a{
-    color: rgb(171,60,111);
-}
-.navbar-default .navbar-nav > .open.LA_LETTRE > a,.navbar-default .navbar-nav > .open.LA_LETTRE > a:hover, .navbar-default .navbar-nav > .open.LA_LETTRE > a:focus{
-    background-color: rgb(254,193,13);
-}.navbar-nav > .active.LA_LETTRE > a{
-    color: rgb(254,193,13);
 }
 
 .dropdown-menu{
@@ -115,7 +92,6 @@ h4{
     display: block;
     width: 110px;
     padding: 2px 5px;
-    font-weight: 400;
     color: #333;
 }
 .dropdown-category>a>i{
@@ -131,15 +107,21 @@ h4{
     position: relative;
     top: 3px;
 }
-.PNP .last_news, .PNP .dropdown-category a:hover, .PNP .highlight-box:hover a{
+.last_news, .dropdown-category a:hover, .highlight-box:hover a{
     color: rgb(0,112,153);
-}.PNS .last_news, .PNS .dropdown-category a:hover, .PNS .highlight-box:hover a{
-    color: rgb(171,60,111);
-}.LA_LETTRE .last_news, .LA_LETTRE .dropdown-category a:hover, .LA_LETTRE .highlight-box:hover a{
-    color: rgb(245,184,12);
 }
 
-
+.site_title{
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.site_sub_title{
+    letter-spacing: 1.5px;
+    font-size:12px;
+    color: rgb(0,112,153);
+}.dropdown.open > a > .site_sub_title{
+    color: white;
+}
 .dropdown-highlights{
     width: 70%;
 }
@@ -229,7 +211,7 @@ h4{
     .navbar-nav > li > a, .navbar-nav > li.open > a{
         padding: 27px 36px;
     }
-    .navbar-nav > li > a.Site, .navbar-nav > li.open > a.Site{
+    .navbar-nav > li > a.site, .navbar-nav > li.open > a.site{
         padding: 27px 36px 0 26px;
     }
 

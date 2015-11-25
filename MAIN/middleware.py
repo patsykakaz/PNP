@@ -36,10 +36,12 @@ class TEMPMiddleware(object):
             try:
                 siteExtension = SiteExtension._base_manager.filter(site=site.id).first()
                 site.color = siteExtension.color
+                site.css_class = siteExtension.css_class
                 site.title_sub = siteExtension.title_sub
                 site.baseline = siteExtension.baseline
             except:
                 site.color = "#007099" 
+                site.css_class = "default"
                 site.title_sub = "---"
                 site.baseline = "baseline is empty"
         mainArticles = BlogPost._base_manager.exclude(featured_image=None)[:3]
