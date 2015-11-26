@@ -39,14 +39,19 @@ class TEMPMiddleware(object):
                 site.css_class = siteExtension.css_class
                 site.title_sub = siteExtension.title_sub
                 site.baseline = siteExtension.baseline
+                site.img_logo = siteExtension.img_logo.name.split('/')
+                site.img_logo = site.img_logo[-1]
+                site.img_banner = siteExtension.img_banner.name.split('/')
+                site.img_banner = site.img_banner[-1]
             except:
                 site.color = "#007099" 
                 site.css_class = "default"
                 site.title_sub = "---"
                 site.baseline = "baseline is empty"
+                site.img_logo = None
+                site.img_banner = None
         mainArticles = BlogPost._base_manager.exclude(featured_image=None)[:3]
         response.context_data['all_sites'] = all_sites
         response.context_data['last_blogPosts'] = last_blogPosts
-        response.context_data['mainArticles'] = mainArticles[:2]
-        response.context_data['articleBanner'] = mainArticles[2:3]
+        response.context_data['mainArticles'] = mainArticles[:3]
         return response

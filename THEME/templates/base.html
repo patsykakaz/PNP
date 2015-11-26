@@ -67,9 +67,9 @@
     {% endif %}
     {% endfor %}
 </style>
+ {% block extra_edited_css %}{% endblock %}
 {% endblock %}
 </head>
-
 <body id="{% block body_id %}body{% endblock %}">
 {% if habillage %}
 <div id='banner_layer' style='height: 200px'>
@@ -126,9 +126,7 @@
                         {% endfor %}
                     </li>
                     <li class='dropdown-sub dropdown-logo'>
-                        <img src=
-                        {% if site.name == "PNP" %}'{% static 'img/logo_PNP.png' %}'{% elif site.name == "PNS" %}'{% static 'img/logo_PNS.png' %}'{% elif site.name == "TENDANCES" %}'{% static 'img/logo_tendances.png' %}'{% elif site.name == "LA LETTRE" %}'{% static 'img/logo_la_lettre.png' %}'{% endif %}
-                        alt='logo magazine' />
+                        <img src='{{ MEDIA_URL }}SITES/logo/{{ site.img_logo }}' alt='logo magazine' />
                     </li>
                     </div>
                 </ul>

@@ -15,6 +15,17 @@
 {{ page.description }}
 {% endmetablock %}{% endblock %}
 
+    {% block extra_edited_css %}
+    <style>
+        {% for site in all_sites %}
+        {% if site.domain == request.get_host %}
+            #logo_blog.{{ site.css_class }}{
+                background-color: {{ site.color }};
+            }
+        {% endif %}
+        {% endfor %}
+    </style>
+    {% endblock %}
 
 {% block breadcrumb_menu %}
 {{ block.super }}
@@ -35,20 +46,13 @@
 {% endblock %}
 
 {% block main %}
-	{% if request.get_host == "lacoursedesgarconsdecafe.org" %}
-    <div id='logo_blog' class='PNP text-center'>
-        <img src='{{ STATIC_URL}}img/logo_PNP_blanc.png' alt='logo PNP' />
-    {% elif request.get_host == "pns.lacoursedesgarconsdecafe.org" %}
-    <div id='logo_blog' class='PNS text-center'>
-        <img src='{{ STATIC_URL}}img/logo_PNS_blanc.png' alt='logo PNS' />
-    {% elif request.get_host == "tendances.lacoursedesgarconsdecafe.org" %}
-    <div id='logo_blog' class='TENDANCES text-center'>
-        <img src='{{ STATIC_URL}}img/logo_tendances_blanc.png' alt='logo tendances' />
-    {% elif request.get_host == "lalettre.lacoursedesgarconsdecafe.org" %}
-    <div id='logo_blog' class='LA_LETTRE text-center'>
-        <img src='{{ STATIC_URL}}img/logo_la_lettre_blanc.png' alt='logo LA LETTRE' />
-    {% endif %}
+    {% for site in all_sites %}
+    {% if site.domain == request.get_host %}
+    <div id='logo_blog' class='{{ site.css_class }} text-center'>
+        <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
+    {% endif %}
+    {% endfor %}
     <div class='container'>
         {% if tag or category or year or month or author %}
             {% block blog_post_list_filterinfo %}

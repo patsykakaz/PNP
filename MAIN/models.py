@@ -36,7 +36,8 @@ class Archive(Page, RichText):
 
 class SiteExtension(Page):
     color = ColorField(default='#007099')
-    illustration = models.ImageField(upload_to=MEDIA_ROOT+'/SITES', null=True, blank=True)
+    img_logo = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/logo', null=True, blank=True)
+    img_banner = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/banner', null=True, blank=True)
     css_class = models.CharField(max_length=100, null=True, blank=True)
     title_sub = models.CharField(max_length=128, null=True, blank=True)
     baseline = models.CharField(max_length=255, null=True, blank=True)
