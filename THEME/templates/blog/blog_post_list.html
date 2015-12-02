@@ -22,6 +22,9 @@
             #logo_blog.{{ site.css_class }}{
                 background-color: {{ site.color }};
             }
+	    #baseline.{{ site.css_class }}{
+		color: {{ site.color }};
+	    }
         {% endif %}
         {% endfor %}
     </style>
@@ -51,6 +54,7 @@
     <div id='logo_blog' class='{{ site.css_class }} text-center'>
         <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
+    <h4 id='baseline' class='text-center {{ site.css_class }}'>{{ site.baseline }}</h4>
     {% endif %}
     {% endfor %}
     <div class='container'>
