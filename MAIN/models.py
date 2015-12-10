@@ -36,8 +36,8 @@ class Archive(Page, RichText):
 
 class SiteExtension(Page):
     color = ColorField(default='#007099')
-    img_logo = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/logo', null=True, blank=True)
-    img_banner = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/banner', null=True, blank=True)
+    img_logo = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/logo', null=True, blank=True, verbose_name='logo')
+    img_banner = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/banner', null=True, blank=True, verbose_name='banner', help_text='bannière pour la page d\'acceuil du sous-site')
     css_class = models.CharField(max_length=100, null=True, blank=True)
     title_sub = models.CharField(max_length=128, null=True, blank=True)
     baseline = models.CharField(max_length=255, null=True, blank=True)
@@ -46,3 +46,14 @@ class SiteExtension(Page):
         self.in_menus = []
         self.css_class = "ID_"+str(current_site_id())+self.color.replace('#','_')
         super(SiteExtension, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'EXTENSION_SITE'
+
+class PageUnivers(Page, RichText):
+    illustration = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/universPNP', null=True, blank=True, verbose_name='illustration')
+
+    class Meta:
+        verbose_name = 'UNIVERS_PNP'
+
+

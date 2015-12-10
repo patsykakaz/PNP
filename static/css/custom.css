@@ -95,7 +95,7 @@ h4{
     display: block;
     width: 110px;
     padding: 2px 5px;
-    color: #333;
+    color: #004b66;
 }
 .dropdown-category>a>i{
     display: inline-block;
@@ -128,6 +128,14 @@ h4{
 .dropdown-highlights{
     width: 70%;
 }
+#univers_PNP{}
+.sub_univ_PNP{
+    display: inline-block;
+    width: 170px;
+    text-align: center;
+}
+
+
 .highlight-box{
     display: inline-block;
     overflow: hidden;
@@ -260,26 +268,21 @@ h4{
     margin-bottom: 35px;
     overflow: hidden;
 }
-.mainArticle:first-child{
-    width: 60%;
-}
-.mainArticle:last-child{
-    left: 60%;
-    width: 40%;
-}
-
-
 .mainArticle{
     overflow: hidden;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0%;
+    width: 30%;
     height: 400px;
     background-color: rgb(50,50,60);
     -moz-transition: all 0.5s ease-out;
     -webkit-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+    transition: width 0.5s, left 0.5s;
+}
+.mainArticle.deploy{
+    width: 70%;
 }
 .mainArticle img{
     min-width: 100%;

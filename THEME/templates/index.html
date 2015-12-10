@@ -12,7 +12,7 @@
 
     <div id='mainArticles'>
         {% for mainArticle in mainArticles %}
-            <a class='mainArticle' href='//{{ mainArticle.site.domain }}{% url "blog_post_detail" mainArticle.slug %}'>
+            <a class='mainArticle {% if forloop.counter0 == 0 %}deploy{% endif %}' href='//{{ mainArticle.site.domain }}{{ mainArticle.get_absolute_url }}'>
                 <img src='{{ MEDIA_URL }}{% thumbnail mainArticle.featured_image 1200 400 %}' />
                 <div class='caption'>
                     <h2 class='title'>{{ mainArticle.title|capfirst }}</h2>

@@ -26,9 +26,10 @@ get_backends()
 wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl" 
 client = SoapClient(wsdl = wsdl,
                     # cache = None,
-                    # ns="ges",
+                    namespace= "http://www.gesmag.com",
+                    ns="ges",
                     soap_ns="soapenv",
-                    trace= True
+                    trace= True,
                     )
 client['wsse:Security'] = {
        'wsse:UsernameToken': {
@@ -116,6 +117,7 @@ def archive(request,start,end):
             print item[15]
         k.save()
     return HttpResponse("archiving process ended.")
+
 
 
 

@@ -23,7 +23,8 @@ class ArchiveAdmin(PageAdmin):
     fieldsets = deepcopy(PageAdmin.fieldsets)
 
 blog_fieldsets = deepcopy(BlogPostAdmin.fieldsets)
-blog_fieldsets[0][1]["fields"].insert(-2, "archive")
+# blog_fieldsets[0][1]["fields"].insert(-2, "archive")
+blog_fieldsets[0][1]["fields"].insert(-2, "highlight")
 class MyBlogPostAdmin(BlogPostAdmin):
     fieldsets = blog_fieldsets
 
@@ -38,8 +39,19 @@ SiteExtensionAdmin_extra_fieldsets = (
 class SiteExtensionAdmin(PageAdmin):
     fieldsets = deepcopy(PageAdmin.fieldsets) + SiteExtensionAdmin_extra_fieldsets
 
+PageUnivers_extra_fieldsets = (
+                (None,
+                        {'fields': ('illustration','content')
+                        }
+                ),
+        )
+ 
+class PageUniversAdmin(PageAdmin):
+    fieldsets = deepcopy(PageAdmin.fieldsets) + PageUnivers_extra_fieldsets
+
 admin.site.register(Publicite, PubliciteAdmin)
 admin.site.register(Archive, ArchiveAdmin)
 admin.site.unregister(BlogPost)
 admin.site.register(BlogPost, MyBlogPostAdmin)
 admin.site.register(SiteExtension, SiteExtensionAdmin)
+admin.site.register(PageUnivers, PageUniversAdmin)
