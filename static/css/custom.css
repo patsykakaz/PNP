@@ -406,7 +406,7 @@ h4{
 }.bloc_article.LA_LETTRE .label{
    background-color: rgba(254,193,13,.7);
 }
-.label.hoverClass{
+.bloc_article .label.hoverClass{
     background-color: rgba(0,0,0,.7);
 }
 
