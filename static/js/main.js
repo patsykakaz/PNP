@@ -27,7 +27,7 @@ $(document).ready(function(){
         setInterval(function(){
             target.css('border-color','rgb(13,126,165)');
                 setTimeout(function(){
-                    target.css('border-color','transparent');
+                    target.css('border-color','white');
                 },900);
         },2000);
     });
