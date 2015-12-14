@@ -16,6 +16,7 @@ from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
 
 get_backends()
+import sys
 
 
 # base64.b64encode(hashlib.sha1("MBC2015").digest())
@@ -40,7 +41,6 @@ client['wsse:Security'] = {
         }
 
 def test(request):
-
     results = client.getClient(codeClient=654)
     for result in results:
         print "-> {}".format(result)
@@ -49,24 +49,24 @@ def test(request):
     return HttpResponse("<h1>CLIENTS</h1> <br />{}".format(results))
 
 def get_client(request):
-    client = SoapClient(wsdl="http://dev.aboweb.com/aboweb/abmWeb?wsdl", ns="web", trace=True)
-    client['AuthHeaderElement'] = {'Login': 'admin.webservices@mbc.com', 'Password': 'mbc2015'}
-    txt = client.ABM_ACCES_BASE(600,12,17)
-    return HttpResponse("txt = {}".format(txt))
+    result = client.getClient(codeClient=125129)
+    return HttpResponse("txt = {}".format(result))
 
 def aboweb(request):
-    # bob = client.getClient(codeClient=654)
-    # bob = bob['client']
-    # print "user to work -> {}".format(bob)
-    bob = {'ville': 'PARIS', 'societe': 'FEDERATION FRANCAISE DES', 'adresse1': 'PAPETIERS ET SPECIALISTES', 'cp': '75001', 'adresse2': '12 RUE DES PYRAMIDES', 'nom': 'test', 'telephone': '01 42 96 38 99', 'prenom': 'test', 'typeClient': '1'}
-    # bob['tauxRemiseAbo'] = double(bob['tauxRemiseAbo'])
-    # bob['typeClient'] = bob['typeClient'].encode('utf8')
-    # bob['nom'] = 'XXXXXX'
-    x = client.createOrUpdateClientEx(client=bob)
-    # x = client.getClient(codeClient=655)
-    # for k,v in x['client'].items():
-    #     print("** {} = {} -({})** ".format(k,v,type(v)))
-    return HttpResponse("x = {}".format(x))
+    wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
+    client = SoapClient(location = "http://dev.aboweb.com/aboweb/ClientService")
+    client['wsse:Security'] = {
+           'wsse:UsernameToken': {
+                'wsse:Username': 'admin.webservices@mbc.com',
+                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                }
+            }
+   
+    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>**PAPETIERSETSPECIALISTES**</adresse1><adresse2>12RUEDESPYRAMIDES</adresse2><adresse3></adresse3><civilite></civilite><codeClient>125129</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>75001</cp><creation></creation><email></email><erreurAel></erreurAel><modification></modification><motPasseAbm></motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>**FEDERATIONFRANCAISEDES**</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0142963899</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
+    x = client.call("createOrUpdateClientEx", bob)
+    print x['codeClient']
+    print "python V: {}".format(sys.version)
+    return HttpResponse("httpreponse = {}".format(x))
 
 
 @login_required

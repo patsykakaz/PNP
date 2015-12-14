@@ -28,9 +28,17 @@ class PubMiddleware(object):
 
 class NavMiddleware(object):
     def process_template_response(self, request, response):
+
         all_sites = Site.objects.exclude(name='default').order_by('id')
-	pages_univers = PageUnivers._base_manager.all()
-        last_blogPosts = BlogPost._base_manager.exclude(featured_image=None)[3:21]
+        pages_univers = PageUnivers._base_manager.all()
+        mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
+        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:20]
+        double = 0
+        for X in mainArticles:
+            if X in last_blogPosts:
+                double += 1
+        last_blogPosts = last_blogPosts[:20-double]
+
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)
             site.highlights = BlogPost._base_manager.filter(site=site.id).exclude(featured_image='')[:3]
@@ -51,9 +59,9 @@ class NavMiddleware(object):
                 site.baseline = "baseline is empty"
                 site.img_logo = None
                 site.img_banner = None
-        mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
+
         response.context_data['all_sites'] = all_sites
-	response.context_data['pages_univers'] = pages_univers
+        response.context_data['pages_univers'] = pages_univers
         response.context_data['last_blogPosts'] = last_blogPosts
         response.context_data['mainArticles'] = mainArticles[:3]
         return response

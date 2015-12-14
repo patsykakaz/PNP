@@ -18,8 +18,11 @@ $(document).ready(function(){
     // highlightsDrop.css('margin-left','-5px');
     Navbar();
     $(window).load(function(){
-        MainArticles();
+        // MainArticles();
     });
+    DeployArticle();
+    $('.caption-screen').first().addClass('first');
+    // $('.mainArticle .title').first().css('right','20%').css('text-align','right');
 });
 
 $(window).resize(function(){
@@ -47,24 +50,24 @@ function Navbar(){
 
 function MainArticles(){
     currentLeft = 0;
-    deployElementIndex = 
-    $('.mainArticle').each(function(){
+    $('.container-mainArticle').each(function(){
         $(this).css('left',currentLeft+'%');
 	if($(this).hasClass('deploy')){
-	    currentLeft += 70;
+	    currentLeft += 50;
 	}else{
-            currentLeft += 30;
+            currentLeft += 50;
 	}
         console.log($(this).outerWidth());
     });
 }
-function DeployArticle(targetID){
-    target = $('.mainArticle:eq('+targetID+')');
-    $('.mainArticle').removeClass('deploy');
-    target.addClass('deploy');
-    setTimeout(function(){
-        MainArticles();
-    },200);
+function DeployArticle(){
+    $('.container-mainArticle').mouseover(function(){
+        if(!$(this).hasClass('deploy')){
+            $('.container-mainArticle').not($(this)).removeClass('deploy');
+            $(this).addClass('deploy');
+            $('#mainArticles').toggleClass('left');
+        }
+    });
 }
 
 
