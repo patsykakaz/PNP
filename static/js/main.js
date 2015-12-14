@@ -22,7 +22,15 @@ $(document).ready(function(){
     });
     DeployArticle();
     $('.caption-screen').first().addClass('first');
-    // $('.mainArticle .title').first().css('right','20%').css('text-align','right');
+    $('.bloc_article').mouseover(function(){
+        target = $(this).children('.label');
+        setInterval(function(){
+            target.addClass('hoverClass');
+                setTimeout(function(){
+                    target.removeClass('hoverClass');
+                },500);
+        },1000);
+    });
 });
 
 $(window).resize(function(){

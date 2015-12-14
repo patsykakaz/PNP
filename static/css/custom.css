@@ -395,12 +395,19 @@ h4{
     right: 0px;
     padding: 8px;
     background-color: rgba(0,0,0,.5);
+    -moz-transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
 }.bloc_article.PNP .label{
     background-color: rgba(0,112,153,.9);
 }.bloc_article.PNS .label{
     background-color: rgba(128,17,21,.9);
 }.bloc_article.LA_LETTRE .label{
    background-color: rgba(254,193,13,.7);
+}
+.label.hoverClass{
+    background-color: rgba(0,0,0,.7);
 }
 
 
