@@ -330,7 +330,6 @@ h4{
     position: absolute;
     bottom: 5%;
     width: 80%;
-    /*margin: 0 20px;*/
     vertical-align: bottom;
     font-weight: bold;
     color: white;
@@ -341,13 +340,14 @@ h4{
     transition: all 0.5s ease-out;
 }
 .caption-title.small{
-    right: 10%;
+    right: 55%;
+    max-width: 40%;
     font-size: 18px;
 }.deploy .caption-title.small{
     right: -100%;
 }
 .first .caption-title.small{
-    left: 10%;
+    left: 55%;
     text-align: right;
 }.deploy .first .caption-title.small{
     left: -100%;
