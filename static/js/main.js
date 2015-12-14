@@ -25,9 +25,9 @@ $(document).ready(function(){
     $('.bloc_article').mouseover(function(){
         target = $(this).children('.label');
         setInterval(function(){
-            target.addClass('hoverClass');
+            target.css('border','1px solid #007099');
                 setTimeout(function(){
-                    target.removeClass('hoverClass');
+                    target.css('border','none');
                 },500);
         },1000);
     });
