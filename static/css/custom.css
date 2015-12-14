@@ -395,11 +395,11 @@ h4{
     right: 0px;
     padding: 8px;
     background-color: rgba(0,0,0,.5);
-    border: 2px solid;
-    -moz-transition: all 0.5s ease-out;
-    -webkit-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+    border: 2px solid white;
+    -moz-transition: all 1s ease-out;
+    -webkit-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;
 }.bloc_article.PNP .label{
     background-color: rgba(0,112,153,.9);
 }.bloc_article.PNS .label{

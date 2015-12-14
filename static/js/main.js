@@ -25,11 +25,11 @@ $(document).ready(function(){
     $('.bloc_article').mouseover(function(){
         target = $(this).children('.label');
         setInterval(function(){
-            target.css('border-color','#007099');
+            target.css('border-color','rgb(13,126,165)');
                 setTimeout(function(){
                     target.css('border-color','transparent');
-                },500);
-        },1000);
+                },900);
+        },2000);
     });
 });
 
