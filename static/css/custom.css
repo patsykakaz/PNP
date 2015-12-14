@@ -394,18 +394,12 @@ h4{
     top: -5px;
     right: 0px;
     padding: 8px;
-    background-color: rgba(0,0,0,.5);
-    border: 2px solid white;
-    -moz-transition: all 1s ease-out;
-    -webkit-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;
-}.bloc_article.PNP .label{
-    background-color: rgba(0,112,153,.9);
-}.bloc_article.PNS .label{
-    background-color: rgba(128,17,21,.9);
-}.bloc_article.LA_LETTRE .label{
-   background-color: rgba(254,193,13,.7);
+    opacity: .7;
+    border: 2px solid;
+    -moz-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 

@@ -22,9 +22,13 @@
             #logo_blog.{{ site.css_class }}{
                 background-color: {{ site.color }};
             }
-	    #baseline.{{ site.css_class }}{
-		color: {{ site.color }};
-	    }
+            #baseline.{{ site.css_class }}{
+            color: {{ site.color }};
+            }
+            .bloc_article .label{
+                background-color: {{ site.color }};
+                border-color: white;
+            }
         {% endif %}
         {% endfor %}
     </style>
@@ -87,13 +91,8 @@
         {% endif %}
 
         {% for blog_post in blog_posts.object_list %}
-            <a class='bloc_article col-md-4
-                        {% if blog_post.site.name == "PNP" %}
-                        PNP
-                        {% elif blog_post.site.name == "PNS" %}
-                        PNS
-                        {% endif %}' 
-                        href='//{{ blog_post.site.domain }}{% url "blog_post_detail" blog_post.slug %}' >
+            <a class='bloc_article col-md-4' 
+                href='//{{ blog_post.site.domain }}{% url "blog_post_detail" blog_post.slug %}' >
                 {% with blog_post.categories.all as categories %}
                     <div class='label'>
                     {% if categories %}

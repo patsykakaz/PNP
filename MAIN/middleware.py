@@ -33,6 +33,11 @@ class NavMiddleware(object):
         pages_univers = PageUnivers._base_manager.all()
         mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
         last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:20]
+        for post in last_blogPosts:
+            try:
+                post.extension_site = SiteExtension.objects.get(site=post.site)
+            except:
+                post.extension_site = False
         double = 0
         for X in mainArticles:
             if X in last_blogPosts:

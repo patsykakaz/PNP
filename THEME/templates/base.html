@@ -64,6 +64,7 @@
     .{{ site.css_class }} .last_news, .{{ site.css_class }} .dropdown-category a:hover, .{{ site.css_class }} .highlight-box:hover a{
         color: {{ site.color }};
     }
+
     @media screen and (max-width: 768px){
         .dropdown.open > .dropdown-menu.{{ site.css_class }}{
             border-bottom: 4px solid {{ site.color }};
@@ -72,6 +73,12 @@
             color: {{ site.color }};
         }
     }
+
+    .bloc_article.{{ site.css_class }} .label{
+        background-color: {{ site.color }};
+        border-color: {{ site.color }};
+    }
+
     {% endif %}
     {% endfor %}
 </style>
@@ -148,17 +155,17 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-		<div class='container text-right'>
-                {% for page_univ in pages_univers %}
-                    <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
-                        <a href="{{ page_univ.get_absolute_url }}">
-			    <div class='sub_univ_PNP'>
+		          <div class='container text-right'>
+                    {% for page_univ in pages_univers %}
+                        <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
+                            <a href="{{ page_univ.get_absolute_url }}">
+                            <div class='sub_univ_PNP'>
                                 {{ page_univ.title }}
-			    </div>
-                        </a>
-                    </li>
-                {% endfor %}
-		</div>
+			                 </div>
+                            </a>
+                         </li>
+                    {% endfor %}
+		          </div>
                 </ul>
             </li>
         </ul>
