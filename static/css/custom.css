@@ -404,8 +404,6 @@ h4{
 
 
 
-
-
 /*
  blog
 */
@@ -450,6 +448,9 @@ h4{
     max-width: 100%;
     padding: 10px 0;
     margin: auto;
+}
+#richTextZone a{
+    color: #007099;
 }
 
 
