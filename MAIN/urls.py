@@ -36,9 +36,10 @@ urlpatterns += patterns('',
     # one homepage pattern, so if you use a different one, comment this
     # one out.
     url(r'^test$', 'MAIN.views.test', name='test'),
+    url(r'^testX$', 'MAIN.views.testX', name='testX'),
     url(r'^req$', 'MAIN.views.req', name='req'),
     url(r'^kill$', 'MAIN.views.kill', name='kill'),
-    url(r'^get_client$', 'MAIN.views.get_client', name='get_client'),
+    url(r'^get_client/(?P<codeClient>.+)/$', 'MAIN.views.get_client', name='get_client'),
     url(r'^aboweb$', 'MAIN.views.aboweb', name='aboweb'),
     url(r'^archive/(?P<start>.+)/(?P<end>.+)/$', 'MAIN.views.archive', name='archive'),
     url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),

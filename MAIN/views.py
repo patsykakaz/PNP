@@ -41,15 +41,31 @@ client['wsse:Security'] = {
         }
 
 def test(request):
-    results = client.getClient(codeClient=654)
-    for result in results:
-        print "-> {}".format(result)
+    params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
+        <ges:authenticateByEmail xmlns:ges="http://www.gesmag.com/">
+            <email>
+                test@uuu.uuu
+            </email>
+            <encryptedPassword>
+                qUqP5cyxm6YcTAhz05Hph5gvu9M=
+            </encryptedPassword>
+        </ges:authenticateByEmail>""")
+    response = client.authenticateByEmail(params)
+    print "***"
+    print client.response
+    print "***"
     # k = authenticate(username='test@test.test', password='test')
     # login(request, k)
-    return HttpResponse("<h1>CLIENTS</h1> <br />{}".format(results))
+    return HttpResponse("<h1>RESPONSE</h1> <br /> <h3>{}</h3>".format(reponse))
 
-def get_client(request):
-    result = client.getClient(codeClient=125129)
+def testX(request):
+    client=SoapClient(wsdl="http://ws.cdyne.com/emailverify/Emailvernotestemail.asmx?wsdl",trace=True)
+    response = client.VerifyEmail(email="a-valid-gmail-address@gmail.com",LicenseKey="?")
+    print response
+    return HttpResponse('TESTX <br /> <h4>{}</h4>'.format(response))
+
+def get_client(request,codeClient):
+    result = client.getClient(codeClient=codeClient)
     return HttpResponse("txt = {}".format(result))
 
 def aboweb(request):
@@ -62,10 +78,10 @@ def aboweb(request):
                 }
             }
    
-    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>**PAPETIERSETSPECIALISTES**</adresse1><adresse2>12RUEDESPYRAMIDES</adresse2><adresse3></adresse3><civilite></civilite><codeClient>125129</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>75001</cp><creation></creation><email></email><erreurAel></erreurAel><modification></modification><motPasseAbm></motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>**FEDERATIONFRANCAISEDES**</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0142963899</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
+    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>**PAPETIERSETSPECIALISTES**</adresse1><adresse2>12RUEDESPYRAMIDES</adresse2><adresse3></adresse3><civilite></civilite><codeClient>125129</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>75001</cp><creation></creation><email>test@uuu.uuu</email><erreurAel></erreurAel><modification></modification><motPasseAbm>test</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>**FEDERATIONFRANCAISEDES**</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0142963899</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
     x = client.call("createOrUpdateClientEx", bob)
     print x['codeClient']
-    print "python V: {}".format(sys.version)
+
     return HttpResponse("httpreponse = {}".format(x))
 
 
