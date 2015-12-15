@@ -36,9 +36,10 @@
         <div class='row'>
             <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
             {% block blog_post_detail_content %}
-            {% editable blog_post.content %}
-            <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i> {{ blog_post.content|richtext_filters|safe }}
-            {% endeditable %}
+                {% editable blog_post.content %}
+                    <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
+                    {{ blog_post.content|richtext_filters|safe }}
+                {% endeditable %}
             {% endblock %}
             </div>
 

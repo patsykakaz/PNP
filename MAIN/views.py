@@ -39,7 +39,7 @@ client['wsse:Security'] = {
             # 'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
             }
         }
-# lol
+
 def test(request):
     results = client.getClient(codeClient=654)
     for result in results:
