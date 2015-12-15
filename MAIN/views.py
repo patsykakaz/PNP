@@ -15,9 +15,9 @@ from .models import *
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
 
-get_backends()
-import sys
+import xml.sax
 
+get_backends()
 
 # base64.b64encode(hashlib.sha1("MBC2015").digest())
 # >>> 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw='
@@ -41,28 +41,27 @@ client['wsse:Security'] = {
         }
 
 def test(request):
+    wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
+    client = SoapClient(location = "http://dev.aboweb.com/aboweb/ClientService",trace=False)
+    client['wsse:Security'] = {
+           'wsse:UsernameToken': {
+                'wsse:Username': 'admin.webservices@mbc.com',
+                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                }
+            }
     params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
         <ges:authenticateByEmail xmlns:ges="http://www.gesmag.com/">
-            <email>
-                test@uuu.uuu
-            </email>
-            <encryptedPassword>
-                qUqP5cyxm6YcTAhz05Hph5gvu9M=
-            </encryptedPassword>
-        </ges:authenticateByEmail>""")
-    response = client.authenticateByEmail(params)
+            <email>nzjn@test.test</email>
+            <encryptedPassword>UVh93Wiw55Azcir+YA6gGZvYy+Q=</encryptedPassword>
+        </ges:authenticateByEmail>""");
+    response = client.call("authenticateByEmail",params)
     print "***"
-    print client.response
+    print repr(response)
     print "***"
     # k = authenticate(username='test@test.test', password='test')
     # login(request, k)
-    return HttpResponse("<h1>RESPONSE</h1> <br /> <h3>{}</h3>".format(reponse))
+    return HttpResponse("<h1>RESPONSE</h1> <br /> <h3>{}</h3>".format(repr(response)))
 
-def testX(request):
-    client=SoapClient(wsdl="http://ws.cdyne.com/emailverify/Emailvernotestemail.asmx?wsdl",trace=True)
-    response = client.VerifyEmail(email="a-valid-gmail-address@gmail.com",LicenseKey="?")
-    print response
-    return HttpResponse('TESTX <br /> <h4>{}</h4>'.format(response))
 
 def get_client(request,codeClient):
     result = client.getClient(codeClient=codeClient)
@@ -78,7 +77,7 @@ def aboweb(request):
                 }
             }
    
-    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>**PAPETIERSETSPECIALISTES**</adresse1><adresse2>12RUEDESPYRAMIDES</adresse2><adresse3></adresse3><civilite></civilite><codeClient>125129</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>75001</cp><creation></creation><email>test@uuu.uuu</email><erreurAel></erreurAel><modification></modification><motPasseAbm>test</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>**FEDERATIONFRANCAISEDES**</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0142963899</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
+    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>Cuypstraat 22-III</adresse1><adresse2>1072CT</adresse2><adresse3>Amsterdam</adresse3><civilite></civilite><codeClient>125130</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>1072CT</cp><creation></creation><email>nzjn@test.test</email><erreurAel></erreurAel><modification></modification><motPasseAbm>inyourface</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>LSC</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0123456789</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
     x = client.call("createOrUpdateClientEx", bob)
     print x['codeClient']
 
