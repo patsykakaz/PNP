@@ -30,7 +30,7 @@ client = SoapClient(wsdl = wsdl,
                     namespace= "http://www.gesmag.com",
                     ns="ges",
                     soap_ns="soapenv",
-                    trace= True,
+                    trace= False,
                     )
 client['wsse:Security'] = {
        'wsse:UsernameToken': {
@@ -51,21 +51,32 @@ def test(request):
             }
     params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
         <ges:authenticateByEmail xmlns:ges="http://www.gesmag.com/">
-            <email>nzjn@test.test</email>
-            <encryptedPassword>UVh93Wiw55Azcir+YA6gGZvYy+Q=</encryptedPassword>
+            <email>
+                patsykakaz@test.test
+            </email>
+            <encryptedPassword>
+                tg0SG0OKOAw0PV7DwgN1ZLgv/vM=
+            </encryptedPassword>
         </ges:authenticateByEmail>""");
     response = client.call("authenticateByEmail",params)
     print "***"
     print repr(response)
     print "***"
-    # k = authenticate(username='test@test.test', password='test')
-    # login(request, k)
+
     return HttpResponse("<h1>RESPONSE</h1> <br /> <h3>{}</h3>".format(repr(response)))
 
 
 def get_client(request,codeClient):
     result = client.getClient(codeClient=codeClient)
     return HttpResponse("txt = {}".format(result))
+
+def piwi(request,username,password):
+    k = authenticate(username=username,password=password)
+    print "user = {}, type = {}".format(k,type(k))
+    if k:
+        login(request, k)
+    return HttpResponse("txt = {} <br /> is_staff = {}".format(request.user, request.user.is_staff))
+
 
 def aboweb(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
@@ -76,12 +87,12 @@ def aboweb(request):
                 'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
                 }
             }
-   
-    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>Cuypstraat 22-III</adresse1><adresse2>1072CT</adresse2><adresse3>Amsterdam</adresse3><civilite></civilite><codeClient>125130</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>1072CT</cp><creation></creation><email>nzjn@test.test</email><erreurAel></erreurAel><modification></modification><motPasseAbm>inyourface</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>LSC</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0123456789</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
-    x = client.call("createOrUpdateClientEx", bob)
-    print x['codeClient']
-
-    return HttpResponse("httpreponse = {}".format(x))
+    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>Cuypstraat 22-III</adresse1><adresse2>1072CT</adresse2><adresse3>Amsterdam</adresse3><civilite></civilite><codeClient></codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>1072CT</cp><creation></creation><email>philippe@lesidecar.fr</email><erreurAel></erreurAel><modification></modification><motPasseAbm>inyourface</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>LSC</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0123456789</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
+    print "about to call createOrUpdateClientEx"
+    response = client.call("createOrUpdateClientEx", bob)
+    xml = SimpleXMLElement(client.xml_response)
+    print xml('codeClient')
+    return HttpResponse("httpreponse = {}".format(xml))
 
 
 @login_required
