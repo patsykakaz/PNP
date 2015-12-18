@@ -27,22 +27,6 @@ get_backends()
 # base64.b64encode(hashlib.sha1("MBC1475").digest())
 # >>> 'pYsIJKF18hj0SvS3TwrQV3hWzD4='
 
-wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl" 
-client = SoapClient(wsdl = wsdl,
-                    # cache = None,
-                    namespace= "http://www.gesmag.com",
-                    ns="ges",
-                    soap_ns="soapenv",
-                    trace= True,
-                    )
-client['wsse:Security'] = {
-       'wsse:UsernameToken': {
-            'wsse:Username': 'admin.webservices@mbc.com',
-            'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
-            # 'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
-            }
-        }
-
 def test(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
     client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService",trace=False)
@@ -70,14 +54,7 @@ def test(request):
 
 
 def get_client(request,codeClient):
-    wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
-    client = SoapClient(wsdl = wsdl,
-                        # cache = None,
-                        namespace= "http://www.gesmag.com",
-                        ns="ges",
-                        # soap_ns="soapenv",
-                        trace= True,
-                        )
+    client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService?wsdl",trace=False)
     client['wsse:Security'] = {
            'wsse:UsernameToken': {
                 'wsse:Username': 'admin.webservices@mbc.com',
@@ -85,34 +62,49 @@ def get_client(request,codeClient):
                 # 'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
                 }
             }
-    result = client.getClient(codeClient=codeClient)
-    return HttpResponse("txt = {}".format(result))
+    params = SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><ges:getClient xmlns:ges="http://www.gesmag.com/"><codeClient>'+codeClient+'</codeClient></ges:getClient>');
+    result = client.call("getClient",params)
+
+    xml = SimpleXMLElement(client.xml_response)
+    response = repr(xml('client'))
+    # response_bis = response('codeClient')
+    # print"*****" + repr(response_bis) + "*****"
+
+    print "*****" + repr(xml('client')) + "*****"
+    return HttpResponse("txt = {}".format(response))
 
 
+def test_AbmWeb(request):
+    client = SoapClient(wsdl="http://aboweb.com/aboweb/abmWeb?wsdl", ns="web", trace=True)
+    client['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'MBC1475'}
+    # result = client.ABM_ACCES_BASE(600,99,99)
+    # result = client.ABM_ACCES_CLIENT('207','17780','27380')
+    result = client.ABM_TEST_MAIL('207','1','christiane95630@orange.fr')
+    print result
+    return HttpResponse(result)
 
-def get_abo(request,email):
-    wsdl = "http://dev.aboweb.com/aboweb/AbonnementService?wsdl" 
-    client = SoapClient(location ="http://dev.aboweb.com/aboweb/AbonnementService",trace=False)
+def test_ClientService(request):
+    return HttpResponse('TEST2')
+
+def test_AbonnementService(request):
+    # wsdl = "http://aboweb.com/aboweb/AbonnementService?wsdl" 
+    client = SoapClient(location ="http://aboweb.com/aboweb/AbonnementService",trace=False)
     client['wsse:Security'] = {
            'wsse:UsernameToken': {
                 'wsse:Username': 'admin.webservices@mbc.com',
-                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                # 'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
                 }
             }
     params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
-        <ges:createOrUpdateAbonnement xmlns:ges="http://www.gesmag.com/">
-            <refAbonnement>3</refAbonnement>
-        </ges:createOrUpdateAbonnement>""");
-    response = client.call("createOrUpdateAbonnement",params)
-    print result
+        <ges:getAbonnements xmlns:ges="http://www.gesmag.com/">
+            <codeClient>6890</codeClient>
+            <offset>0</offset>
+        </ges:getAbonnements>""");
+    result = client.call("getAbonnements",params)
+    print "******* REPR(RESPONSE) -> {} *******".format(repr(result))
     return HttpResponse("txt = {}".format(result))
 
-def check_users(request,username,password):
-    k = authenticate(username=username,password=password)
-    print "user = {}, type = {}".format(k,type(k))
-    if k:
-        login(request, k)
-    return HttpResponse("txt = {} <br /> is_staff = {}".format(request.user, request.user.is_staff))
 
 def send_mailx(request):
     send_mail('Trop un toqueballe', 'kikou, beauté', 'n.burton@groupembc.com', ['luc@lesidecar.fr',], fail_silently=False)
@@ -134,11 +126,6 @@ def aboweb(request):
     xml = SimpleXMLElement(client.xml_response)
     print xml('codeClient')
     return HttpResponse("httpreponse = {}".format(xml))
-
-
-@login_required
-def req(request):
-    return HttpResponse('U bent ingelogged')
 
 def kill(request):
     logout(request)

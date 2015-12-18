@@ -12,3 +12,10 @@ from mezzanine.core.request import current_request
     # request = current_request()
     # print request.get_host().lower()
     # return locals()
+
+@processor_for(PageUnivers)
+def processor_revue(request, page):
+    PageUniv = PageUnivers.objects.get(title=page.title)
+    couv = PageUniv.illustration.url.split('/')
+    PageUniv.couverture = couv[-1]
+    return locals()

@@ -20,5 +20,22 @@
 {% endblock %}
 
 {% block main %}
-{{ page.richtextpage.content|richtext_filters|safe }}
+
+    <div id='illustration'>
+        <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail PageUniv.couverture 1200 300 %}">
+        <div class="">
+        </div>
+    </div>
+
+    <div id='blogContent' class='container'>
+        
+        <div class='row'>
+            <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
+                <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
+                {{ PageUniv.content|richtext_filters|safe }}
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
