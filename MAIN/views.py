@@ -8,6 +8,9 @@ from django.contrib.auth import logout, login, authenticate, get_backends
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
+from django.core.mail import send_mail
+
 from mezzanine.pages.models import Page
 
 from .models import *
@@ -30,7 +33,7 @@ client = SoapClient(wsdl = wsdl,
                     namespace= "http://www.gesmag.com",
                     ns="ges",
                     soap_ns="soapenv",
-                    trace= False,
+                    trace= True,
                     )
 client['wsse:Security'] = {
        'wsse:UsernameToken': {
@@ -42,7 +45,7 @@ client['wsse:Security'] = {
 
 def test(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
-    client = SoapClient(location = "http://dev.aboweb.com/aboweb/ClientService",trace=False)
+    client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService",trace=False)
     client['wsse:Security'] = {
            'wsse:UsernameToken': {
                 'wsse:Username': 'admin.webservices@mbc.com',
@@ -67,15 +70,53 @@ def test(request):
 
 
 def get_client(request,codeClient):
+    wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
+    client = SoapClient(wsdl = wsdl,
+                        # cache = None,
+                        namespace= "http://www.gesmag.com",
+                        ns="ges",
+                        # soap_ns="soapenv",
+                        trace= True,
+                        )
+    client['wsse:Security'] = {
+           'wsse:UsernameToken': {
+                'wsse:Username': 'admin.webservices@mbc.com',
+                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                # 'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
+                }
+            }
     result = client.getClient(codeClient=codeClient)
     return HttpResponse("txt = {}".format(result))
 
-def piwi(request,username,password):
+
+
+def get_abo(request,email):
+    wsdl = "http://dev.aboweb.com/aboweb/AbonnementService?wsdl" 
+    client = SoapClient(location ="http://dev.aboweb.com/aboweb/AbonnementService",trace=False)
+    client['wsse:Security'] = {
+           'wsse:UsernameToken': {
+                'wsse:Username': 'admin.webservices@mbc.com',
+                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                }
+            }
+    params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
+        <ges:createOrUpdateAbonnement xmlns:ges="http://www.gesmag.com/">
+            <refAbonnement>3</refAbonnement>
+        </ges:createOrUpdateAbonnement>""");
+    response = client.call("createOrUpdateAbonnement",params)
+    print result
+    return HttpResponse("txt = {}".format(result))
+
+def check_users(request,username,password):
     k = authenticate(username=username,password=password)
     print "user = {}, type = {}".format(k,type(k))
     if k:
         login(request, k)
     return HttpResponse("txt = {} <br /> is_staff = {}".format(request.user, request.user.is_staff))
+
+def send_mailx(request):
+    send_mail('Trop un toqueballe', 'kikou, beauté', 'n.burton@groupembc.com', ['luc@lesidecar.fr',], fail_silently=False)
+    return HttpResponse('MAIL DELIVERY OK')
 
 
 def aboweb(request):
@@ -87,7 +128,7 @@ def aboweb(request):
                 'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
                 }
             }
-    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>Cuypstraat 22-III</adresse1><adresse2>1072CT</adresse2><adresse3>Amsterdam</adresse3><civilite></civilite><codeClient></codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>1072CT</cp><creation></creation><email>philippe@lesidecar.fr</email><erreurAel></erreurAel><modification></modification><motPasseAbm>inyourface</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>LSC</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0123456789</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
+    bob = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/"><client><adresse1>Cuypstraat 22-III</adresse1><adresse2>1072CT</adresse2><adresse3>Amsterdam</adresse3><civilite></civilite><codeClient>125153</codeClient><codeNii></codeNii><codeTiers></codeTiers><cp>75011</cp><creation></creation><email>shark@shark.shark</email><erreurAel></erreurAel><modification></modification><motPasseAbm>aboweb</motPasseAbm><nbNpai></nbNpai><nePasDiffuser></nePasDiffuser><nom>test</nom><noteEtat></noteEtat><noteNpai></noteNpai><npai></npai><origineAbm></origineAbm><pasEmailing></pasEmailing><pasMailing></pasMailing><portable></portable><prenom>test</prenom><reaboAuto></reaboAuto><relancerPaye></relancerPaye><siret></siret><societe>LSC2</societe><tauxRemiseAbo></tauxRemiseAbo><telecopie></telecopie><telephone>0123456789</telephone><typeClient>0</typeClient><ville>PARIS</ville></client></ges:createOrUpdateClientEx>""");
     print "about to call createOrUpdateClientEx"
     response = client.call("createOrUpdateClientEx", bob)
     xml = SimpleXMLElement(client.xml_response)

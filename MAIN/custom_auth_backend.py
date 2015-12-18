@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,9 +8,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django.utils.http import base36_to_int
 from django.core.mail import send_mail
-
-
-from mezzanine.conf import settings
 
 from .models import Client
 User = get_user_model()
@@ -63,7 +61,7 @@ class ClientAuthBackend(ModelBackend):
                             userId = str(uuid.uuid4())
                             # send_mail('Creation de compte', 'Message test de creation du code de l\'utilisateur : {}'.format(uuid), 'n.burton@groupembc.com', ['philippe@lesidecar.fr','nelson@lesidecar.fr'],fail_silently=False)
                             try:
-                               send_mail('testmail', 'test content', settings.EMAIL_HOST_USER, ['philippe@lesidecar.fr'], fail_silently=False)
+                               send_mail('Salut, c\'est Nelson', 'Email shooté automatiquement en même temps que création d\'un user', 'n.burton@groupembc.com', ['philippe@lesidecar.fr',], fail_silently=False)
                                # send_mail('Subject here', 'Here is the message.', 'n.burton@groupembc.com', ['philippe.dagognet@gmail.com'], fail_silently=False)
                                print "MAIL HAS BEEN SENT !"
                             except 'SMTPConnectError' as e:

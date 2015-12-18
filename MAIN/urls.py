@@ -36,7 +36,9 @@ urlpatterns += patterns('',
     # one homepage pattern, so if you use a different one, comment this
     # one out.
     url(r'^test$', 'MAIN.views.test', name='test'),
-    url(r'^piwi/(?P<username>.+)/(?P<password>.+)$', 'MAIN.views.piwi', name='piwi'),
+    url(r'^get_abo/(?P<email>.+)/$', 'MAIN.views.get_abo', name='get_abo'),
+    url(r'^send_mailx$', 'MAIN.views.send_mailx', name='send_mailx'),
+    url(r'^check_user/(?P<username>.+)/(?P<password>.+)$', 'MAIN.views.check_user', name='check_user'),
     url(r'^req$', 'MAIN.views.req', name='req'),
     url(r'^kill$', 'MAIN.views.kill', name='kill'),
     url(r'^get_client/(?P<codeClient>.+)/$', 'MAIN.views.get_client', name='get_client'),

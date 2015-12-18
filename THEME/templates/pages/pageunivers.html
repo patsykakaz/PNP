@@ -20,4 +20,5 @@
 {% endblock %}
 
 {% block main %}
+{{ page.richtextpage.content|richtext_filters|safe }}
 {% endblock %}
