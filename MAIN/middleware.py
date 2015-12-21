@@ -1,10 +1,25 @@
 #-*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
+
+from django.conf import settings
+from mezzanine.blog.models import BlogCategory, BlogPost
 from models import *
 
-from django.contrib.sites.models import Site
-from mezzanine.blog.models import BlogCategory, BlogPost
+
+class AuthXMiddleware(object):
+    def process_request(self,request):
+        print "** authX middleware **"
+        forbidden_domain = "lalettre"
+        if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path:
+            return HttpResponse('COCKBLOCK')
+        else: 
+            print "request.META['HTTP_HOST'] = {}".format(request.META['HTTP_HOST'])
+            print "request.user.is_authenticated = {}".format(request.user.is_authenticated())
 
 class PubMiddleware(object):
     def process_template_response(self, request, response):
@@ -28,9 +43,10 @@ class PubMiddleware(object):
 
 class NavMiddleware(object):
     def process_template_response(self, request, response):
-
         all_sites = Site.objects.exclude(name='default').order_by('id')
         pages_univers = PageUnivers._base_manager.all()
+        for page in pages_univers:
+            print page.slug
         mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
         last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:20]
         for post in last_blogPosts:
@@ -39,8 +55,8 @@ class NavMiddleware(object):
             except:
                 post.extension_site = False
         double = 0
-        for X in mainArticles:
-            if X in last_blogPosts:
+        for this in mainArticles:
+            if this in last_blogPosts:
                 double += 1
         last_blogPosts = last_blogPosts[:20-double]
 
@@ -65,6 +81,7 @@ class NavMiddleware(object):
                 site.img_logo = None
                 site.img_banner = None
 
+        response.context_data['mainSite'] = settings.MAIN_SITE
         response.context_data['all_sites'] = all_sites
         response.context_data['pages_univers'] = pages_univers
         response.context_data['last_blogPosts'] = last_blogPosts

@@ -1,13 +1,16 @@
 #-*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+
 from django.db import models
 from django.contrib.sites.models import *
+
+from settings import MEDIA_ROOT
 from mezzanine.pages.models import Page
 from mezzanine.core.models import RichText
-from colorfield.fields import ColorField
-from settings import MEDIA_ROOT
 from mezzanine.utils.sites import current_site_id, current_request
+
+from colorfield.fields import ColorField
 
 class Publicite(Page):
     lien = models.CharField(max_length=255, null=True, blank=True)

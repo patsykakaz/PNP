@@ -158,7 +158,7 @@
 		          <div class='container text-right'>
                     {% for page_univ in pages_univers %}
                         <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
-                            <a href="{{ page_univ.get_absolute_url }}">
+                            <a href="//{{ mainSite }}{{ page_univ.get_absolute_url }}">
                             <div class='sub_univ_PNP'>
                                 {{ page_univ.title }}
 			                 </div>

@@ -19,6 +19,7 @@ from django.contrib.auth.hashers import make_password
 
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
+
 wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
 client = SoapClient(location = "http://dev.aboweb.com/aboweb/ClientService",trace=False)
 client['wsse:Security'] = {
@@ -29,6 +30,9 @@ client['wsse:Security'] = {
         }
 
 
+class DevBackend(ModelBackend):
+    def authenticate(self,**kwargs):
+        pass
 
 class ClientAuthBackend(ModelBackend):
 
