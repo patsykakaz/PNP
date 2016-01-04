@@ -35,6 +35,7 @@ urlpatterns += patterns('',
     # commented out like the others, so it's the default. You only need
     # one homepage pattern, so if you use a different one, comment this
     # one out.
+    url(r'^login_test$', 'MAIN.views.login_test', name='login_test'),
     url(r'^test$', 'MAIN.views.test', name='test'),
     url(r'^test1/$', 'MAIN.views.test_AbmWeb', name='test1'),
     url(r'^test2/$', 'MAIN.views.test_ClientService', name='test2'),

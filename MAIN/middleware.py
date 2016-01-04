@@ -13,7 +13,6 @@ from models import *
 
 class AuthXMiddleware(object):
     def process_request(self,request):
-        print "** authX middleware **"
         forbidden_domain = "lalettre"
         if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path:
             return HttpResponse('COCKBLOCK')

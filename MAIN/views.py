@@ -25,6 +25,19 @@ get_backends()
 # base64.b64encode(hashlib.sha1("MBC1475").digest())
 # >>> 'pYsIJKF18hj0SvS3TwrQV3hWzD4='
 
+
+def login_test(request):
+    try:
+        user = authenticate(username="pnp@groupembc.com",password="MBCTEST1")
+        print user
+        login(request,user)
+    except:
+        return HttpResponse('login fault')
+    if user.is_authenticated:
+        return HttpResponse('login passed + user is Auth')
+    else:
+        return HttpResponse('login passed + user is not Auth')
+
 def test(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
     client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService",trace=False)
@@ -101,7 +114,7 @@ def test_AbonnementService(request):
         <ges:getAbonnements xmlns:ges="http://www.gesmag.com/">
             <codeClient>157095</codeClient>
             <offset>0</offset>
-        </ges:getAbonnements>""");
+        </ges:getAbonnements>""")
     result = client.call("getAbonnements",params)
     print "******* REPR(RESPONSE) -> {} *******".format(repr(result))
     return HttpResponse("txt = {}".format(result))
