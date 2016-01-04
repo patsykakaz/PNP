@@ -10,8 +10,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
+from mezzanine.utils.urls import login_redirect, next_url
 from mezzanine.pages.models import Page
 from .models import *
+from forms import *
 
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
@@ -25,6 +27,24 @@ get_backends()
 # base64.b64encode(hashlib.sha1("MBC1475").digest())
 # >>> 'pYsIJKF18hj0SvS3TwrQV3hWzD4='
 
+
+def login_custom(request):
+    error = False
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return login_redirect(request)
+            else:
+                error = True
+                return render(request, 'login.html', locals())
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', locals())
 
 def login_test(request):
     try:
@@ -149,11 +169,6 @@ def ABMabo(request):
         print "abo += {}".format(element)
         http += "+ {}".format(element)
     return HttpResponse(http)
-
-
-def send_mailx(request):
-    send_mail('Trop un toqueballe', 'kikou, beauté', 'n.burton@groupembc.com', ['luc@lesidecar.fr',], fail_silently=False)
-    return HttpResponse('MAIL DELIVERY OK')
 
 
 def aboweb(request):

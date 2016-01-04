@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+{% load pages_tags mezzanine_tags i18n staticfiles %}
+{% load custom_tags %}
+{% load bootstrap3 %}
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.sITE_TITLE %} | {{ settings.sITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+{% ifinstalled mezzanine.blog %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
+{% endifinstalled %}
+
+{% compress css %}
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.override.css" %}">
+<link rel="stylesheet" href="{% static "css/custom.css" %}">
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700,800' rel='stylesheet' type='text/css'>
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
+{% endif %}
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+{% compress js %}
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/bootstrap-extras.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
+<![endif]-->
+
+{% block extra_head %}{% endblock %}
+{% block edited_css %}
+<style type="text/css">
+    {% for site in all_sites %}
+    {% if site.css_class != 'default' %}
+
+    .navbar-nav > .dropdown.{{ site.css_class }} > a, .navbar-nav > .dropdown.open.{{ site.css_class }} > a{
+        border-color: {{ site.color }};
+    }
+
+    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a,.navbar-default .navbar-nav > .open.{{ site.css_class }} > a:hover, .navbar-default .navbar-nav > .open.{{ site.css_class }} > a:focus
+    {
+        background-color: {{ site.color }};
+    }.navbar-nav > .active.{{ site.css_class }} > a{
+        color: {{ site.color }};
+    }
+    .site_sub_title.{{ site.css_class }}{
+        color: {{ site.color }};
+    }
+
+    .{{ site.css_class }} .last_news, .{{ site.css_class }} .dropdown-category a:hover, .{{ site.css_class }} .highlight-box:hover a{
+        color: {{ site.color }};
+    }
+
+    @media screen and (max-width: 768px){
+        .dropdown.open > .dropdown-menu.{{ site.css_class }}{
+            border-bottom: 4px solid {{ site.color }};
+        }
+        .{{ site.css_class }} .dropdown-category>a>i{
+            color: {{ site.color }};
+        }
+    }
+
+    .bloc_article.{{ site.css_class }} .label{
+        background-color: {{ site.color }};
+        border-color: {{ site.color }};
+    }
+
+    {% endif %}
+    {% endfor %}
+</style>
+ {% block extra_edited_css %}{% endblock %}
+{% endblock %}
+</head>
+<body id="{% block body_id %}body{% endblock %}">
+{% if habillage %}
+<div id='banner_layer' style='height: 200px'>
+    <a href='{{ habillage.lien }}' target='blank'><img src='{{ MEDIA_URL }}publicite/{{ habillage.media }}' /></a>
+</div>
+{% endif %}
+{% block contentNav %}
+<nav id='contentNav' class="navbar navbar-default" role="navigation">
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="//lacoursedesgarconsdecafe.org"><img src='{% static "img/logo_pnpapetier.jpg" %}' alt='logo PNP' /></a>
+    </div>
+    <div id='navbar-collapse-1' class="collapse navbar-collapse">
+        <ul class='nav navbar-nav'>
+            {% for site in all_sites %}
+            <li class='dropdown {{ site.css_class }}'>
+                <a class='dropdown-toggle text-center' href='//{{ site.domain }}/articles/'>
+                <div class='site_title'> {{ site.name|upper }} </div>
+                <div class='site_sub_title {{ site.css_class }}'> {{ site.title_sub }} </div>
+        </a>
+                <ul class='dropdown-menu {{ site.css_class }}'>
+                    <div class='container'>
+                    <li class='dropdown-sub dropdown-category'>
+                        <div class='last_news'>
+                            Dernières News
+                            <i class='fa fa-long-arrow-right fa-lg'></i>
+                        </div>
+                        {% for blogCat in site.all_cat %}
+                            <a href='//{{ site.domain }}{% url "blog_post_list_category" blogCat.slug %}'>
+                                <i class='fa fa-caret-right'></i>
+                                {{ blogCat.title|lower|capfirst }}
+                            </a>
+                        {% endfor %}
+                    </li>
+                    <li class='dropdown-sub dropdown-highlights'>
+                        {% for BlogHighlight in site.highlights %}
+                            <div class='highlight-box'>
+                                <a href='//{{ site.domain }}{% url "blog_post_detail" BlogHighlight.slug %}'>
+                                    {% if BlogHighlight.featured_image != '' %}
+                                        <img src='{{ MEDIA_URL }}{% thumbnail BlogHighlight.featured_image 250 120 %}' />
+                                    {% endif %}
+                                    <h5 class='caption'>
+                                        <i class='fa fa-angle-right'></i>
+                                        {{ BlogHighlight.title|capfirst|truncatechars:40 }}
+                                    </h5>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </li>
+                    <li class='dropdown-sub dropdown-logo'>
+                        <img src='{{ MEDIA_URL }}SITES/logo/{{ site.img_logo }}' alt='logo magazine' />
+                    </li>
+                    </div>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown {% if page.is_current_or_ascendant %}active{% endif %}" id="univers_PNP">
+                <a href="{{ page.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown">
+                    Univers PNP
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <div class='container text-right'>
+                    {% for page_univ in pages_univers %}
+                        <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
+                            <a href="//{{ mainSite }}{{ page_univ.get_absolute_url }}">
+                            <div class='sub_univ_PNP'>
+                                {{ page_univ.title }}
+                             </div>
+                            </a>
+                         </li>
+                    {% endfor %}
+                  </div>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+    <div class="container">
+
+        <div class='col-md-4 col-md-offset-4'>
+        {% nevercache %}
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endnevercache %}
+
+        {% block title %}{% endblock %}
+
+    </div>
+
+    {% block main %}
+        
+        {% if error %}
+            <div class='col-md-8 col-md-offset-2' style='padding-top: 20px; padding-bottom: 20px;'>
+                <div class='alert alert-danger text-center'>
+                    <i class='icon-warning-sign'></i> Identifiant ou adresse mail invalide.
+                </div>
+            </div>
+        {% endif %}
+
+        <div class='col-md-4 col-md-offset-4 text-center' style='padding-top: 20px; padding-bottom: 20px;'>
+            {% if user.is_authenticated %}
+                vous êtes connecté, {{ user.username }} !
+            {% else %}
+                <form method='POST' action=''>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "star" %} Envoyer
+                        </button>
+                    {% endbuttons %}
+                </form>
+            {% endif %}
+            </div>
+
+    {% endblock %}
+
+
+    <footer>
+        <div class="container">
+            {% page_menu "pages/menus/footer.html" %}
+        </div>
+    </footer>
+
+{% include "includes/footer_scripts.html" %}
+
+</body>
+</html>
+
+

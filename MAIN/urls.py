@@ -35,16 +35,11 @@ urlpatterns += patterns('',
     # commented out like the others, so it's the default. You only need
     # one homepage pattern, so if you use a different one, comment this
     # one out.
+    url(r'^login$', 'MAIN.views.login_custom', name='login_custom'),
     url(r'^login_test$', 'MAIN.views.login_test', name='login_test'),
-    url(r'^test$', 'MAIN.views.test', name='test'),
-    url(r'^test1/$', 'MAIN.views.test_AbmWeb', name='test1'),
-    url(r'^test2/$', 'MAIN.views.test_ClientService', name='test2'),
-    url(r'^test3/$', 'MAIN.views.test_AbonnementService', name='test3'),
     url(r'^getAbonnement/$', 'MAIN.views.getAbonnement', name='getAbonnement'),
     url(r'^ABMabo/$', 'MAIN.views.ABMabo', name='ABMabo'),
-    url(r'^send_mailx$', 'MAIN.views.send_mailx', name='send_mailx'),
     url(r'^kill$', 'MAIN.views.kill', name='kill'),
-    url(r'^get_client/(?P<codeClient>.+)/$', 'MAIN.views.get_client', name='get_client'),
     url(r'^aboweb$', 'MAIN.views.aboweb', name='aboweb'),
     url(r'^archive/(?P<start>.+)/(?P<end>.+)/$', 'MAIN.views.archive', name='archive'),
     url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),
