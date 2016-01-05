@@ -34,12 +34,34 @@ h4{
     font-size: 14px;
 }
 
+.fa-user{
+    color: #FEC10D;
+}
+
 #banner_layer{
     overflow: hidden;
     max-height: 150px;
 }#banner_layer img{
     max-width: 100%;
 }
+
+#abonnement{
+    position: absolute;
+    z-index: 8; /* -1 compared to .navbar-header [see bootstrap.override.css] */
+    display: inline-block;
+    width: auto;
+    padding: 2px 0;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,.3);
+    background-color: #FEC10D;
+    text-align: center;
+    color: white;
+    -moz-transition: top 0.9s ease-out;
+    -webkit-transition: top 0.9s ease-out;
+    -o-transition: top 0.9s ease-out;
+    transition: top 0.9s ease-out;
+}
+
 .navbar-brand{
     padding: 0 15px;
 }
@@ -204,11 +226,12 @@ h4{
 
     .navbar-brand img{
         height: 50px;
+        margin-top: 15px;
     }
 
     .navbar-nav > li > a, .navbar-nav > li.open > a{
         min-width: 50px;
-        padding: 15px 20px;
+        padding: 25px 20px;
         border-bottom: 2px solid;
     }
 
@@ -227,6 +250,11 @@ h4{
         width: calc(40% - 170px);
     }
 
+}
+@media screen and (min-width: 991px) and (max-width: 1200px){
+    .navbar-brand img{
+        margin-top: 8px;
+    }
 }
 @media screen and (min-width: 1200px){
 

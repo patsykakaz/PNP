@@ -3,6 +3,8 @@
 
 
 #contentNav{
+    position: relative;
+    z-index: 9;
     border-bottom: none;
 }
 .navbar{
@@ -21,6 +23,10 @@
     color: white;
 }
 
+.navbar-header{
+    position: relative;
+    z-index: 8;
+}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
     border-color: transparent;
 }
