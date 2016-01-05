@@ -189,7 +189,7 @@ def aboweb(request):
 
 def kill(request):
     logout(request)
-    return HttpResponse('logged out')
+    return HttpResponseRedirect('/')
 
 def archive(request,start,end):
     from django.contrib.sites.models import Site
@@ -231,6 +231,7 @@ def archive(request,start,end):
             print item[15]
         k.save()
     return HttpResponse("archiving process ended.")
+
 
 
 

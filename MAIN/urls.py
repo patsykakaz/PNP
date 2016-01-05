@@ -35,7 +35,7 @@ urlpatterns += patterns('',
     # commented out like the others, so it's the default. You only need
     # one homepage pattern, so if you use a different one, comment this
     # one out.
-    url(r'^login$', 'MAIN.views.login_custom', name='login_custom'),
+    url(r'^login', 'MAIN.views.login_custom', name='login_custom'),
     url(r'^login_test$', 'MAIN.views.login_test', name='login_test'),
     url(r'^getAbonnement/$', 'MAIN.views.getAbonnement', name='getAbonnement'),
     url(r'^ABMabo/$', 'MAIN.views.ABMabo', name='ABMabo'),
@@ -104,3 +104,4 @@ urlpatterns += patterns('',
 # pages can use JS, CSS and images.
 handler404 = "mezzanine.core.views.page_not_found"
 handler500 = "mezzanine.core.views.server_error"
+

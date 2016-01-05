@@ -16,7 +16,7 @@
             <div class='container-mainArticle {% if forloop.counter0 == 0 %} deploy {% endif %}'>
                 <a class='mainArticle' href='//{{ mainArticle.site.domain }}{{ mainArticle.get_absolute_url }}'>
                     <div class='container-caption'>
-                        <div class='caption-bg' style='background-image:url("{{ MEDIA_URL }}{% thumbnail mainArticle.featured_image 1000 400 %}")'>
+                        <div class='caption-bg' style='background-image:url("{{ MEDIA_URL }}{% thumbnail mainArticle.featured_image 1200 400 %}")'>
                         </div>
                         <div class='caption-screen'>
                             <h2 class='caption-title small'>{{ mainArticle.title|capfirst }}</h2>

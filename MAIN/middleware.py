@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-
 from django.conf import settings
+
 from mezzanine.blog.models import BlogCategory, BlogPost
 from models import *
 
@@ -14,8 +14,8 @@ from models import *
 class AuthXMiddleware(object):
     def process_request(self,request):
         forbidden_domain = "lalettre"
-        if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path:
-            return HttpResponse('COCKBLOCK')
+        if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path and not "login" in request.path:
+            return HttpResponseRedirect('/login?next='+request.path)
         else: 
             print "request.META['HTTP_HOST'] = {}".format(request.META['HTTP_HOST'])
             print "request.user.is_authenticated = {}".format(request.user.is_authenticated())
@@ -50,7 +50,7 @@ class NavMiddleware(object):
         last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:20]
         for post in last_blogPosts:
             try:
-                post.extension_site = SiteExtension.objects.get(site=post.site)
+                post.extension_site = SiteExtension._base_manager.get(site=post.site)
             except:
                 post.extension_site = False
         double = 0
@@ -86,3 +86,4 @@ class NavMiddleware(object):
         response.context_data['last_blogPosts'] = last_blogPosts
         response.context_data['mainArticles'] = mainArticles[:3]
         return response
+

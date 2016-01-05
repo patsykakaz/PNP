@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
@@ -59,26 +60,30 @@ class ClientAuthBackend(ModelBackend):
                             username_or_email = Q(username=username) | Q(email=username)
                             try:
                                 user = User.objects.get(username_or_email, **kwargs)
-                                if user.check_password(password):
-                                    print "user is being auth. through local db"
-                                    return user
+                                # if user.check_password(password):
+                                #     print "user is being auth. through local db"
+                                #     return user
+                                # else:
+                                #     print "WTF ???"
+                                return user
                             except User.DoesNotExist:
                                 print "creating local user"
-                                userId = str(uuid.uuid4())
+                                userId = str(uuid.uuid4())[:16]
                                 try:
-                                    send_mail('Creation de compte', 'Message test de creation du code de l\'utilisateur : {}'.format(userId), 'n.burton@groupembc.com', ['philippe@lesidecar.fr',],fail_silently=False)
-                                    print "MAIL HAS BEEN SENT !"
-                                except 'SMTPConnectError' as e:
-                                    print 'SMTPConnectError'
-                                else: 
-                                    print 'mail has failed'
-                                try:
-                                    k = User(username=userId,email=username,password=make_password(password),is_staff=False)
+                                    k = User.objects.create_user(username=userId, email=username, password=make_password(password))
                                     k.save()
                                 except:
                                     print "error during user creation process"
+                                try:
+                                    send_mail('Creation de compte utilisateur - pnpapetier.com', 
+                                        """ Une réplique de l'utilisateur {} vient d'être créée sur la base locale de pnpapetier.com sous l'U.U.I.D. {}""".format(username,userId),
+                                        'n.burton@groupembc.com', 
+                                        ['philippe@lesidecar.fr',],
+                                        fail_silently=False)
+                                    print "MAIL HAS BEEN SENT !"
+                                except 'SMTPConnectError' as e:
+                                    print 'SMTPConnectError'
                                 return k
-
                         # RED FLAG
                         else:
                             # Shoot mail to rebuy 
@@ -139,3 +144,4 @@ def getAbonnements(codeClient):
     result = clientAbonnement.call("getAbonnements",params)
     xml = SimpleXMLElement(clientAbonnement.xml_response)
     return xml
+
