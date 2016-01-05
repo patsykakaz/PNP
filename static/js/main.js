@@ -2,7 +2,13 @@ $(document).ready(function(){
 
     Navbar();
     DeployArticle();
-    AbonnementBtn(true);
+    $(window).load(function(){
+        if(window.location.pathname == '/'){
+            AbonnementBtn(true);
+        }else{  
+            AbonnementBtn(false);
+        }
+    });
     $('.caption-screen').first().addClass('first');
 });
 

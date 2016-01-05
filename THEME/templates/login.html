@@ -36,14 +36,15 @@
 <script src="{% static "js/main.js" %}"></script>
 {% block extra_js %}
     <script type="text/javascript">
-    $(document).ready(function(){
-        $('#main').height($(window).height()-$('#contentNav').outerHeight());
-        $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
-    });
-    $(window).resize(function(){
-        $('#main').height($(window).height()-$('#contentNav').outerHeight());
-        $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
-    });
+
+        $(document).ready(function(){
+            $('#main').height($(window).height()-$('#contentNav').outerHeight());
+            $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
+        });
+        $(window).resize(function(){
+            $('#main').height($(window).height()-$('#contentNav').outerHeight());
+            $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
+        });
     </script>
 {% endblock %}
 {% endcompress %}

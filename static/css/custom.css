@@ -39,6 +39,8 @@ h4{
 }
 
 #banner_layer{
+    position: relative;
+    z-index: 9;
     overflow: hidden;
     max-height: 150px;
 }#banner_layer img{
