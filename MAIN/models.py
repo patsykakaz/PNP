@@ -55,6 +55,10 @@ class SiteExtension(Page):
 class PageUnivers(Page, RichText):
     illustration = models.ImageField(upload_to=MEDIA_ROOT+'/SITES/universPNP', null=True, blank=True, verbose_name='illustration')
 
+    def save(self, *args, **kwargs):
+        self.in_menus = []
+        super(SiteExtension, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'UNIVERS_PNP'
 

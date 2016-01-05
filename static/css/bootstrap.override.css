@@ -36,8 +36,22 @@
     border: none;
 }
 
-.pager li > a{
-    margin: 5px 20px;;
+.pager li > a, .pager li > span{
+    margin: 5px 20px;
+    border-radius: 3px;
+    border-color: #007099;
+    color: #007099;
+    -moz-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}.pager li > a:hover, .pager li > span:hover{
+    border-color: #007099;
+    background-color: #007099;
+    color: white;
+    -moz-transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
-
 
