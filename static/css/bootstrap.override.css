@@ -36,6 +36,10 @@
     border: none;
     background-color: rgb(242,242,242);
 }
+.dropdown-menu > li{
+    padding: 7px 4px;
+    border-bottom: 1px solid #e5e5e5;
+}
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
     background-color: white;
     color: #007099;
