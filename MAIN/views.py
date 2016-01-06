@@ -18,8 +18,6 @@ from forms import *
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
 
-# import xml.sax
-
 get_backends()
 
 # base64.b64encode(hashlib.sha1("MBC2015").digest())
@@ -27,36 +25,45 @@ get_backends()
 # base64.b64encode(hashlib.sha1("MBC1475").digest())
 # >>> 'pYsIJKF18hj0SvS3TwrQV3hWzD4='
 
+def testCoUCX(request):
+    codeClient = '8741'
+    client = SoapClient(location="http://aboweb.com/aboweb/ClientService?wsdl",trace=True)
+    client['wsse:Security'] = {
+           'wsse:UsernameToken': {
+                'wsse:Username': 'admin.webservices@mbc.com',
+                'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
+                # 'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                }
+            }
+    params = SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><ges:getClient xmlns:ges="http://www.gesmag.com/"><codeClient>'+codeClient+'</codeClient></ges:getClient>');
+    result = client.call("getClient",params)
+    xml = SimpleXMLElement(client.xml_response)
+    print "---------°°°°°°°°----------"
+    target = xml.children().children().children()
+    target.nom = 'LEROI'
+    target.motPasseAbm = "xxxxxx"
+    target = SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/">'+ repr(target) +'</ges:createOrUpdateClientEx>')
 
-def login_custom(request):
-    error = False
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user:
-                login(request, user)
-                return login_redirect(request)
-            else:
-                error = True
-                return render(request, 'login.html', locals())
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', locals())
+    client.call('createOrUpdateClientEx',target)
+    return HttpResponse('ok')
 
-def login_test(request):
-    try:
-        user = authenticate(username="pnp@groupembc.com",password="MBCTEST1")
-        print user
-        login(request,user)
-    except:
-        return HttpResponse('login fault')
-    if user.is_authenticated:
-        return HttpResponse('login passed + user is Auth')
-    else:
-        return HttpResponse('login passed + user is not Auth')
+# def login_custom(request):
+#     error = False
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             user = authenticate(username=username, password=password)
+#             if user:
+#                 login(request, user)
+#                 return login_redirect(request)
+#             else:
+#                 error = True
+#                 return render(request, 'login.html', locals())
+#     else:
+#         form = LoginForm()
+#     return render(request, 'login.html', locals())
 
 def test(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
@@ -85,12 +92,12 @@ def test(request):
 
 
 def get_client(request,codeClient):
-    client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService?wsdl",trace=False)
+    client = SoapClient(location="http://aboweb.com/aboweb/ClientService?wsdl",trace=False)
     client['wsse:Security'] = {
            'wsse:UsernameToken': {
                 'wsse:Username': 'admin.webservices@mbc.com',
-                'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
-                # 'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
+                # 'wsse:Password': 'tRPTUOP+QQYzVcxYZeQXsiTJ+dw=',
+                'wsse:Password': 'pYsIJKF18hj0SvS3TwrQV3hWzD4=',
                 }
             }
     params = SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><ges:getClient xmlns:ges="http://www.gesmag.com/"><codeClient>'+codeClient+'</codeClient></ges:getClient>');

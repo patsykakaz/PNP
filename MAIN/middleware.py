@@ -15,7 +15,7 @@ class AuthXMiddleware(object):
     def process_request(self,request):
         forbidden_domain = "lalettre"
         if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path and not "login" in request.path:
-            return HttpResponseRedirect('/login?next='+request.path)
+            return HttpResponseRedirect('/user/login?next='+request.path)
         else: 
             print "request.META['HTTP_HOST'] = {}".format(request.META['HTTP_HOST'])
             print "request.user.is_authenticated = {}".format(request.user.is_authenticated())

@@ -115,7 +115,7 @@
                 <div class='site_title'> {{ site.name|upper }} </div>
                 <div class='site_sub_title {{ site.css_class }}'> {{ site.title_sub }} </div>
                 </a>
-                <ul class='dropdown-menu {{ site.css_class }}'>
+                <ul class='dropdown-menu dropdown-menu-custom {{ site.css_class }}'>
                     <div class='container'>
                     <li class='dropdown-sub dropdown-category'>
                         <div class='last_news'>
@@ -153,27 +153,37 @@
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown {% if page.is_current_or_ascendant %}active{% endif %}" id="univers_PNP">
+            <li class="dropdown dropdown-regular {% if page.is_current_or_ascendant %}active{% endif %}" id="univers_PNP">
                 <a href="{{ page.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown">
                     UNIVERS PNP
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-		          <div class='container text-right'>
+                  <div class='text-right'>
                     {% for page_univ in pages_univers %}
                         <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
                             <a href="//{{ mainSite }}{{ page_univ.get_absolute_url }}">
                             <div class='sub_univ_PNP'>
                                 {{ page_univ.title }}
-			                 </div>
+                             </div>
                             </a>
                          </li>
                     {% endfor %}
-		          </div>
+                  </div>
                 </ul>
             </li>
-            <li>
-                <a href style='border-color:white;'><i class='fa fa-lg fa-user'></i></a>
+            <li class="dropdown dropdown-regular">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                   <i class='fa fa-lg fa-user'></i>
+                   <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
+                        <a href="user/logout/">
+                            logout
+                        </a>
+                     </li>
+                </ul>
             </li>
         </ul>
     </div>

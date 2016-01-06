@@ -73,7 +73,7 @@ strong{
 .navbar-brand img{
     height: 62px;
 }
-.nav li.dropdown{
+.nav li.dropdown:not(.dropdown-regular){
     position: initial;
 }
 .navbar-default .navbar-nav > .active > a{
@@ -98,7 +98,7 @@ strong{
     color: white;
 }
 
-.dropdown-menu{
+.dropdown-menu-custom{
     position: absolute;
     left: 0;
     width: 100%;

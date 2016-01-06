@@ -36,7 +36,7 @@
 <script src="{% static "js/main.js" %}"></script>
 {% block extra_js %}
     <script type="text/javascript">
-
+    
         $(document).ready(function(){
             $('#main').height($(window).height()-$('#contentNav').outerHeight());
             $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
@@ -121,7 +121,7 @@
 {% block main %}
     <div id='main'>
         {% if error %}
-            <div class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2'>
+            <div id='error' class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2'>
                 <div class='alert alert-danger text-center'>
                     <i class='icon-warning-sign'></i> Identifiant ou adresse mail invalide.
                 </div>
@@ -129,8 +129,19 @@
         {% endif %}
 
         <div id='form' class='col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 text-center' style='padding:30px; background-color:white; border-radius:5px;'>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and not display %}
                 vous êtes connecté, {{ user.username }}.
+            {% elif user.is_authenticated %}
+                <h2 style='margin: 0 0 20px 0'>XXXXXXX</h2>
+                <form method='POST' action=''>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
+                            {% bootstrap_icon "star" %} Envoyer
+                        </button>
+                    {% endbuttons %}
+                </form>
             {% else %}
                 <h2 style='margin: 0 0 20px 0'>CONNECTEZ-VOUS</h2>
                 <form method='POST' action=''>
