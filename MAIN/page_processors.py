@@ -15,7 +15,8 @@ from mezzanine.core.request import current_request
 
 @processor_for(PageUnivers)
 def processor_revue(request, page):
-    PageUniv = PageUnivers.objects.get(title=page.title)
+    PageUniv = PageUnivers.objects.filter(title=page.title)
+    PageUniv = PageUniv[0]
     try:
         couv = PageUniv.illustration.url.split('/')
         PageUniv.couverture = couv[-1]

@@ -19,7 +19,7 @@ get_backends()
 
 def connect(request):
     error = False
-    try request.GET:
+    if request.GET:
         articleAttempt = True
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -50,6 +50,9 @@ def showUser(request):
     else:
         form = UserModif()
     return render(request, 'login.html', locals())
+
+def changeUser(request):
+    return HttpResponse('CHANGEUSERVIEW')
 
 @login_required
 def test_log_req(request):
