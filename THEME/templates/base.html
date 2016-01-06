@@ -75,6 +75,15 @@
         }
     }
 
+    .mainArticle .label.{{ site.css_class }}{
+        margin: 2px 4px;
+        vertical-align: middle;
+        opacity: .8;
+        background-color: {{ site.color }};
+        border-radius: 0;
+        border-color: {{ site.color }};
+        font-size: 10px;
+    }
     .bloc_article.{{ site.css_class }} .label{
         background-color: {{ site.color }};
         border-color: {{ site.color }};
@@ -181,18 +190,18 @@
                 <ul class="dropdown-menu">
                     {% if not user.is_authenticated %}
                     <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
-                        <a href="user/login/">
+                        <a href="/user/login/">
                             connexion
                         </a>
                     </li>
                      {% else %}
                     <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
-                        <a href="user/display/">
+                        <a href="/user/display/">
                             modifier profil
                         </a>
                     </li>
                     <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
-                        <a href="user/logout/">
+                        <a href="/user/logout/">
                             déconnexion
                         </a>
                      </li>

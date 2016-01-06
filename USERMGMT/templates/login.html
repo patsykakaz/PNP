@@ -143,16 +143,29 @@
                     {% endbuttons %}
                 </form>
             {% else %}
-                <h2 style='margin: 0 0 20px 0'>CONNECTEZ-VOUS</h2>
-                <form method='POST' action=''>
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    {% buttons %}
-                        <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
-                            {% bootstrap_icon "star" %} Envoyer
-                        </button>
-                    {% endbuttons %}
-                </form>
+                {% if not articleAttempt %}
+                    <h2 style='margin: 0 0 20px 0'>CONNECTEZ-VOUS</h2>
+                    <form method='POST' action=''>
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
+                                {% bootstrap_icon "star" %} Envoyer
+                            </button>
+                        {% endbuttons %}
+                    </form>
+                {% else %}
+                    <h2 style='margin: 0 0 20px 0'>Pour accéder à cette page, vous devez vous connecter.</h2>
+                    <form method='POST' action=''>
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
+                                {% bootstrap_icon "star" %} Envoyer
+                            </button>
+                        {% endbuttons %}
+                    </form>
+                {% endif %}
             {% endif %}
         </div>
     </div>

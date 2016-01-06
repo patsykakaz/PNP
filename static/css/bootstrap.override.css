@@ -40,6 +40,9 @@
     padding: 7px 4px;
     border-bottom: 1px solid #e5e5e5;
 }
+.dropdown-menu > li:hover, .dropdown-menu > li:focus{
+    background-color: white;
+}
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
     background-color: white;
     color: #007099;

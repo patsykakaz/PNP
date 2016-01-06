@@ -57,7 +57,7 @@ class PageUnivers(Page, RichText):
 
     def save(self, *args, **kwargs):
         self.in_menus = []
-        super(SiteExtension, self).save(*args, **kwargs)
+        super(PageUnivers, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'UNIVERS_PNP'

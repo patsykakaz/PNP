@@ -19,8 +19,18 @@
                         <div class='caption-bg' style='background-image:url("{{ MEDIA_URL }}{% thumbnail mainArticle.featured_image 1200 400 %}")'>
                         </div>
                         <div class='caption-screen'>
-                            <h2 class='caption-title small'>{{ mainArticle.title|capfirst }}</h2>
-                            <h2 class='caption-title big'>{{ mainArticle.title|capfirst }}</h2>
+                            <h2 class='caption-title small'>
+                                {{ mainArticle.title|capfirst }}
+                                <span class='label {{ mainArticle.extension_site.css_class }}'>
+                                    {{ mainArticle.site.name }}
+                                </span>
+                            </h2>
+                            <h2 class='caption-title big'>
+                                {{ mainArticle.title|capfirst }}
+                                <span class='label {{ mainArticle.extension_site.css_class }}'>
+                                    {{ mainArticle.site.name }}
+                                </span>
+                            </h2>
                         </div>
                     </div>
                 </a>

@@ -19,6 +19,8 @@ get_backends()
 
 def connect(request):
     error = False
+    try request.GET:
+        articleAttempt = True
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():

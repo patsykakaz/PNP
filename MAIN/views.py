@@ -41,7 +41,8 @@ def testCoUCX(request):
     print "---------°°°°°°°°----------"
     target = xml.children().children().children()
     target.nom = 'LEROI'
-    target.motPasseAbm = "xxxxxx"
+    target.email = "pnp@groupembc.com"
+    target.motPasseAbm = "MBCTEST1"
     target = SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><ges:createOrUpdateClientEx xmlns:ges="http://www.gesmag.com/">'+ repr(target) +'</ges:createOrUpdateClientEx>')
 
     client.call('createOrUpdateClientEx',target)
