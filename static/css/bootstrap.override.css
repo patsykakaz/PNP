@@ -34,6 +34,28 @@
 .dropdown-menu{
     border-radius: 0;
     border: none;
+    background-color: rgb(242,242,242);
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    background-color: white;
+    color: #007099;
+}
+
+.dropdown-regular > a, .dropdown-regular.open > a, 
+.dropdown-regular > a:hover, .dropdown-regular.open > a:hover, 
+.navbar-nav > li.dropdown-regular > a, .navbar-nav > li.dropdown-regular.open > a{
+    padding: 20px 10px;
+    background-color: white;
+}
+.dropdown-regular a.dropdown-toggle img{
+    height: 36px;
+    /*width: calc(33% - 5px);*/
+}
+.dropdown-regular .dropdown-menu>li>a{
+    padding: 3px 20px;
+    clear: both;
+    line-height: 1.42857143;
+    white-space: nowrap;
 }
 
 .pager li > a, .pager li > span{

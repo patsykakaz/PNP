@@ -81,8 +81,8 @@ strong{
 }
 
 
-.navbar-nav > li > a, .navbar-nav > li.open > a{
-    min-width: 100px;
+.navbar-nav > li:not(.dropdown-regular) > a, .navbar-nav > li.open:not(.dropdown-regular) > a{
+    min-width: 70px;
     padding: 20px 30px;
     border-bottom: 4px solid;
     border-color: rgb(0,112,153);

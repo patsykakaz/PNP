@@ -153,36 +153,51 @@
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li class='dropdown-regular'>
+                <a href='' class='dropdown-toggle'>
+                    <img src='{% static 'img/icon_search.png' %}' />
+                </a>
+            </li>
             <li class="dropdown dropdown-regular {% if page.is_current_or_ascendant %}active{% endif %}" id="univers_PNP">
                 <a href="{{ page.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown">
-                    UNIVERS PNP
-                    <b class="caret"></b>
+                    <img src='{% static 'img/icon_univers.png' %}' />
                 </a>
                 <ul class="dropdown-menu">
-                  <div class='text-right'>
-                    {% for page_univ in pages_univers %}
-                        <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
-                            <a href="//{{ mainSite }}{{ page_univ.get_absolute_url }}">
-                            <div class='sub_univ_PNP'>
-                                {{ page_univ.title }}
-                             </div>
-                            </a>
-                         </li>
-                    {% endfor %}
-                  </div>
+                {% for page_univ in pages_univers %}
+                    <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}" id="{{ page_univ.html_id }}">
+                        <a href="//{{ mainSite }}{{ page_univ.get_absolute_url }}">
+                        <div class='sub_univ_PNP'>
+                            {{ page_univ.title }}
+                         </div>
+                        </a>
+                     </li>
+                {% endfor %}
                 </ul>
             </li>
             <li class="dropdown dropdown-regular">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                   <i class='fa fa-lg fa-user'></i>
-                   <b class="caret"></b>
+                <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src='{% static 'img/icon_login.png' %}' />
                 </a>
                 <ul class="dropdown-menu">
+                    {% if not user.is_authenticated %}
+                    <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
+                        <a href="user/login/">
+                            connexion
+                        </a>
+                    </li>
+                     {% else %}
+                    <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
+                        <a href="user/display/">
+                            modifier profil
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
                     <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
                         <a href="user/logout/">
-                            logout
+                            déconnexion
                         </a>
                      </li>
+                     {% endif %}
                 </ul>
             </li>
         </ul>
