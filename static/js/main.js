@@ -16,6 +16,8 @@ $(document).ready(function(){
 
 $(window).resize(function(){
     Navbar();
+    adapt_form_width();
+    toggle_navbar_form();
     if($(window).width()<970){
         $('#banner_layer').height(($('#contentNav').outerWidth()/970)*150+'px');
     }else{
