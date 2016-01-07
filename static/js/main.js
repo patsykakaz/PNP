@@ -96,7 +96,7 @@ function adapt_form_width(){
 }
 
 function toggle_navbar_form(){
-    $('#search-btn').click(function(){
+    $('#search-btn, #close-btn-2').click(function(){
         if($('#search_form').hasClass('hide')){
             $('#search_form').removeClass('hide');
             $('#search_form input').focus();

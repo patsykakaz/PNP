@@ -2,6 +2,7 @@
 <form action="{% url "search" %}" class="navbar-form navbar-right" role="search">
 
 <div class="form-group">
+    <a href="javascript:void(0)" id='close-btn-2'><i class='fa fa-close'></i></a>
     <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
 </div>
 
