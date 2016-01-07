@@ -162,9 +162,9 @@
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class='dropdown-regular'>
-                <a href='' class='dropdown-toggle'>
-                    <img src='{% static 'img/icon_search.png' %}' />
+            <li id='search-btn' class='dropdown-regular'>
+                <a class='dropdown-toggle'>
+                    <i class='fa fa-2x fa-search'></i>
                 </a>
             </li>
             <li class="dropdown dropdown-regular {% if page.is_current_or_ascendant %}active{% endif %}" id="univers_PNP">
@@ -185,7 +185,7 @@
             </li>
             <li class="dropdown dropdown-regular">
                 <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src='{% static 'img/icon_login.png' %}' />
+                    <i class='fa fa-2x fa-user'></i>
                 </a>
                 <ul class="dropdown-menu">
                     {% if not user.is_authenticated %}
@@ -196,7 +196,7 @@
                     </li>
                      {% else %}
                     <li class="{% if page_univ.is_current_or_ascendant %}active{% endif %}">
-                        <a href="/user/display/">
+                        <a href="/user/modification/">
                             modifier profil
                         </a>
                     </li>
@@ -209,6 +209,9 @@
                 </ul>
             </li>
         </ul>
+        <form id='search_form' action='/search/' class="hide navbar-form" role="search">
+            {% search_form %}
+        </form>
     </div>
 </div>
 </nav>

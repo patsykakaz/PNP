@@ -14,7 +14,7 @@ class UserForm(ModelForm):
         model = User
         fields = ['email', 'password',]
 
-class UserModif(forms.Form):
+class UserModifForm(forms.Form):
     mail = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
     password1 = forms.CharField(label='mot de passe', widget=forms.PasswordInput)
     password2 = forms.CharField(label='confirmation mot de passe', widget=forms.PasswordInput)

@@ -3,6 +3,8 @@ $(document).ready(function(){
     Navbar();
     DeployArticle();
     $(window).load(function(){
+        adapt_form_width();
+        toggle_navbar_form();
         if(window.location.pathname == '/'){
             AbonnementBtn(true);
         }else{  
@@ -77,6 +79,33 @@ function DeployArticle(){
 }
 
 
+// new navbar form
+function adapt_form_width(){
+    target = $('.navbar-form');
+    referent = $('#contentNav .container');
+    subTarget = $('.navbar-form .form-group .form-control');
+    if($(window).width() > 768){
+        target.height(referent.height());
+        subTarget.width($('.navbar-nav.navbar-left').outerWidth()).height(referent.outerHeight()).css('margin-left',$('.navbar-header').width()-15);
+    }else{
+        target.width(referent.outerWidth()).height();
+        // subTarget.width(referent.width() - $('#search-btn').outerWidth() +2).height(50);
+    }
+}
+
+function toggle_navbar_form(){
+    $('#search-btn').click(function(){
+        if($('#search_form').hasClass('hide')){
+            $('#search_form').removeClass('hide');
+            $('#search_form input').focus();
+            $('#search-btn a i').removeClass('fa-search').addClass('fa-close');
+        }else{
+            $('#search_form').addClass('hide');
+            $('#search-btn a i').removeClass('fa-close').addClass('fa-search');
+        }
+    });
+}
+// ./new navbar form
 
 
 

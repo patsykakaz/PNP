@@ -44,15 +44,24 @@ def killUser(request):
 def showUser(request):
     display = True
     if request.POST:
-        form = UserModif(request.POST)
+        form = UserModifForm(request.POST)
         if form.is_valid:
             print "ok"
     else:
-        form = UserModif()
+        form = UserModifForm()
     return render(request, 'login.html', locals())
 
 def changeUser(request):
-    return HttpResponse('CHANGEUSERVIEW')
+    display = True
+    if request.POST:
+        form = UserModifForm(request.POST)
+        if form.is_valid():
+            return HttpResponse('form is valid')
+        else:
+            return render(request, 'login.html', locals())
+    else:
+        form = UserModifForm()
+        return render(request, 'login.html', locals())
 
 @login_required
 def test_log_req(request):

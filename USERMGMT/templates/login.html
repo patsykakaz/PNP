@@ -132,7 +132,7 @@
             {% if user.is_authenticated and not display %}
                 vous êtes connecté, {{ user.username }}.
             {% elif user.is_authenticated %}
-                <h2 style='margin: 0 0 20px 0'>XXXXXXX</h2>
+                <h2 style='margin: 0 0 20px 0'>MODIFIER VOTRE PROFIL</h2>
                 <form method='POST' action=''>
                     {% csrf_token %}
                     {% bootstrap_form form %}

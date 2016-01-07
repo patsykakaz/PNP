@@ -15,45 +15,45 @@
 <li class="active">{% trans "Search Results" %}</li>
 {% endblock %}
 
-<div class='container'>
-    <div class='col-md-12'>
     {% block main %}
+    <div class='container' style='margin-top: 30px;'>
+        <div class='col-md-12'>
+        <p>
+        {% if results.paginator.count == 0 %}
+        {% blocktrans %}
+        aucun résultat ... 
+        {% endblocktrans %}
+        {% else %}
+        {% blocktrans with start=results.start_index end=results.end_index total=results.paginator.count %}
+        Résultats <strong>{{ start }}</strong> à <strong>{{ end }}</strong> sur <strong>{{ total }}</strong>, pour la recherche: <strong> {{ query }} </strong> 
+        {% endblocktrans %}
+        {% endif %}
+        </p>
 
-    <p>
-    {% if results.paginator.count == 0 %}
-    {% blocktrans %}
-    No results were found in {{ search_type }} matching your query: {{ query }}
-    {% endblocktrans %}
-    {% else %}
-    {% blocktrans with start=results.start_index end=results.end_index total=results.paginator.count %}
-    Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} matching your query: {{ query }}
-    {% endblocktrans %}
-    {% endif %}
-    </p>
-
-    <div id="search-results">
-    {% for result in results.object_list %}
-    {% with result.get_absolute_url as result_url %}
-        <h5>
-            {{ forloop.counter0|add:results.start_index }})
-            {% if result_url %}
-                <a href="{{ result_url }}">{{ result }}</a>
-            {% else %}
-                {{ result }}
+        <div id="search-results">
+        {% for result in results.object_list %}
+        {% with result.get_absolute_url as result_url %}
+        <div class='bloc_article col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+            <h3>
+                <span class='label'>{{ forloop.counter0|add:results.start_index }}</span>
+                {% if result_url %}
+                    <a href="{{ result_url }}">{{ result }}</a>
+                {% else %}
+                    {{ result }}
+                {% endif %}
+            </h3>
+            {% if result.description != result|stringformat:"s" %}
+                <p>{{ result.description|truncatewords_html:20|safe }}</p>
             {% endif %}
-        </h5>
-        {% if result.description != result|stringformat:"s" %}
-            <p>{{ result.description|truncatewords_html:20|safe }}</p>
-        {% endif %}
-        {% if result_url %}
-            <a href="{{ result_url }}">{% trans "read more" %}</a>
-        {% endif %}
-    {% endwith %}
-    {% endfor %}
+            {% if result_url %}
+                <a href="{{ result_url }}"><strong>{% trans "read more" %}</strong></a>
+            {% endif %}
+        </div>
+        {% endwith %}
+        {% endfor %}
+        </div>
+
+        {% pagination_for results %}
+        </div>
     </div>
-
-    {% pagination_for results %}
-
     {% endblock %}
-    </div>
-</div>
