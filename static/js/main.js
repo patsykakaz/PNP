@@ -86,7 +86,7 @@ function adapt_form_width(){
     subTarget = $('.navbar-form .form-group .form-control');
     if($(window).width() > 768){
         target.height(referent.height());
-        subTarget.width($('.navbar-nav.navbar-left').outerWidth()).height(referent.outerHeight()).css('margin-left',$('.navbar-header').width()-15);
+        subTarget.width($('.navbar-nav:first').outerWidth()).height(referent.outerHeight()).css('margin-left',$('.navbar-header').width()-15);
     }else{
         target.width(referent.outerWidth()).height();
         // subTarget.width(referent.width() - $('#search-btn').outerWidth() +2).height(50);

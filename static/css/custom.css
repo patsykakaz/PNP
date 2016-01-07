@@ -237,7 +237,7 @@ strong{
         margin-top: 15px;
     }
 
-    .navbar-nav > li > a, .navbar-nav > li.open > a{
+    .navbar-nav:not(.navbar-right) > li > a, .navbar-nav > li.open > a{
         min-width: 50px;
         padding: 25px 20px;
         border-bottom: 2px solid;
