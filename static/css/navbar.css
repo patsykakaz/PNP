@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 
-.fa-user, .fa-sign-in{
+.fa-user,{
     color: #FEC10D;
 }
-.fa-search, .fa-close{
+.fa-search, .fa-close, .fa-sign-in{
     color: #007099;
 }
 
@@ -285,9 +285,8 @@
         height: 50px;
         margin-top: 15px;
     }
-
     .navbar-nav:not(.navbar-right) > li > a, .navbar-nav > li.open > a{
-        padding: 25px 20px;
+        padding: 25px 15px;
         border-bottom: 2px solid;
     }
 
