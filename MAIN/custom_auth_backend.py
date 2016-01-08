@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.utils.http import base36_to_int
 from django.core.mail import send_mail
@@ -16,7 +17,6 @@ User = get_user_model()
 from webservices import *
 
 import uuid
-from django.contrib.auth.hashers import make_password
 
 
 
@@ -34,10 +34,10 @@ class ClientAuthBackend(ModelBackend):
                 except User.DoesNotExist:
                     try:
                         print "Checking aboWeb for Auth"
-                        aboAuthResult = aboAuth(username,password)
+                        aboAuthResult = authenticateByEmail(username,password)
                     except:
                         print "aboAuth failed"
-                        raise User.DoesNotExist
+                        return User.DoesNotExist
 
                     if aboAuthResult == 'true':
                         print "user exists in aboWeb"
@@ -47,7 +47,7 @@ class ClientAuthBackend(ModelBackend):
 
                         # fetch "getAbonnements"
                         xml = getAbonnements(codeClient)
-
+                        aboList = repr(xml)
                         for abonnement in xml.children().children().children():
                             if int(abonnement.refTitre) == 26 and str(abonnement.obsolete) == 'false':
                                 print "active_abo Found"
@@ -62,21 +62,18 @@ class ClientAuthBackend(ModelBackend):
                                 return user
                             except User.DoesNotExist:
                                 print "creating local user"
-                                userId = str(uuid.uuid4())[:16]
-                                try:
-                                    k = User.objects.create_user(username=userId, email=username, password=make_password(password))
-                                    k.save()
-                                except:
-                                    print "error during user creation process"
+                                userId = codeClient
+                                k = User.objects.create_user(username=userId, email=username, password=make_password(password))
+                                k.save()
                                 try:
                                     send_mail('Creation de compte utilisateur - pnpapetier.com', 
-                                        """ Une réplique de l'utilisateur {} vient d'être créée sur la base locale de pnpapetier.com sous l'U.U.I.D. {}""".format(username,userId),
+                                        """ Une réplique de l'utilisateur {} vient d'être créée sur la base locale de pnpapetier.com sous l'(U.U)I.D. {}""".format(username,userId),
                                         'n.burton@groupembc.com', 
                                         ['philippe@lesidecar.fr',],
                                         fail_silently=False)
                                     print "MAIL HAS BEEN SENT !"
                                 except 'SMTPConnectError' as e:
-                                    print 'SMTPConnectError'
+                                    pass
                                 return k
                         # RED FLAG
                         else:

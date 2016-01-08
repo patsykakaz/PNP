@@ -1,14 +1,12 @@
 @charset "UTF-8";
 
 
-.fa-user,{
+.fa-user{
     color: #FEC10D;
 }
 .fa-search, .fa-close, .fa-sign-in{
     color: #007099;
 }
-
-
 
 
 #abonnement{
