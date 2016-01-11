@@ -63,17 +63,23 @@ class ClientAuthBackend(ModelBackend):
                             except User.DoesNotExist:
                                 print "creating local user"
                                 userId = codeClient
-                                k = User.objects.create_user(username=userId, email=username, password=make_password(password))
-                                k.save()
                                 try:
-                                    send_mail('Creation de compte utilisateur - pnpapetier.com', 
-                                        """ Une réplique de l'utilisateur {} vient d'être créée sur la base locale de pnpapetier.com sous l'(U.U)I.D. {}""".format(username,userId),
-                                        'n.burton@groupembc.com', 
-                                        ['philippe@lesidecar.fr',],
-                                        fail_silently=False)
-                                    print "MAIL HAS BEEN SENT !"
-                                except 'SMTPConnectError' as e:
-                                    pass
+                                    k = User.objects.get(username=userId)
+                                    k.email=username
+                                    k.password = make_password(password)
+                                    k.save()
+                                except DoesNotExist:
+                                    k = User.objects.create_user(username=userId, email=username, password=make_password(password))
+                                    k.save()
+                                    try:
+                                        send_mail('Creation de compte utilisateur - pnpapetier.com', 
+                                            """ Une réplique de l'utilisateur {} vient d'être créée sur la base locale de pnpapetier.com sous l'(U.U)I.D. {}""".format(username,userId),
+                                            'n.burton@groupembc.com', 
+                                            ['philippe@lesidecar.fr',],
+                                            fail_silently=False)
+                                        print "MAIL HAS BEEN SENT !"
+                                    except 'SMTPConnectError' as e:
+                                        pass
                                 return k
                         # RED FLAG
                         else:
