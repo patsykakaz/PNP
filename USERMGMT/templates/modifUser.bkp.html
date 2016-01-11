@@ -36,17 +36,6 @@
 <script src="{% static "js/bootstrap-extras.js" %}"></script>
 <script src="{% static "js/main.js" %}"></script>
 {% block extra_js %}
-    <script type="text/javascript">
-    
-        $(document).ready(function(){
-            $('#main').height($(window).height()-$('#contentNav').outerHeight());
-            $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
-        });
-        $(window).resize(function(){
-            $('#main').height($(window).height()-$('#contentNav').outerHeight());
-            $('#form').css('margin-top',($('#main').outerHeight()-$('#form').outerHeight())/2);
-        });
-    </script>
 {% endblock %}
 {% endcompress %}
 
@@ -70,12 +59,15 @@
  {% block extra_edited_css %}{% endblock %}
 {% endblock %}
 </head>
+
+
 <body id="{% block body_id %}body{% endblock %}">
 {% if habillage %}
 <div id='banner_layer' style='height: 200px'>
     <a href='{{ habillage.lien }}' target='blank'><img src='{{ MEDIA_URL }}publicite/{{ habillage.media }}' /></a>
 </div>
 {% endif %}
+
 {% block contentNav %}
 <nav id='contentNav' class="navbar navbar-default" role="navigation">
 <div class="container">
@@ -100,85 +92,61 @@
 </nav>
 {% endblock %}
 
-    <div class="container">
-
-        {% nevercache %}
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endnevercache %}
-
-        {% block title %}{% endblock %}
-
-    </div>
-
 {% block main %}
-    <div id='main'>
+    <div id='main' class='container'>
         {% if error %}
             <div id='error' class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2'>
                 <div class='alert alert-danger text-center' style='padding: 10px 15px 5px 15px;'>
-                    <i class='icon-warning-sign'></i> Identifiants ou adresse mail invalide.
+                    <i class='icon-warning-sign'></i> Erreur parmi les données soumises.
                     <h3 style='margin: 10px;'>{{error}}</h3>
                 </div>
             </div>
         {% endif %}
+        {% if message %}
+        <div id='success' class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2' style='margin-top: 30px;'>
+                <div class='alert alert-success text-center' style='padding: 10px 15px 5px 15px;'>
+                    <i class='icon-user'></i> Modifications enregistrées.
+                    <h3 style='margin: 10px;'>{{ message }}</h3>
+                </div>
+            </div>
+        {% endif %}
 
-        <div id='form' class='col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 text-center' style='padding:30px; background-color:white; border-radius:5px;'>
-            {% if user.is_authenticated and not modification %}
-                vous êtes connecté, {{ user.username }}.
-            {% elif user.is_authenticated %}
-                <h2 style='margin: 0 0 20px 0'>MODIFIEZ VOTRE PROFIL</h2>
+        <div id='form' class='col-md-10 col-md-offset-1 text-center' style='margin-top: 30px; padding:30px; background-color:white; border-radius:5px;'>
+            <h2 style='margin: 0 0 20px 0'>MODIFIEZ VOTRE PROFIL</h2>
+            <div class='thumbnail col-md-6' style='padding:30px; '>
                 <form method='POST' action=''>
                     {% csrf_token %}
-                    {% bootstrap_form form %}
+                    {% bootstrap_form form1 %}
+                    <input type='hidden' id='modification_mail' name='modification_mail' />
                     {% buttons %}
                         <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
-                            <i class='fa fa-paper-plane'></i> Envoyer
+                            Modifier
                         </button>
                     {% endbuttons %}
                 </form>
-            {% else %}
-                {% if not articleAttempt %}
-                    <h2 style='margin: 0 0 20px 0'>CONNECTEZ-VOUS</h2>
-                    <form method='POST' action=''>
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
-                                <i class='fa fa-paper-plane'></i> Envoyer
-                            </button>
-                        {% endbuttons %}
-                    </form>
-                {% else %}
-                    <h2 style='margin: 0 0 20px 0'>Pour accéder à cette page, vous devez vous connecter.</h2>
-                    <form method='POST' action=''>
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
-                                {% bootstrap_icon "star" %} Envoyer
-                            </button>
-                        {% endbuttons %}
-                    </form>
-                {% endif %}
-            {% endif %}
+            </div>
+            <div class='thumbnail col-md-5 col-md-offset-1' style='padding:30px;'>
+                <form method='POST' action=''>
+                    {% csrf_token %}
+                    {% bootstrap_form form2 %}
+                    <input type='hidden' id='modification_password' name='modification_password' />
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary" style='margin-top:10px;'>
+                            Modifier
+                        </button>
+                    {% endbuttons %}
+                </form>  
+            </div>
         </div>
     </div>
 {% endblock %}
 
 
-    <footer>
-        <div class="container">
-            {% page_menu "pages/menus/footer.html" %}
-        </div>
-    </footer>
+<footer>
+    <div class="container">
+        {% page_menu "pages/menus/footer.html" %}
+    </div>
+</footer>
 
 {% include "includes/footer_scripts.html" %}
 

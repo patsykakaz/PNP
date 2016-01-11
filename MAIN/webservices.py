@@ -30,6 +30,7 @@ def ABM_ACCES_CLIENT(username,password):
     return xml('codeClient')
 
 def ABM_TEST_MAIL(mail):
+    # webservice to check for mail occurence in aboweb DB
     clientABM = SoapClient(wsdl="http://aboweb.com/aboweb/abmWeb?wsdl", ns="web", trace=False)
     clientABM['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'MBC1475'}
     resultABM = clientABM.ABM_TEST_MAIL(refEditeur='207',refSociete='1',email=mail)

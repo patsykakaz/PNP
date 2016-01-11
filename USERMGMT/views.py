@@ -70,7 +70,7 @@ def changeUser(request):
         if form.is_valid():
             # DO CHANGE HERE
             user = getClient(request.user.username)
-            if currentForm == MailModifForm: 
+            if currentForm == MailModifForm:
                 try:
                     user.email = form.cleaned_data['mail']
                     createOrUpdateClientEx(user)
@@ -79,6 +79,7 @@ def changeUser(request):
                     user.save()
                     message = 'Adresse mail modifié avec succès.'
                 except:
+                    error = "Une erreur est survenue."
                     raise IOError('user.mail update has failed')
             elif currentForm == PasswordModifForm:
                 try:
@@ -87,15 +88,19 @@ def changeUser(request):
                     message = 'Mot de passe modifié avec succès.'
                 except:
                     raise IOError('user.motPasseAbm update has failed')
+            form1 = MailModifForm()
+            form2 = PasswordModifForm()
         else:
+            print 'form is not valid'
             if currentForm == MailModifForm:
                 form1 = MailModifForm(request.POST)
                 form2 = PasswordModifForm()
             else:
                 form1 = MailModifForm()
                 form2 = PasswordModifForm(request.POST)
-    form1 = MailModifForm()
-    form2 = PasswordModifForm()
+    else:
+        form1 = MailModifForm()
+        form2 = PasswordModifForm()
     return render(request, 'modificationUser.html', locals())
 
 @login_required
