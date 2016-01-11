@@ -270,6 +270,9 @@
         min-width: 25px;
         padding: 15px 10px;
     }
+    .dropdown-custom .dropdown-menu, .dropdown-custom.open > .dropdown-menu{
+        display: none;
+    }
     .dropdown-category{
         width: 100%;
     }

@@ -62,13 +62,11 @@ class ClientAuthBackend(ModelBackend):
                                 return user
                             except User.DoesNotExist:
                                 print "creating local user"
-                                userId = codeClient
+                                userId = int(codeClient)
                                 try:
                                     k = User.objects.get(username=userId)
-                                    k.email=username
-                                    k.password = make_password(password)
-                                    k.save()
-                                except DoesNotExist:
+                                except User.DoesNotExist:
+                                    print 'User %s DoesNotExist' % codeClient
                                     k = User.objects.create_user(username=userId, email=username, password=make_password(password))
                                     k.save()
                                     try:
