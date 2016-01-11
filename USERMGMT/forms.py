@@ -25,7 +25,7 @@ class MailModifForm(forms.Form):
         mailExist = ABM_TEST_MAIL(mail)
         mailExist = str(mailExist)
         if mailExist == '00':
-            raise forms.ValidationError("Adresse mail déjà présente en base de donnée.")
+            raise forms.ValidationError("Adresse mail déjà présente en base de données.")
         elif mailExist != '01' :
             raise forms.ValidationError("ABM_TEST_MAIL return failed")
         return self.cleaned_data

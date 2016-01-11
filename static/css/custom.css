@@ -254,6 +254,11 @@ footer{
     #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{
         height: 150px;
     }
+    .mainArticle .caption-bg{
+        background-size: auto 150px;
+    }.deploy .mainArticle .caption-bg{
+        background-size: auto 150px;
+    }
     .caption-title.big{
         font-size: 16px;
         font-weight: normal;
@@ -279,6 +284,11 @@ footer{
     #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{
         height: 250px;
     }
+    .mainArticle .caption-bg{
+        background-size: auto 250px;
+    }.deploy .mainArticle .caption-bg{
+        background-size: auto 250px;
+    }
     .caption-title.big{
         font-size: 22px;
     }
@@ -300,5 +310,10 @@ footer{
 @media screen and (min-width: 1200px){
     #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{
         height: 400px;
+    }
+    .mainArticle .caption-bg{
+        background-size: auto 400px;
+    }.deploy .mainArticle .caption-bg{
+        background-size: auto 400px;
     }
 }

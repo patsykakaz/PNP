@@ -163,7 +163,8 @@
                         {% endbuttons %}
                     </form>
                 {% else %}
-                    <h2 style='margin: 0 0 20px 0'>Pour accéder à cette page, vous devez vous connecter.</h2>
+                    <h3 style='margin: 0 0 10px 0'>Pour accéder à cette page, vous devez être abonné à la <span style='color:#FEC10D;'>lettre PNP</span></h3>
+                    <h4 class='text-muted' style='margin-bottom: 15px;'>Merci de vous identifier.</h4>
                     <form method='POST' action=''>
                         {% csrf_token %}
                         {% bootstrap_form form %}

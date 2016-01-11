@@ -42,27 +42,34 @@ class PubMiddleware(object):
 
 class NavMiddleware(object):
     def process_template_response(self, request, response):
-        all_sites = Site.objects.exclude(name='default').order_by('id')
+        all_sites = list(Site.objects.exclude(pk=3).order_by('domain'))
+        all_sites.extend(list(Site.objects.filter(pk=3)))
         pages_univers = PageUnivers._base_manager.all()
         for page in pages_univers:
             print page.slug
         mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
+        # fetch color code 
         for article in mainArticles:
             try:
                 article.extension_site = SiteExtension._base_manager.get(site=article.site)
             except:
                 article.extension_site = False
-        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:20]
+        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:18]
+        # fetch color code
         for post in last_blogPosts:
             try:
                 post.extension_site = SiteExtension._base_manager.get(site=post.site)
             except:
                 post.extension_site = False
+        # remove doubles
         double = 0
+        i = 0
         for this in mainArticles:
             if this in last_blogPosts:
                 double += 1
-        last_blogPosts = last_blogPosts[:20-double]
+                del last_blogPosts[i]
+                i+=1
+        last_blogPosts = last_blogPosts[:18-double]
 
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)

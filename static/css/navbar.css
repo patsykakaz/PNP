@@ -1,10 +1,7 @@
 @charset "UTF-8";
 
 
-.fa-user{
-    color: #FEC10D;
-}
-.fa-search, .fa-close, .fa-sign-in{
+.fa{
     color: #007099;
 }
 
@@ -243,7 +240,7 @@
 .dropdown > a, .dropdown.open > a, 
 .dropdown > a:hover, .dropdown.open > a:hover, 
 .navbar-nav > li.dropdown > a, .navbar-nav > li.dropdown.open > a{
-    padding: 23px 10px;
+    padding: 23px 25px;
     background-color: white;
 }
 .dropdown a.dropdown-toggle img{
@@ -301,6 +298,11 @@
         height: 50px;
         margin-top: 15px;
     }
+    .dropdown > a, .dropdown.open > a, 
+    .dropdown > a:hover, .dropdown.open > a:hover, 
+    .navbar-nav > li.dropdown > a, .navbar-nav > li.dropdown.open > a{
+        padding: 23px 12px;
+    }
     .navbar > li.dropdown-custom > a, .navbar > li.dropdown-custom.open > a{
         padding: 25px 15px;
         border-bottom: 2px solid;
@@ -325,6 +327,12 @@
 @media screen and (min-width: 991px) and (max-width: 1200px){
     .navbar-brand img{
         margin-top: 8px;
+    }
+    .dropdown > a, .dropdown.open > a, 
+    .dropdown > a:hover, .dropdown.open > a:hover, 
+    .navbar-nav > li.dropdown > a, .navbar-nav > li.dropdown.open > a{
+        padding: 23px 20px;
+        background-color: white;
     }
 }
 @media screen and (min-width: 1200px){

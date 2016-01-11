@@ -102,10 +102,16 @@
     <a href='{{ habillage.lien }}' target='blank'><img src='{{ MEDIA_URL }}publicite/{{ habillage.media }}' /></a>
 </div>
 {% endif %}
-{% block contentNav %}    
+{% block contentNav %}  
+{% if request.user %}  
 <div id='abonnement'>
     <b>abonnement</b>
 </div>
+{% else %}
+<div id='abonnement'>
+    <b>{{ request.user.username }}</b>
+</div>
+{% endif %}
 <nav id='contentNav' class="navbar navbar-default" role="navigation">
 <div class="container">
     <div class="navbar-header">
@@ -187,9 +193,9 @@
             <li class="dropdown">
                 <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if not user.is_authenticated %}
-                        <i class='fa fa-2x fa-sign-in'></i>
-                    {% else %}
                         <i class='fa fa-2x fa-user'></i>
+                    {% else %}
+                        <i class='fa fa-2x fa-user' style='color:#FEC10D'></i>
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">
