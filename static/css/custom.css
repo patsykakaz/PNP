@@ -249,15 +249,14 @@ footer{
 }
 
 
-
 @media screen and (max-width: 768px){
     #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{
-        height: 150px;
+        height: 200px;
     }
     .mainArticle .caption-bg{
-        background-size: auto 150px;
+        background-size: auto 200px;
     }.deploy .mainArticle .caption-bg{
-        background-size: auto 150px;
+        background-size: auto 200px;
     }
     .caption-title.big{
         font-size: 16px;
@@ -278,7 +277,17 @@ footer{
     .img-thumbnail{
         max-height: 120px;
     }
-
+}
+@media screen and (max-width: 568px){
+    /* place after to override */
+    #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{
+        height: 150px;
+    }
+    .mainArticle .caption-bg{
+        background-size: auto 150px;
+    }.deploy .mainArticle .caption-bg{
+        background-size: auto 150px;
+    }   
 }
 @media screen and (min-width: 768px) and (max-width: 991px){
     #layer-mainArticles, .container-mainArticle, .container-maiArticle.deploy{

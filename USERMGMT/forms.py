@@ -3,6 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+
+from base64 import b64encode
+from hashlib import sha1
 
 from MAIN.webservices import *
 
@@ -20,15 +26,30 @@ class MailModifForm(forms.Form):
     mail = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
 
     def clean(self):
-        # ovveride mail regex (No default ".xx" verification)
+        # TODO -> ovveride mail regex (No default ".tld" verification)
         mail = self.cleaned_data.get('mail')
         mailExist = ABM_TEST_MAIL(mail)
         mailExist = str(mailExist)
         if mailExist == '00':
             raise forms.ValidationError("Adresse mail déjà présente en base de données.")
-        elif mailExist != '01' :
+        elif mailExist != '01':
             raise forms.ValidationError("ABM_TEST_MAIL return failed")
+        try:
+            subject='MODIFICATION MOT DE PASSE - pnpapetier.com'
+            from_email='n.burton@groupembc.com'
+            to = mail
+            text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: "+str(b64encode(sha1(mail).digest()))
+            html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + str(b64encode(sha1(mail).digest())) + "</b> </p>"
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+        except:
+            raise forms.ValidationError("L'envoi d'email à l'adresse %s a échoué." % str(mail))
         return self.cleaned_data
+
+class MailConfirmationForm(forms.Form):
+    code_verification = forms.CharField(max_length=255, help_text='Entrez le code de vérification qui vous a été envoyé sur l\'adresse mail renseignée à l\'étape précédente.')
+
 
 class PasswordModifForm(forms.Form):
     password1 = forms.CharField(label='mot de passe', help_text='6 caractères minimum', widget=forms.PasswordInput)

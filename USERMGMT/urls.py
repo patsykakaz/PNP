@@ -10,6 +10,4 @@ urlpatterns = patterns('',
     url(r'logout/$', 'USERMGMT.views.killUser', name='killUser'),
     url(r'display/$', 'USERMGMT.views.showUser', name='showUser'),
     url(r'modification/$', 'USERMGMT.views.changeUser', name='changeUser'),
-    url(r'test_log_req/$', 'USERMGMT.views.test_log_req', name='test_log_req'),
-    # url(r'register/$', 'USERMGMT.views.register', name='register'),
 )

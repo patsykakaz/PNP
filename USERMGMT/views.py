@@ -61,6 +61,9 @@ def changeUser(request):
         if 'modification_mail' in request.POST:
             print "MODIF MAIL"
             currentForm = MailModifForm
+        elif 'confirmation_mail' in request.POST:
+            print "CONFIRMATION MAIL"
+            currentForm = MailConfirmationForm
         elif 'modification_password' in request.POST:
             print "MODIF PASSWORD"
             currentForm = PasswordModifForm
@@ -72,15 +75,29 @@ def changeUser(request):
             user = getClient(request.user.username)
             if currentForm == MailModifForm:
                 try:
-                    user.email = form.cleaned_data['mail']
-                    createOrUpdateClientEx(user)
-                    user = User.objects.get(username=request.user.username)
-                    user.email = form.cleaned_data['mail']
-                    user.save()
-                    message = 'Adresse mail modifié avec succès.'
+                    confirmation_mail = form.cleaned_data['mail']
+                    message = 'Un email a été envoyé à %s contenant un code de confirmation.' % form.cleaned_data['mail']
+                    form3 = MailConfirmationForm()
                 except:
                     error = "Une erreur est survenue."
-                    raise IOError('user.mail update has failed')
+                    form1 = MailModifForm(request.POST)
+                    form2 = PasswordModifForm()
+            elif currentForm == MailConfirmationForm:
+                if str(b64encode(sha1(request.POST['confirmation_mail']).digest())) == form.cleaned_data['code_verification']:
+                    try:
+                        print 'it s a match'
+                        user.email = request.POST['confirmation_mail']
+                        createOrUpdateClientEx(user)
+                        user = User.objects.get(username=request.user.username)
+                        user.email = request.POST['confirmation_mail']
+                        user.save()
+                        message = "Votre nouvelle adresse mail a bien été enregistrée."
+                    except:
+                        error = "Une erreur est survenue."
+                        form1 = MailModifForm(request.POST)
+                        form2 = PasswordModifForm()
+                else:
+                    raise ValueError('ERROR (USERMGMT.views:93')
             elif currentForm == PasswordModifForm:
                 try:
                     user.motPasseAbm = form.cleaned_data['password1']
@@ -103,9 +120,8 @@ def changeUser(request):
         form2 = PasswordModifForm()
     return render(request, 'modificationUser.html', locals())
 
-@login_required
-def test_log_req(request):
-    return HttpResponse('LOGIN REQUIRED IS SATISFIED')
+   
+
 
 
 
