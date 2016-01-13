@@ -105,7 +105,7 @@ strong{
     vertical-align: bottom;
     font-weight: bold;
     color: white;
-    text-shadow: 0 0 2px rgba(140,140,140,.7);
+    text-shadow: 0 1px 4px rgba(0,0,0,.8);
     -moz-transition: all 0.6s ease-in-out;
     -webkit-transition: all 0.6s ease-in-out;
     -o-transition: all 0.6s ease-in-out;
@@ -222,6 +222,11 @@ strong{
     color: #007099;
 }
 
+.light-border{
+    width: 100%;
+    height: 5px;
+    border-bottom: 1px solid rgb(240,240,240);
+}
 footer{
     margin-top: 30px;
     padding: 20px 0 10px 0;

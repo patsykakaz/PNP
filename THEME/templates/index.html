@@ -41,7 +41,7 @@
 
     <div class='container text-center'>
         {% for blogPost in last_blogPosts %}
-            <a class='bloc_article col-lg-4 col-md-4 col-sm-4 col-xs-4 {{ blogPost.extension_site.css_class }}' href='//{{ blogPost.site.domain }}{% url "blog_post_detail" blogPost.slug %}'>
+            <a class='bloc_article col-lg-4 col-md-4 col-sm-4 col-xs-6 {{ blogPost.extension_site.css_class }}' href='//{{ blogPost.site.domain }}{% url "blog_post_detail" blogPost.slug %}'>
                 <div class='label'>
                     {{ blogPost.site.name }}
                 </div>
