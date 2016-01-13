@@ -18,6 +18,14 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
     password = forms.CharField(label='mot de passe', widget=forms.PasswordInput)
 
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        if str(ABM_TEST_MAIL(username)) != '00':
+            msg=''
+            self.add_error('username', msg)
+            raise forms.ValidationError("Adresse email inexistante.")
+        return self.cleaned_data
+
 class UserForm(ModelForm):
     class Meta:
         model = User
@@ -40,13 +48,12 @@ class MailModifForm(forms.Form):
         elif mailExist != '01':
             raise forms.ValidationError("ABM_TEST_MAIL return failed")
         try:
-            subject='MODIFICATION ADRESSE MAIL - pnpapetier.com'
+            subject= 'MODIFICATION ADRESSE MAIL - pnpapetier.com'
             from_email=settings.ADMINS[0][1]
-            to = mail
             toHash = str(mail) + strftime("%d/%m/%Y")
             text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: " + b64encode(sha1(toHash).digest())
             html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + b64encode(sha1(toHash).digest()) + "</b> </p>"
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [mail])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
         except:

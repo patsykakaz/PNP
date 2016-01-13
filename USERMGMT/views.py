@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 
 from mezzanine.utils.urls import login_redirect, next_url
 from forms import *
@@ -97,19 +97,21 @@ def changeUser(request):
                     raise IOError('Une erreur est survenue lors de la confirmation de la nouvelle adresse mail.')
             elif currentForm == PasswordModifForm:
                 try:
-                    user.motPasseAbm = form.cleaned_data['password1']
+                    newPassWord = form.cleaned_data['password1']
+                    user.motPasseAbm = newPassWord
                     createOrUpdateClientEx(user)
                     message = 'Mot de passe modifié avec succès.'
                     try:
-                        subject='MODIFICATION MOT DE PASSE - pnpapetier.com'
-                        from_email=settings.ADMINS[0][1]
-                        to = mail
-                        text_content = "Votre nouveau mot de passe est: " + form.cleaned_data['password1']
-                        html_content = "<p>Votre nouveau mot de passe est le suivant : <br/> <b>" + form.cleaned_data['password1'] + "</b> </p>"
+                        subject= 'MODIFICATION MOT DE PASSE - pnpapetier.com'
+                        from_email= settings.ADMINS[0][1]
+                        to = str(user.email)
+                        text_content = "Votre nouveau mot de passe est: " + newPassWord
+                        html_content = "<p> Votre nouveau mot de passe est le suivant : <br/> <b>" + newPassWord + "</b> </p>"
                         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
                         msg.attach_alternative(html_content, "text/html")
                         msg.send()
-                    except 'SMTPConnectError' as e:
+                    except:
+                        print "ERROR WHILE SENDING MAIL"
                         pass
                 except:
                     raise IOError('ABMuser.motPasseAbm update has failed')
