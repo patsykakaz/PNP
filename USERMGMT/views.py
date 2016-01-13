@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate, get_backends, get_user_model
@@ -99,8 +100,19 @@ def changeUser(request):
                     user.motPasseAbm = form.cleaned_data['password1']
                     createOrUpdateClientEx(user)
                     message = 'Mot de passe modifié avec succès.'
+                    try:
+                        subject='MODIFICATION MOT DE PASSE - pnpapetier.com'
+                        from_email=settings.ADMINS[0][1]
+                        to = mail
+                        text_content = "Votre nouveau mot de passe est: " + form.cleaned_data['password1']
+                        html_content = "<p>Votre nouveau mot de passe est le suivant : <br/> <b>" + form.cleaned_data['password1'] + "</b> </p>"
+                        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        msg.attach_alternative(html_content, "text/html")
+                        msg.send()
+                    except 'SMTPConnectError' as e:
+                        pass
                 except:
-                    raise IOError('user.motPasseAbm update has failed')
+                    raise IOError('ABMuser.motPasseAbm update has failed')
             form1 = MailModifForm()
             form2 = PasswordModifForm()
         else:

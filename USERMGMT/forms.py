@@ -40,12 +40,12 @@ class MailModifForm(forms.Form):
         elif mailExist != '01':
             raise forms.ValidationError("ABM_TEST_MAIL return failed")
         try:
-            subject='MODIFICATION MOT DE PASSE - pnpapetier.com'
-            from_email='n.burton@groupembc.com'
+            subject='MODIFICATION ADRESSE MAIL - pnpapetier.com'
+            from_email=settings.ADMINS[0][1]
             to = mail
             toHash = str(mail) + strftime("%d/%m/%Y")
-            text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: " + str(b64encode(sha1(toHash).digest()))
-            html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + str(b64encode(sha1(toHash).digest())) + "</b> </p>"
+            text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: " + b64encode(sha1(toHash).digest())
+            html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + b64encode(sha1(toHash).digest()) + "</b> </p>"
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
@@ -62,7 +62,7 @@ class MailConfirmationForm(forms.Form):
     def clean(self):
         code = self.cleaned_data.get('code_verification')
         mail = self.cleaned_data.get('confirmation_mail')
-        if not str(b64encode(sha1(mail+strftime('%d/%m/%Y')).digest())) == code:
+        if not b64encode(sha1(mail+strftime('%d/%m/%Y')).digest()) == code:
             msg=''
             self.add_error('code_verification', msg)
             raise forms.ValidationError("Code de vérification incorrect.")

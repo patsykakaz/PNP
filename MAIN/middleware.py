@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-from django.conf import settings
 
 from mezzanine.blog.models import BlogCategory, BlogPost
 from models import *
