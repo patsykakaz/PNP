@@ -68,36 +68,32 @@ def changeUser(request):
             print "MODIF PASSWORD"
             currentForm = PasswordModifForm
         else:
-            raise ValueError('changerUser POST dict do not contain the required values')
+            raise ValueError('request.POST dict does not contain the required values')
         form = currentForm(request.POST)
         if form.is_valid():
-            # DO CHANGE HERE
+            # proceed to changes accordingly w/ type(form)
             user = getClient(request.user.username)
             if currentForm == MailModifForm:
                 try:
                     confirmation_mail = form.cleaned_data['mail']
                     message = 'Un email a été envoyé à %s contenant un code de confirmation.' % form.cleaned_data['mail']
-                    form3 = MailConfirmationForm()
+                    form3 = MailConfirmationForm(initial={'confirmation_mail': confirmation_mail})
                 except:
                     error = "Une erreur est survenue."
                     form1 = MailModifForm(request.POST)
                     form2 = PasswordModifForm()
             elif currentForm == MailConfirmationForm:
-                if str(b64encode(sha1(request.POST['confirmation_mail']).digest())) == form.cleaned_data['code_verification']:
-                    try:
-                        print 'it s a match'
-                        user.email = request.POST['confirmation_mail']
-                        createOrUpdateClientEx(user)
-                        user = User.objects.get(username=request.user.username)
-                        user.email = request.POST['confirmation_mail']
-                        user.save()
-                        message = "Votre nouvelle adresse mail a bien été enregistrée."
-                    except:
-                        error = "Une erreur est survenue."
-                        form1 = MailModifForm(request.POST)
-                        form2 = PasswordModifForm()
-                else:
-                    raise ValueError('ERROR (USERMGMT.views:93')
+                try:
+                    user.email = request.POST['confirmation_mail']
+                    createOrUpdateClientEx(user)
+                    user = User.objects.get(username=request.user.username)
+                    user.email = request.POST['confirmation_mail']
+                    user.save()
+                    message = "Votre nouvelle adresse mail a bien été enregistrée."
+                except:
+                    confirmation_mail = True
+                    error = "Une erreur est survenue."
+                    raise IOError('Une erreur est survenue lors de la confirmation de la nouvelle adresse mail.')
             elif currentForm == PasswordModifForm:
                 try:
                     user.motPasseAbm = form.cleaned_data['password1']
@@ -108,13 +104,16 @@ def changeUser(request):
             form1 = MailModifForm()
             form2 = PasswordModifForm()
         else:
-            print 'form is not valid'
+            # Form is not valid()
             if currentForm == MailModifForm:
                 form1 = MailModifForm(request.POST)
                 form2 = PasswordModifForm()
-            else:
+            elif currentForm == PasswordModifForm:
                 form1 = MailModifForm()
                 form2 = PasswordModifForm(request.POST)
+            else:
+                confirmation_mail = True
+                form3 = MailConfirmationForm(request.POST)
     else:
         form1 = MailModifForm()
         form2 = PasswordModifForm()

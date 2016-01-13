@@ -48,24 +48,6 @@ def testCoUCX(request):
     client.call('createOrUpdateClientEx',target)
     return HttpResponse('ok')
 
-# def login_custom(request):
-#     error = False
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(username=username, password=password)
-#             if user:
-#                 login(request, user)
-#                 return login_redirect(request)
-#             else:
-#                 error = True
-#                 return render(request, 'login.html', locals())
-#     else:
-#         form = LoginForm()
-#     return render(request, 'login.html', locals())
-
 def test(request):
     wsdl = "http://dev.aboweb.com/aboweb/ClientService?wsdl"
     client = SoapClient(location="http://dev.aboweb.com/aboweb/ClientService",trace=False)

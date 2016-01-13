@@ -114,7 +114,6 @@
                     <form method='POST' action=''>
                         {% csrf_token %}
                         {% bootstrap_form form3 %}
-                        <input type='hidden' id='confirmation_mail' name='confirmation_mail' value='{{ confirmation_mail }}'/>
                         {% buttons %}
                             <button type="submit" class="btn btn-success" style='margin-top:10px;'>
                                 Confirmer
