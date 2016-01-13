@@ -103,13 +103,13 @@
 </div>
 {% endif %}
 {% block contentNav %}  
-{% if request.user %}  
-<div id='abonnement'>
-    <b>abonnement</b>
+{% if request.user.is_authenticated  %}  
+<div id='abonnement' class='mail_token'>
+    <b>{{ request.user.email|truncatechars:30 }}</b>
 </div>
 {% else %}
 <div id='abonnement'>
-    <b>{{ request.user.username }}</b>
+    <b>abonnement</b>
 </div>
 {% endif %}
 <nav id='contentNav' class="navbar navbar-default" role="navigation">
@@ -169,7 +169,7 @@
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li id='search-btn' class='dropdown' {# fake dropdown to easen .css #} >
+            <li id='search-btn' class='dropdown'>
                 <a href="javascript:void(0)" class='dropdown-toggle'>
                     <i class='fa fa-2x fa-search'></i>
                 </a>
@@ -249,10 +249,6 @@
 
     {% block main %}{% endblock %}
 
-    <div class='container'>
-        <div class='col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 light-border'></div>
-        <div class='col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 light-border'></div>
-    </div>
 
     <div id='bottom-logo'>
         <img src="/static/img/icon_univers.png" />

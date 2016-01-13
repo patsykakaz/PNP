@@ -20,10 +20,16 @@ class LoginForm(forms.Form):
 
     def clean(self):
         username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
         if str(ABM_TEST_MAIL(username)) != '00':
             msg=''
             self.add_error('username', msg)
             raise forms.ValidationError("Adresse email inexistante.")
+        aboAuthResult = authenticateByEmail(username,password)
+        if aboAuthResult != 'true':
+            msg = ''
+            self.add_error('password', msg)
+            raise forms.ValidationError("Mot de passe incorrect.")
         return self.cleaned_data
 
 class UserForm(ModelForm):
@@ -46,13 +52,15 @@ class MailModifForm(forms.Form):
             self.add_error('mail', msg)
             raise forms.ValidationError("Adresse mail déjà présente en base de données.")
         elif mailExist != '01':
+            msg='Adresse mail rejetée'
+            self.add_error('mail', msg)
             raise forms.ValidationError("ABM_TEST_MAIL return failed")
         try:
             subject= 'MODIFICATION ADRESSE MAIL - pnpapetier.com'
             from_email=settings.ADMINS[0][1]
             toHash = str(mail) + strftime("%d/%m/%Y")
-            text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: " + b64encode(sha1(toHash).digest())
-            html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + b64encode(sha1(toHash).digest()) + "</b> </p>"
+            text_content = "Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: " + b64encode(sha1(toHash).digest())[:6]
+            html_content = "<p>Veuillez trouver ci-après le code de vérification pour changer votre adresse mail: <br/> <b>" + b64encode(sha1(toHash).digest())[:6] + "</b> </p>"
             msg = EmailMultiAlternatives(subject, text_content, from_email, [mail])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
@@ -69,7 +77,7 @@ class MailConfirmationForm(forms.Form):
     def clean(self):
         code = self.cleaned_data.get('code_verification')
         mail = self.cleaned_data.get('confirmation_mail')
-        if not b64encode(sha1(mail+strftime('%d/%m/%Y')).digest()) == code:
+        if not b64encode(sha1(mail+strftime('%d/%m/%Y')).digest())[:6] == code:
             msg=''
             self.add_error('code_verification', msg)
             raise forms.ValidationError("Code de vérification incorrect.")
@@ -85,7 +93,13 @@ class PasswordModifForm(forms.Form):
         password2 = self.cleaned_data.get('password2')
 
         if password1 and password1 != password2:
+            msg=''
+            self.add_error('password1', msg)
+            self.add_error('password2', msg)
             raise forms.ValidationError("Les mots de passe ne correspondent pas")
         elif len(password1) < 6:
+            msg=''
+            self.add_error('password1', msg)
+            self.add_error('password2', msg)
             raise forms.ValidationError("Mot de passe trop court. Veuillez entrer un mot de passe d'au moins 6 caractères")
         return self.cleaned_data

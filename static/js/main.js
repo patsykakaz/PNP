@@ -41,7 +41,7 @@ function Navbar(){
 }
 
 function AbonnementBtn(animation){
-    referent = $('#abonnement');
+    abo = $('#abonnement');
     aboReferent = $('.navbar-header');
     aboHeight = $('#contentNav').outerHeight()-2;
     aboWidth = $('.navbar-brand img').width();
@@ -49,12 +49,23 @@ function AbonnementBtn(animation){
     aboX = aboPositionReferent.left +2;
     aboY = aboPositionReferent.top;
     if(animation==true){
-        referent.width(aboWidth).css({left: aboX}).css({top: aboY+aboHeight-40});
-        setTimeout(function(){
-            referent.css({top: aboY+aboHeight})
-        },1500);
+        if(abo.hasClass("mail_token")){
+            abo.css({left: aboX}).css({top: aboY+aboHeight-40});
+            setTimeout(function(){
+                abo.css({top: aboY+aboHeight})
+            },1500);
+        }else{
+            abo.width(aboWidth).css({left: aboX}).css({top: aboY+aboHeight-40});
+            setTimeout(function(){
+                abo.css({top: aboY+aboHeight})
+            },1500);
+        }
     }else{
-        referent.width(aboWidth).css({left: aboX}).css({top: aboY+aboHeight});
+        if(abo.hasClass("mail_token")){
+            abo.css({left: aboX}).css({top: aboY+aboHeight});
+        }else{
+            abo.width(aboWidth).css({left: aboX}).css({top: aboY+aboHeight});
+        }
     }
 }
 
