@@ -24,6 +24,7 @@ class LoginForm(forms.Form):
         if str(ABM_TEST_MAIL(username)) != '00':
             msg=''
             self.add_error('username', msg)
+            self.add_error('password', msg)
             raise forms.ValidationError("Adresse email inexistante.")
         aboAuthResult = authenticateByEmail(username,password)
         if aboAuthResult != 'true':

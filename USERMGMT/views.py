@@ -133,7 +133,9 @@ def changeUser(request):
         form2 = PasswordModifForm()
     return render(request, 'modificationUser.html', locals())
 
-   
+@login_required
+def reInitPassword(request):
+    pass
 
 
 

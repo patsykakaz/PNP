@@ -3,8 +3,8 @@ $(document).ready(function(){
     Navbar();
     DeployArticle();
     $(window).load(function(){
-        adapt_form_width();
         toggle_navbar_form();
+        adapt_form_width();
         if(window.location.pathname == '/'){
             AbonnementBtn(true);
         }else{  
@@ -17,7 +17,6 @@ $(document).ready(function(){
 $(window).resize(function(){
     Navbar();
     adapt_form_width();
-    toggle_navbar_form();
     if($(window).width()<970){
         $('#banner_layer').height(($('#contentNav').outerWidth()/970)*150+'px');
     }else{
