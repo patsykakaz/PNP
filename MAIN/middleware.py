@@ -20,26 +20,6 @@ class AuthXMiddleware(object):
             print "request.META['HTTP_HOST'] = {}".format(request.META['HTTP_HOST'])
             print "request.user.is_authenticated = {}".format(request.user.is_authenticated())
 
-class PubMiddleware(object):
-    def process_template_response(self, request, response):
-        try:
-            habillage = Publicite._base_manager.get(formatPub='HABILLAGE')
-            media = habillage.media.url.split('/')
-            habillage.media = media[-1]
-        except:
-            habillage = False
-        response.context_data['habillage'] = habillage
-        try:
-            squares = Publicite.objects.filter(formatPub='SQUARE')
-            for square in squares :
-                media = square.media.url.split('/')
-                square.media = media[-1]
-        except:
-            squares = "empty"
-        response.context_data['squares'] = squares
-        return response
-
-
 class NavMiddleware(object):
     def process_template_response(self, request, response):
         all_sites = list(Site.objects.exclude(pk=3).order_by('domain'))
@@ -54,22 +34,16 @@ class NavMiddleware(object):
                 article.extension_site = SiteExtension._base_manager.get(site=article.site)
             except:
                 article.extension_site = False
-        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)[0:18]
+        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)
+        # remove doubles
+        last_blogPosts = last_blogPosts.distinct()
+        last_blogPosts = last_blogPosts[0:18]
         # fetch color code
         for post in last_blogPosts:
             try:
                 post.extension_site = SiteExtension._base_manager.get(site=post.site)
             except:
                 post.extension_site = False
-        # remove doubles
-        double = 0
-        i = 0
-        for this in mainArticles:
-            if this in last_blogPosts:
-                double += 1
-                del last_blogPosts[i]
-                i+=1
-        last_blogPosts = last_blogPosts[:18-double]
 
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)

@@ -43,7 +43,6 @@ class MailModifForm(forms.Form):
     mail = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
 
     def clean(self):
-        cleaned_data = super(MailModifForm, self).clean()
         # TODO -> ovveride mail regex (No default ".tld" verification)
         mail = self.cleaned_data.get('mail')
         mailExist = ABM_TEST_MAIL(mail)
@@ -104,3 +103,19 @@ class PasswordModifForm(forms.Form):
             self.add_error('password2', msg)
             raise forms.ValidationError("Mot de passe trop court. Veuillez entrer un mot de passe d'au moins 6 caractères")
         return self.cleaned_data
+
+
+class PasswordReInitForm(forms.Form):
+    mail = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
+
+    def clean(self):
+        mail = self.cleaned_data.get('mail')
+        mailExist = ABM_TEST_MAIL(mail)
+        mailExist = str(mailExist)
+        if mailExist != '00':
+            msg='Adresse mail inconnue.'
+            self.add_error('mail', msg)
+            raise forms.ValidationError("L'adresse mail doit être associée à un compte existant.")
+        return self.cleaned_data
+
+

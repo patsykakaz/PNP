@@ -9,16 +9,6 @@ from mezzanine.blog.admin import BlogPostAdmin
 from mezzanine.blog.models import BlogPost
 
 
-publicite_extra_fieldsets = (
-                (None,
-                        {'fields': ('lien','media','formatPub')
-                        }
-                ),
-        )
-
-class PubliciteAdmin(PageAdmin):
-    fieldsets = deepcopy(PageAdmin.fieldsets) + publicite_extra_fieldsets
-
 class ArchiveAdmin(PageAdmin):
     fieldsets = deepcopy(PageAdmin.fieldsets)
 
@@ -49,7 +39,6 @@ PageUnivers_extra_fieldsets = (
 class PageUniversAdmin(PageAdmin):
     fieldsets = deepcopy(PageAdmin.fieldsets) + PageUnivers_extra_fieldsets
 
-admin.site.register(Publicite, PubliciteAdmin)
 admin.site.register(Archive, ArchiveAdmin)
 admin.site.unregister(BlogPost)
 admin.site.register(BlogPost, MyBlogPostAdmin)

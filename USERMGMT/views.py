@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from random import randint
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -134,8 +135,29 @@ def changeUser(request):
     return render(request, 'modificationUser.html', locals())
 
 @login_required
-def reInitPassword(request):
-    pass
+def newPassword(request):
+    if request.POST:
+         form = PasswordReInitForm(request.POST)
+         if form.is_valid():
+            user = getClient(request.user.username)
+            try:
+                newPassword = b64encode(sha1(str(randint(73,1073))).digest())[:6]
+                subject= 'REINITIALISATION Mot de Passe - pnpapetier.com'
+                from_email= settings.ADMINS[0][1]
+                to = str(user.email)
+                text_content = "Votre nouveau mot de passe est: " + newPassword + ". Nous vous recommandons de changer ce dernier dans l'espace utilisateur de pnpapetier.com. "
+                html_content = "<p> Votre nouveau mot de passe est le suivant : <br/> <b>" + newPassword + "</b> </p> <p>Nous vous recommandons de changer ce dernier dans votre espace utilisateur, sur pnpapetier.com</p>"
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                user.motPasseAbm = newPassword
+                createOrUpdateClientEx(user)
+            except ValueError:
+                print 'FAILURE'
+                pass
+    else:
+        form = PasswordReInitForm()
+    return render(request,'changePassword.html', locals())
 
 
 

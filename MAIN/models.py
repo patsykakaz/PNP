@@ -11,16 +11,6 @@ from mezzanine.core.models import RichText
 from mezzanine.utils.sites import current_site_id, current_request
 from colorfield.fields import ColorField
 
-class Publicite(Page):
-    lien = models.CharField(max_length=255, null=True, blank=True)
-    media = models.ImageField(upload_to=MEDIA_ROOT+'/publicite', null=True)
-    OPTION_FORMAT_PUB = (
-        ('HABILLAGE','HABILLAGE'),
-        ('SQUARE', 'SQUARE'),
-        ('COLONNE','COLONNE'),
-    )
-    formatPub = models.CharField(choices=OPTION_FORMAT_PUB, max_length=250, null=True)
-
 class Client(models.Model):
     email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=128)
