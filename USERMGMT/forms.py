@@ -105,7 +105,7 @@ class PasswordModifForm(forms.Form):
         return self.cleaned_data
 
 
-class PasswordReInitForm(forms.Form):
+class OnlyEmailForm(forms.Form):
     mail = forms.CharField(label='Adresse mail', widget=forms.EmailInput)
 
     def clean(self):

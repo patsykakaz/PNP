@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'display/$', 'USERMGMT.views.showUser', name='showUser'),
     url(r'modification/$', 'USERMGMT.views.changeUser', name='changeUser'),
     url(r'newPassword/$', 'USERMGMT.views.newPassword', name='newPassword'),
+    url(r'forgottenPassword/$', 'USERMGMT.views.forgottenPassword', name='forgottenPassword'),
 )

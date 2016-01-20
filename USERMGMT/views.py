@@ -137,7 +137,7 @@ def changeUser(request):
 @login_required
 def newPassword(request):
     if request.POST:
-         form = PasswordReInitForm(request.POST)
+         form = OnlyEmailForm(request.POST)
          if form.is_valid():
             user = getClient(request.user.username)
             try:
@@ -156,9 +156,25 @@ def newPassword(request):
                 print 'FAILURE'
                 pass
     else:
-        form = PasswordReInitForm()
+        form = OnlyEmailForm()
     return render(request,'changePassword.html', locals())
 
+def forgottenPassword(request):
+    if request.POST:
+        form = OnlyEmailForm(request.POST)
+        if form.is_valid():
+            send_mail = ABM_MOT_PASSE_OUBLIE(request.POST['mail'])
+            if str(send_mail) == "00":
+                message = "Un mail vient de vous être adressé à l'adresse **%s**, contenant votre mot de passe." %s request.POST['mail']
+            else:
+                error = "Aucun email n'a pu être envoyé à l'adresse email soumise."
+            return render(request,'changePassword.html', locals())
+        else:
+            form = OnlyEmailForm(request.POST)
+            return render(request,'changePassword.html', locals())
+    else:
+        form = OnlyEmailForm()
+        return render(request,'changePassword.html', locals())
 
 
 

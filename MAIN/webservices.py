@@ -38,6 +38,14 @@ def ABM_TEST_MAIL(mail):
     xml = SimpleXMLElement(clientABM.xml_response)
     return xml('status')
 
+def ABM_MOT_PASSE_OUBLIE(mail):
+    print "ABM_MOT_PASSE_OUBLIE starting"
+    clientABM = SoapClient(wsdl="http://aboweb.com/aboweb/abmWeb?wsdl", ns="web", trace=False)
+    clientABM['AuthHeaderElement'] = {'login': 'admin.webservices@mbc.com', 'password': 'MBC1475'}
+    resultABM = clientABM.ABM_TEST_MAIL(refEditeur='207',email=mail)
+    xml = SimpleXMLElement(clientABM.xml_response)
+    print repr(xml)
+    return xml('status')
 
 def getClient(codeClient):
     client = SoapClient(location="http://aboweb.com/aboweb/ClientService?wsdl",trace=False)
@@ -68,7 +76,7 @@ def createOrUpdateClientEx(target):
 
 
 def getAbonnements(codeClient):
-
+    # return xml containing a list of user abonnements 
     clientAbonnement = SoapClient(location ="http://aboweb.com/aboweb/AbonnementService",trace=False)
     clientAbonnement['wsse:Security'] = {
                     'wsse:UsernameToken': {

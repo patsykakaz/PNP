@@ -10,6 +10,10 @@ $(document).ready(function(){
         }else{  
             AbonnementBtn(false);
         }
+        deployAds();
+        $(window).scroll(function(){
+            deployAds();
+        });
     });
     $('.caption-screen').first().addClass('first');
 });
@@ -119,6 +123,16 @@ function toggle_navbar_form(){
 }
 // ./new navbar form
 
+
+// Ad management
+function deployAds(){
+    $('.layer-banner').each(function(){
+        if($(this).offset().top < $(window).scrollTop() + $(window).height()/1.3 && !$(this).hasClass('deploy')){
+            $(this).addClass('deploy');
+        }
+    });
+}
+// ./Ad management
 
 
 

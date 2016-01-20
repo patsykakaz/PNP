@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block main %}
-
     <div id='layer-mainArticles'>
         <div id='mainArticles'>
         {% for mainArticle in mainArticles %}
@@ -56,23 +55,68 @@
                     <h4>{{ blogPost.title|truncatechars:100 }}</h4>
                 </div>
             </a>
+            {% if forloop.counter == 2 %}
+                {% if banners.0 %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.0.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.0.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 3 %}
+                {% if banners.0 %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.0.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.0.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 8 %}
+                {% if banners.1.title %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.1.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.1.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 9 %}
+                {% if banners.1.title %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.1.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.1.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 14 %}
+                {% if banners.2.title %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.2.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.2.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 15 %}
+                {% if banners.2.title %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.2.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.2.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endfor %}
     </div>
 
-    <div id='container-banners' class='hide'>
-    {% if banners %}
-        {% for banner in banners %}
-            <div class='banner'>{{ banner.title }}</div>
-        {% endfor %}
-    {% endif %}
-    </div>
-
-    <script>
-        nbBlogPost = $('.bloc_article').length;
-        $('.bloc_article').each(function(){
-            if($(this).index() % 3 == 0){
-                $(this).after("<div style='background-color:grey'>INSERT PUB HERE</div>");
-            }
-        });
-    </script>
 {% endblock %}
