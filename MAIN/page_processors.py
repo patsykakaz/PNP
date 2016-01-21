@@ -7,12 +7,6 @@ from .models import *
 
 from mezzanine.core.request import current_request
 
-# @processor_for('/')
-# def processor_home(request,page):
-    # request = current_request()
-    # print request.get_host().lower()
-    # return locals()
-
 @processor_for(PageUnivers)
 def processor_revue(request, page):
     PageUniv = PageUnivers.objects.filter(title=page.title)

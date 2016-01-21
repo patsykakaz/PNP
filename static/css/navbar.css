@@ -139,12 +139,6 @@
     font-weight: 300;
 }
 
-.article-title{
-    overflow: hidden;
-    height: 60px;
-    padding: 0 10px;
-}
-
 .dropdown-logo{
     width: calc(30% - 140px);
 }

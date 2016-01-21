@@ -51,7 +51,7 @@
                     {{ blogPost.site.name }}
                 </div>
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blogPost.featured_image 300 200 %}' alt='illustration {{ blogPost.title }}' />
-                <div class='article-title'>
+                <div class='bloc_article_title'>
                     <h4>{{ blogPost.title|truncatechars:100 }}</h4>
                 </div>
             </a>

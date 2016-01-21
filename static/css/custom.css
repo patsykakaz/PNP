@@ -158,10 +158,16 @@ strong{
 .bloc_article img{
     min-width: 100%;
 }
-.bloc_article h4{
+.bloc_article_title{
+    overflow: hidden;
+    height: 60px;
+    padding: 0 10px;
+}
+.bloc_article_title h4{
     height: 2em;
     padding: 0 5px;
-    font-weight: 400;
+    font-weight: 600;
+    color: #007099;
 }
 .bloc_article .label{
     position: absolute;
@@ -250,6 +256,7 @@ strong{
 }
 #richTextZone img{
     display: block;
+    height: auto;
     max-width: 100%;
     padding: 10px 0;
     margin: auto;
