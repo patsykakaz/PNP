@@ -33,36 +33,34 @@
 
     <div id='blogContent' class='container'>
         
-        <div class='row'>
-            <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
-            {% block blog_post_detail_content %}
-                {% editable blog_post.content %}
-                    <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
-                    {{ blog_post.content|richtext_filters|safe }}
-                {% endeditable %}
-            {% endblock %}
-            </div>
-
-            {% block blog_post_previous_next %}
-                <ul class="pager">
-                    {% with blog_post.get_previous_by_publish_date as previous %}
-                    {% if previous %}
-                        <li class="previous">
-                            <a href="{{ previous.get_absolute_url }}">&larr; {{ previous|truncatechars:50 }}</a>
-                        </li>
-                    {% endif %}
-                    {% endwith %}
-                    {% with blog_post.get_next_by_publish_date as next %}
-                    {% if next %}
-                        <li class="next">
-                            <a href="{{ next.get_absolute_url }}">{{ next|truncatechars:50 }} &rarr;</a>
-                        </li>
-                    {% endif %}
-                    {% endwith %}
-                </ul>
-            {% endblock %}
-
+        <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
+        {% block blog_post_detail_content %}
+            {% editable blog_post.content %}
+                <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
+                {{ blog_post.content|richtext_filters|safe }}
+            {% endeditable %}
+        {% endblock %}
         </div>
+
+        {% block blog_post_previous_next %}
+            <ul class="pager">
+                {% with blog_post.get_previous_by_publish_date as previous %}
+                {% if previous %}
+                    <li class="previous">
+                        <a href="{{ previous.get_absolute_url }}">&larr; {{ previous|truncatechars:50 }}</a>
+                    </li>
+                {% endif %}
+                {% endwith %}
+                {% with blog_post.get_next_by_publish_date as next %}
+                {% if next %}
+                    <li class="next">
+                        <a href="{{ next.get_absolute_url }}">{{ next|truncatechars:50 }} &rarr;</a>
+                    </li>
+                {% endif %}
+                {% endwith %}
+            </ul>
+        {% endblock %}
+
     </div>
 
     {% block blog_post_detail_keywords %}

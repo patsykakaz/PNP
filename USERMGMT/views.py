@@ -136,9 +136,10 @@ def changeUser(request):
 
 @login_required
 def newPassword(request):
+    formTitle = 'Réinitialisez votre mot de passe.'
     if request.POST:
-         form = OnlyEmailForm(request.POST)
-         if form.is_valid():
+        form = OnlyEmailForm(request.POST)
+        if form.is_valid():
             user = getClient(request.user.username)
             try:
                 newPassword = b64encode(sha1(str(randint(73,1073))).digest())[:6]
@@ -160,12 +161,17 @@ def newPassword(request):
     return render(request,'changePassword.html', locals())
 
 def forgottenPassword(request):
+    """ No login_required
+        (Non-Authenticated) user must enter a valid email which will receive its current Password
+    """
+    formTitle = 'Récupérez votre mot de passe'
     if request.POST:
         form = OnlyEmailForm(request.POST)
         if form.is_valid():
             send_mail = ABM_MOT_PASSE_OUBLIE(request.POST['mail'])
-            if str(send_mail) == "00":
-                message = "Un mail vient de vous être adressé à l'adresse **%s**, contenant votre mot de passe." %s request.POST['mail']
+            if str(send_mail) == "01":
+                message = "Un mail vient de vous être adressé, contenant votre mot de passe." % request.POST['mail']
+                form = OnlyEmailForm()
             else:
                 error = "Aucun email n'a pu être envoyé à l'adresse email soumise."
             return render(request,'changePassword.html', locals())
