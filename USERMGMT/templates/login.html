@@ -24,7 +24,7 @@
 
             <div id='form' class='col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 text-center' style='padding:30px; background-color:white; border-radius:5px;'>
                 {% if user.is_authenticated and not modification %}
-                    vous êtes connecté, {{ user.username }}.
+                    <h3 style='color:#FEC10D'>vous êtes déjà connecté</h3>
                 {% elif user.is_authenticated %}
                     <h2 style='margin: 0 0 20px 0'>MODIFIEZ VOTRE PROFIL</h2>
                     <form method='POST' action=''>

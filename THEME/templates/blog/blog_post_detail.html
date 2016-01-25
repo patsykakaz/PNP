@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n staticfiles %}
 {% load custom_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
@@ -79,11 +79,16 @@
         {% block blog_post_detail_related_posts %}
         {% if related_posts %}
             <div id="related-posts">
-                <h3 class='text-center'>{% trans 'Related posts' %}</h3>
+                <h3 class='text-center' style='margin-top:50px; padding:20px 0; border-top:1px solid rgb(230,230,240); color:#007099;'>{% trans 'Related posts' %}</h3>
                     {% for post in related_posts %}
-                    <div class='related_post col-md-4 col-sm-4 col-xs-6'>
-                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                    </div>
+                    <a href='{% url "blog_post_detail" post.slug %}'>
+                        <div class='related_post col-md-4 col-sm-4 col-xs-6 text-center'>
+                            <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail post.featured_image 250 125 %}' alt='featured_image__related_post' />
+                            <a href="{{ post.get_absolute_url }}">
+                                <h4> {{ post.title }}</h4>
+                            </a>
+                        </div>
+                    </a>
                     {% endfor %}
             </div>
         {% endif %}
