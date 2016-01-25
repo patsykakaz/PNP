@@ -105,11 +105,14 @@
 {% block contentNav %}  
 {% if request.user.is_authenticated  %}  
 <a id='abonnement' class='mail_token' href='{% url 'changeUser' %}'>
-    <b><i class='fa fa-user' style='color:white;'></i> {{ request.user.email|truncatechars:30 }}</b>
+    <b>
+        <i class='fa fa-user' style='color:white;'></i>
+        {{ request.user.email|truncatechars:30 }}
+    </b>
 </a>
 {% else %}
 <a href='/abonnement/' id='abonnement'>
-    <b>abonnement</b>
+    <b> abonnement </b>
 </a>
 {% endif %}
 <nav id='contentNav' class="navbar navbar-default" role="navigation">
