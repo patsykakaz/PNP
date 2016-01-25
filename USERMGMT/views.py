@@ -6,6 +6,7 @@ from random import randint
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import logout, login, authenticate, get_backends, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -170,8 +171,8 @@ def forgottenPassword(request):
         if form.is_valid():
             send_mail = ABM_MOT_PASSE_OUBLIE(request.POST['mail'])
             if str(send_mail) == "01":
-                message = "Un mail vient de vous être adressé, contenant votre mot de passe." % request.POST['mail']
-                form = OnlyEmailForm()
+                goToLogin = True
+                return render(request,'changePassword.html', locals())
             else:
                 error = "Aucun email n'a pu être envoyé à l'adresse email soumise."
             return render(request,'changePassword.html', locals())

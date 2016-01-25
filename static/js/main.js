@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     Navbar();
     DeployArticle();
     $(window).load(function(){

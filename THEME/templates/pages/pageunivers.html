@@ -16,7 +16,6 @@
 {% endmetablock %}{% endblock %}
 
 {% block title %}
-{# {% editable page.title %}{{ page.title }}{% endeditable %} #}
 {% endblock %}
 
 {% block main %}
@@ -28,9 +27,11 @@
     </div>
 
     <div id='blogContent' class='container'>
-        <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
-            <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
-            {{ PageUniv.content|richtext_filters|safe }}
+        <div class='row'>
+            <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
+                <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
+                {{ PageUniv.content|richtext_filters|safe }}
+            </div>
         </div>
     </div>
 

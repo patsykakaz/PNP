@@ -13,6 +13,23 @@
 {{ blog_post.description }}
 {% endmetablock %}{% endblock %}
 
+{% block extra_js %}
+    <script>
+        $(document).ready(function(){
+            if($(window).width() < 768){
+                $('.related_post:last').addClass('hide');
+            }
+        });
+        $(window).resize(function(){
+            if($(window).width() < 768){
+                $('.related_post:last').addClass('hide');
+            }else{
+                $('.related_post:last').removeClass('hide');
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block title %}
     <h3 id='blogTitle' class='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center'>
         <i class='fa fa-sm fa-caret-right'></i> {{ blog_post.title }}
@@ -58,6 +75,20 @@
                 {% endwith %}
             </ul>
         {% endblock %}
+
+        {% block blog_post_detail_related_posts %}
+        {% if related_posts %}
+            <div id="related-posts">
+                <h3 class='text-center'>{% trans 'Related posts' %}</h3>
+                    {% for post in related_posts %}
+                    <div class='related_post col-md-4 col-sm-4 col-xs-6'>
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </div>
+                    {% endfor %}
+            </div>
+        {% endif %}
+        {% endblock %}
+
     </div>
 
     <div class='hide'>

@@ -14,3 +14,8 @@ class Publicite(Page):
         ('BANNER', 'BANNER'),
     )
     formatPub = models.CharField(choices=OPTION_FORMAT_PUB, max_length=250, null=True)
+
+    def save(self, *args, **kwargs):
+        # in_menus empty -> exclude from content_trees
+        self.in_menus = []
+        super(Archive, self).save(*args, **kwargs)

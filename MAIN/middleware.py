@@ -34,10 +34,7 @@ class NavMiddleware(object):
                 article.extension_site = SiteExtension._base_manager.get(site=article.site)
             except:
                 article.extension_site = False
-        last_blogPosts = BlogPost._base_manager.exclude(highlight=True)
-        # remove doubles
-        last_blogPosts = last_blogPosts.distinct()
-        last_blogPosts = last_blogPosts[0:18]
+        last_blogPosts = BlogPost._base_manager.exclude(id__in=mainArticles)[0:18]
         # fetch color code
         for post in last_blogPosts:
             try:

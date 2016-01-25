@@ -34,6 +34,9 @@
     </style>
     {% endblock %}
 
+    {% block extra_js %}
+    {% endblock %}
+
 {% block breadcrumb_menu %}
 {{ block.super }}
 {% if tag or category or year or month or author %}
@@ -58,7 +61,13 @@
     <div id='logo_blog' class='{{ site.css_class }} text-center'>
         <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
-    <h4 id='baseline' class='text-center {{ site.css_class }}'>{{ site.baseline }}</h4>
+    <div class='container'>
+        <div class='col-sm-8 col-sm-offset-2 col-md-12 col-md-offset-0'>
+            <h2 id='baseline' class='text-center {{ site.css_class }}'>
+                {{ site.baseline }}
+            </h2>
+        </div>
+    </div>
     {% endif %}
     {% endfor %}
     <div class='container'>

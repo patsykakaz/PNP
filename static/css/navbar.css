@@ -247,6 +247,10 @@
     line-height: 1.42857143;
     white-space: nowrap;
 }
+.mobileTitle{
+    display: none;
+    color: #007099;
+}
 /*
     ./NAVBAR-RIGHT
 */
@@ -279,6 +283,9 @@
     }
     .dropdown-logo{
         display: none;
+    }
+    .mobileTitle{
+        display: inline-block;
     }
 
 }
