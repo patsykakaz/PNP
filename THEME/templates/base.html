@@ -172,7 +172,7 @@
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li id='search-btn' class='dropdown'>
+            <li id='search-btn' class='dropdown {% if request.get_full_path == '/' or request.get_full_path == '' %} hide {% endif %}'>
                 <a href="javascript:void(0)" class='dropdown-toggle text-center'>
                     <i class='fa fa-2x fa-search'></i>
                     <span class='mobileTitle'>RECHERCHE</span>

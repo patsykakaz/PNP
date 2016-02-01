@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n staticfiles %}
+{% load mezzanine_tags pages_tags comment_tags keyword_tags rating_tags i18n staticfiles %}
 {% load custom_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
@@ -47,8 +47,26 @@
             </div>
         {% endif %}
     {% endblock %}
+    <ul class="breadcrumb">
+        {% spaceless %}
+            {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+        {% endspaceless %}
+    </ul>
 
     <div id='blogContent' class='container'>
+        {% if banners %}
+            {% with banners|random as banner %}
+                <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                    <a href='{{ banner.lien }}' target='blank'>
+                        <div class='container-banner'>
+                            <img src='/static/media/publicite/{{ banner.media }}' />
+                        </div>
+                    </a>
+                </div>
+            {% endwith %}
+        {% else %}
+            <!-- NO AD -->
+        {% endif %}
         <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
         {% block blog_post_detail_content %}
             {% editable blog_post.content %}
@@ -79,17 +97,20 @@
         {% block blog_post_detail_related_posts %}
         {% if related_posts %}
             <div id="related-posts">
-                <h3 class='text-center' style='margin-top:50px; padding:20px 0; border-top:1px solid rgb(230,230,240); color:#007099;'>{% trans 'Related posts' %}</h3>
-                    {% for post in related_posts %}
-                    <a href='{% url "blog_post_detail" post.slug %}'>
-                        <div class='related_post col-md-4 col-sm-4 col-xs-6 text-center'>
-                            <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail post.featured_image 250 125 %}' alt='featured_image__related_post' />
-                            <a href="{{ post.get_absolute_url }}">
-                                <h4> {{ post.title }}</h4>
-                            </a>
-                        </div>
-                    </a>
-                    {% endfor %}
+                <h3 class='text-center' style='margin-top:50px; padding:20px 0; border-top:1px solid rgb(230,230,240); color:#007099;'>
+                    <i class='fa fa-xl fa-link'></i>
+                    {% trans 'Related posts' %}
+                </h3>
+                {% for post in related_posts %}
+                <a href='{% url "blog_post_detail" post.slug %}'>
+                    <div class='related_post col-md-4 col-sm-4 col-xs-6 text-center'>
+                        <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail post.featured_image 250 125 %}' alt='featured_image__related_post' />
+                        <a href="{{ post.get_absolute_url }}">
+                            <h4> {{ post.title }}</h4>
+                        </a>
+                    </div>
+                </a>
+                {% endfor %}
             </div>
         {% endif %}
         {% endblock %}

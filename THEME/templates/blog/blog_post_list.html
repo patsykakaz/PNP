@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+{% load i18n pages_tags mezzanine_tags blog_tags keyword_tags staticfiles %}
 
-{% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
+{% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{{ site.domain }}{% endif %}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
 {% keywords_for page as keywords %}
@@ -37,30 +37,17 @@
     {% block extra_js %}
     {% endblock %}
 
-{% block breadcrumb_menu %}
-{{ block.super }}
-{% if tag or category or year or month or author %}
-<li>{% spaceless %}
-{% if tag %}
-    {% trans "Tag:" %} {{ tag }}
-{% else %}{% if category %}
-    {% trans "Category:" %} {{ category }}
-{% else %}{% if year or month %}
-    {% if month %}{{ month }}, {% endif %}{{ year }}
-{% else %}{% if author %}
-    {% trans "Author:" %} {{ author.get_full_name|default:author.username }}
-{% endif %}{% endif %}{% endif %}{% endif %}
-{% endspaceless %}
-</li>
-{% endif %}
-{% endblock %}
-
 {% block main %}
     {% for site in all_sites %}
     {% if site.domain == request.get_host %}
     <div id='logo_blog' class='{{ site.css_class }} text-center'>
         <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
+    <ul class="breadcrumb">
+    {% spaceless %}
+        {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+    {% endspaceless %}
+    </ul>
     <div class='container'>
         <div class='col-sm-8 col-sm-offset-2 col-md-12 col-md-offset-0'>
             <h2 id='baseline' class='text-center {{ site.css_class }}'>
@@ -118,6 +105,67 @@
                     <h4>{{ blog_post.title|truncatechars:100 }}</h4>
                 </div>
             </a>
+            {% if forloop.counter == 2 %}
+                {% if banners.0 %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.0.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.0.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 3 %}
+                {% if banners.0 %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.0.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.0.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 8 %}
+                {% if banners.1.title %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.1.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.1.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 9 %}
+                {% if banners.1.title %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.1.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.1.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 14 %}
+                {% if banners.2.title %}
+                    <div class='layer-banner layer-banner-mobile col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.2.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.2.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% elif forloop.counter == 15 %}
+                {% if banners.2.title %}
+                    <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                        <a href='{{ banners.2.lien }}' target='blank'>
+                            <div class='container-banner'>
+                                <img src='/static/media/publicite/{{ banners.2.media }}' />
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endfor %}
 
         {% pagination_for blog_posts %}

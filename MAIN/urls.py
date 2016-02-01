@@ -36,14 +36,10 @@ urlpatterns += patterns('',
     # one homepage pattern, so if you use a different one, comment this
     # one out.
     url(r'^user/', include('USERMGMT.urls')),
-    # url(r'^login', 'MAIN.views.login_custom', name='login_custom'),
-    # url(r'^getAbonnement/$', 'MAIN.views.getAbonnement', name='getAbonnement'),
-    url(r'^testCoUCX/$', 'MAIN.views.testCoUCX', name='testCoUCX'),
     # url(r'^kill$', 'MAIN.views.kill', name='kill'),
-    url(r'^get_client/(?P<codeClient>.+)/$', 'MAIN.views.get_client', name='get_client'),
-    url(r'^aboweb$', 'MAIN.views.aboweb', name='aboweb'),
     url(r'^archive/(?P<start>.+)/(?P<end>.+)/$', 'MAIN.views.archive', name='archive'),
     url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),
+    url(r'^abonnement$', 'MAIN.views.ask_abo', name='ask_abo'),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------

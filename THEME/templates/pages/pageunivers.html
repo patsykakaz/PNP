@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "pages/page.html" %}
 {% load mezzanine_tags keyword_tags %}
 
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
@@ -20,15 +20,18 @@
 
 {% block main %}
 
+    {% if PageUniv.illustration %}
     <div id='illustration'>
         <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail PageUniv.couverture 1200 300 %}">
         <div class="">
         </div>
     </div>
+    {% endif %}
 
-    <div id='blogContent' class='container'>
+    <div class='container'>
         <div class='row'>
             <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
+                <h2 class='text-center'style='margin-bottom:30px; border-bottom: 1px solid rgb(230,230,230); color:#007099; font-weight:bold;'>{{ page.title }}</h2>
                 <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
                 {{ PageUniv.content|richtext_filters|safe }}
             </div>

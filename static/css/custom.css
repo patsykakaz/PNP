@@ -234,8 +234,6 @@ strong{
 #illustration img{
     width: 100%;
     height: auto;
-    position: relative;
-    bottom: 300px;
 }
 
 #blogTitle{
@@ -313,12 +311,15 @@ footer{
         font-size: 12px;
         font-weight: normal;
     }
+    #baseline{
+        margin-top: 30px;
+        font-size: 14px;
+    }
 
     #illustration{
         max-height: 150px;
     }
     #illustration img{
-        bottom: 150px;
     }
 
     .bloc_article{
@@ -362,7 +363,6 @@ footer{
         max-height: 120px;
     }
     #illustration img{
-        bottom: 120px;
     }
 }
 @media screen and (min-width: 768px) and (max-width: 991px){
@@ -381,11 +381,15 @@ footer{
         font-size: 14px;
     }
 
+    #baseline{
+        margin-top: 35px;
+        font-size: 18px;
+    }
+
     #illustration{
         max-height: 250px;
     }
     #illustration img{
-        bottom: 250px;
     }
 
     .bloc_article{

@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 
+from mezzanine.conf import settings
 from mezzanine.blog.models import BlogCategory, BlogPost
 from models import *
 
@@ -14,10 +15,9 @@ from models import *
 class AuthXMiddleware(object):
     def process_request(self,request):
         forbidden_domain = "lalettre"
-        if forbidden_domain in request.META['HTTP_HOST'] and not request.user.is_authenticated() and not "admin" in request.path and not "login" in request.path and not "forgottenPassword" in request.path:
+        if forbidden_domain in request.META['HTTP_HOST'] and settings.BLOG_SLUG in request.path and not request.user.is_authenticated():
             return HttpResponseRedirect('/user/login?next='+request.path)
-        else: 
-            print "request.META['HTTP_HOST'] = {}".format(request.META['HTTP_HOST'])
+        else:
             print "request.user.is_authenticated = {}".format(request.user.is_authenticated())
 
 class NavMiddleware(object):

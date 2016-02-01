@@ -13,7 +13,7 @@ def processor_revue(request, page):
     PageUniv = PageUniv[0]
     try:
         couv = PageUniv.illustration.url.split('/')
-        PageUniv.couverture = couv[-1]
+        PageUniv.illustration = couv[-1]
     except:
-        couv = False
+        PageUniv.illustration = False
     return locals()

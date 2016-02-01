@@ -13,7 +13,7 @@ class PubMiddleware(object):
             habillage = False
         response.context_data['habillage'] = habillage
         try:
-            banners = Publicite.objects.filter(formatPub='BANNER')
+            banners = Publicite._base_manager.filter(formatPub='BANNER')[:3]
             for banner in banners :
                 media = banner.media.url.split('/')
                 banner.media = media[-1]
