@@ -87,22 +87,16 @@
             {% if error %}
                 <div id='error' class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2'>
                     <div class='alert alert-danger text-center' style='padding: 10px 15px 5px 15px;'>
-                        <i class='icon-warning-sign'></i>
-                        <h3 style='margin: 10px;'>{{error}}</h3>
+                        <i class='fa fa-warning'></i>
+                        <h3 style='margin: 10px;'>{{ error }}</h3>
                     </div>
                 </div>
             {% elif message %}
                 {% nevercache %}
-                {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                            <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+                    <div id='message' class='col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2'>
+                        <i class='fa fa-warning'></i>
+                        <h3 style='margin: 10px;'>{{ message }}</h3>
                     </div>
-                {% endif %}
                 {% endnevercache %}
             {% endif %}
             <div class='col-md-6 col-md-offset-3' style='margin-top: 30px; background-color: white;'>

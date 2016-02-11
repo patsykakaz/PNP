@@ -9,8 +9,9 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 
 class AskAboForm(forms.Form):
     GENDER_CHOICES = (
-        ('Monsieur', 'Monsieur'),
-        ('Madame', 'Madame'),
+        ('M.', 'Monsieur'),
+        ('Mme', 'Madame'),
+        ('Mlle', 'Mademoiselle'),
     )
     gender = forms.ChoiceField(label="intitulé",choices=GENDER_CHOICES)
     nom = forms.CharField(label='Nom', max_length=100, required=True)

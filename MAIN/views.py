@@ -42,6 +42,7 @@ def ask_abo(request):
             form = AskAboForm(request.POST)
             error = "Données soumises invalides..."
     else:
+        message = "PAGE EN COURS DE DEVELOPPEMENT"
         form = AskAboForm()
     return render(request, 'abonnement.html', locals())
 

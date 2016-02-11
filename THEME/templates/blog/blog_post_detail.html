@@ -40,7 +40,7 @@
     {% block blog_post_detail_featured_image %}
         {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
             <div id='illustration'>
-                <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 1200 0 %}">
+                <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 1200 300 %}">
                 <div class="">
                     {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
                 </div>
