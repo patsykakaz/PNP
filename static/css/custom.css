@@ -333,13 +333,6 @@ footer{
         padding: 4px;
     }
 
-    .layer-banner{
-        display: none;
-    }
-    .layer-banner-mobile{
-        display: block;
-    }
-
     #blogTitle{
         margin-top: 25px;
         margin-bottom: 15px;
@@ -347,6 +340,14 @@ footer{
     }
     #richTextZone{
         padding: 20px 10px 40px 10px;
+    }
+}
+@media screen and (max-width: 767px){
+    .layer-banner{
+        display: none;
+    }
+    .layer-banner-mobile{
+        display: block;
     }
 }
 @media screen and (max-width: 568px){
