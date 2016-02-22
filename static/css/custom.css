@@ -25,7 +25,7 @@ strong{
     overflow: hidden;
     max-height: 150px;
 }#banner_layer img{
-    max-width: 100%;
+    width: 100%;
 }
 
 
