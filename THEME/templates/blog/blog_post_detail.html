@@ -47,16 +47,24 @@
             </div>
         {% endif %}
     {% endblock %}
-    <ul class="breadcrumb">
-        {% spaceless %}
-            {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
-        {% endspaceless %}
-    </ul>
+    {# <ul class="breadcrumb"> #}
+        {# {% spaceless %} #}
+            {# {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %} #}
+        {# {% endspaceless %} #}
+    {# </ul> #}
 
     <div id='blogContent' class='container'>
+        <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
+        {% block blog_post_detail_content %}
+            {% editable blog_post.content %}
+                <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
+                {{ blog_post.content|richtext_filters|safe }}
+            {% endeditable %}
+        {% endblock %}
+        </div>
         {% if banners %}
             {% with banners|random as banner %}
-                <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1'>
+                <div class='layer-banner col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1' style='margin-bottom: 30px;'> 
                     <a href='{{ banner.lien }}' target='blank'>
                         <div class='container-banner'>
                             <img src='/static/media/publicite/{{ banner.media }}' />
@@ -67,14 +75,6 @@
         {% else %}
             <!-- NO AD -->
         {% endif %}
-        <div id='richTextZone' class='col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0'>
-        {% block blog_post_detail_content %}
-            {% editable blog_post.content %}
-                <i class='fa fa-lg fa-long-arrow-right' style='float: left; margin-right: 10px;'></i>
-                {{ blog_post.content|richtext_filters|safe }}
-            {% endeditable %}
-        {% endblock %}
-        </div>
         {% block blog_post_previous_next %}
             <ul class="pager">
                 {% with blog_post.get_previous_by_publish_date as previous %}

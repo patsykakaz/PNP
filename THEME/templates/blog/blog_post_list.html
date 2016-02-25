@@ -43,11 +43,11 @@
     <div id='logo_blog' class='{{ site.css_class }} text-center'>
         <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
-    <ul class="breadcrumb">
-    {% spaceless %}
-        {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
-    {% endspaceless %}
-    </ul>
+    {# <ul class="breadcrumb"> #}
+    {# {% spaceless %} #}
+        {# {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %} #}
+    {# {% endspaceless %} #}
+    {# </ul> #}
     <div class='container'>
         <div class='col-sm-8 col-sm-offset-2 col-md-12 col-md-offset-0'>
             <h2 id='baseline' class='text-center {{ site.css_class }}'>
@@ -57,7 +57,7 @@
     </div>
     {% endif %}
     {% endfor %}
-    <div class='container'>
+    <div class='container text-center'>
         {% if tag or category or year or month or author %}
             {% block blog_post_list_filterinfo %}
             <p>
@@ -102,7 +102,7 @@
                 {% endwith %}
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 300 200 %}' alt='illustration {{ blog_post.title }}' />
                 <div class='bloc_article_title'>
-                    <h4>{{ blog_post.title|truncatechars:100 }}</h4>
+                    <h4>{{ blog_post.title|truncatechars:60 }}</h4>
                 </div>
             </a>
             {% if forloop.counter == 2 %}

@@ -22,6 +22,7 @@ class AuthXMiddleware(object):
 
 class NavMiddleware(object):
     def process_template_response(self, request, response):
+        currentSite = Site.objects.get_current()
         all_sites = list(Site.objects.exclude(pk=3).order_by('domain'))
         all_sites.extend(list(Site.objects.filter(pk=3)))
         pages_univers = PageUnivers._base_manager.all()
