@@ -234,6 +234,10 @@ strong{
 #illustration img{
     width: 100%;
     height: auto;
+}#illustration img.blockResize{
+    height: 100%;
+    width: auto;
+    margin: auto;
 }
 
 #blogTitle{
