@@ -39,7 +39,7 @@
 {% block main %}
     {% block blog_post_detail_featured_image %}
         {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
-            <div id='illustration' {% if blog_post.resize %}style='background-image:src("{% static 'img/blue-stripe.png' %}");'{% endif %}>
+            <div id='illustration' {% if blog_post.resize %}style='background-image:url("{% static 'img/blue-stripe.png' %}");'{% endif %}>
                 {% if not blog_post.resize %}
                 <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 1200 300 %}">
                 {% else %}
