@@ -25,26 +25,6 @@ get_backends()
 # base64.b64encode(hashlib.sha1("MBC1475").digest())
 # >>> 'pYsIJKF18hj0SvS3TwrQV3hWzD4='
 
-def ask_abo(request):
-    if request.POST:
-        form = AskAboForm(request.POST)
-        if form.is_valid():
-            subject= "DEMANDE ABONNEMENT - "+ request.POST['revue']
-            from_email= settings.ADMINS[1][1]
-            to = "philippe@lesidecar.fr"
-            text_content = "Une nouvelle demande d'abonnement vient d'être soumise sur pnpapetier.com pour le(s) magazine(s) : "+ request.POST['revue'] +". Les informations sont les suivantes : "+ request.POST['gender'] +" (prénom) "+ request.POST['prenom']+" (nom)"+ request.POST['nom'] +" (société)"+ request.POST['societe'] +". Email = "+ request.POST['email']
-            html_content = "<p>Une nouvelle demande d'abonnement vient d'être soumise sur pnpapetier.com pour le(s) magazine(s) : "+ request.POST['revue'] +".</p> <p>Les informations sont les suivantes : </p> genre = "+ request.POST['gender'] +"<br /> prénom = "+ request.POST['prenom']+"<br /> nom = "+ request.POST['nom'] +"<br /> société = "+ request.POST['societe'] +" <br /> Email = "+ request.POST['email']
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-            message = "Votre demande a bien été prise en compte. Un mail vous a été adressé."
-        else:
-            form = AskAboForm(request.POST)
-            error = "Données soumises invalides..."
-    else:
-        message = "PAGE EN COURS DE DEVELOPPEMENT"
-        form = AskAboForm()
-    return render(request, 'abonnement.html', locals())
 
 def kill(request):
     logout(request)

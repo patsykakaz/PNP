@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = patterns('',
     url(r'login/$', 'USERMGMT.views.connect', name='connect'),
     url(r'logout/$', 'USERMGMT.views.killUser', name='killUser'),
+    url(r'abonnement/$', 'MAIN.views.ask_abo', name='ask_abo'),
     url(r'display/$', 'USERMGMT.views.showUser', name='showUser'),
     url(r'modification/$', 'USERMGMT.views.changeUser', name='changeUser'),
     url(r'newPassword/$', 'USERMGMT.views.newPassword', name='newPassword'),
