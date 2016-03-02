@@ -13,7 +13,6 @@ from django.core.mail import send_mail
 from mezzanine.utils.urls import login_redirect, next_url
 from mezzanine.pages.models import Page
 from .models import *
-from forms import *
 
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.helpers import *
