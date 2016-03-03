@@ -199,7 +199,7 @@ def ask_abo(request):
             message = "Votre demande a bien été prise en compte. Un conseiller du groupe MBC vous contactera dans les plus brefs délais."
         else:
             form = AskAboForm(request.POST)
-            error = "Données soumises invalides..."
+            # error = "Données soumises invalides..."
     else:
         form = AskAboForm()
     return render(request, 'abonnement.html', locals())

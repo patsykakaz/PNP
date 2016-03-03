@@ -28,7 +28,7 @@ class NavMiddleware(object):
         pages_univers = PageUnivers._base_manager.all()
         for page in pages_univers:
             print page.slug
-        mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None)[:2]
+        mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None).exclude(status=1)[:2]
         # fetch color code 
         for article in mainArticles:
             try:
@@ -45,7 +45,7 @@ class NavMiddleware(object):
 
         for site in all_sites:
             site.all_cat = BlogCategory._base_manager.filter(site=site.id)
-            site.highlights = BlogPost._base_manager.filter(site=site.id).exclude(featured_image='')[:3]
+            site.highlights = BlogPost._base_manager.filter(site=site.id).exclude(featured_image='').exclude(status=1)[:3]
             try:
                 siteExtension = SiteExtension._base_manager.filter(site=site.id).first()
                 site.color = siteExtension.color

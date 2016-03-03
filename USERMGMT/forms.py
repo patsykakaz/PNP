@@ -129,8 +129,8 @@ class AskAboForm(forms.Form):
     nom = forms.CharField(label='Nom', max_length=100, required=True)
     prenom = forms.CharField(label='Prénom', max_length=50, required=True)
     email = forms.EmailField(label="Adresse e-mail",required=True)
-    societe= forms.CharField(label='Société', max_length=50, required=False)
-    telephone = forms.CharField(label='Numéro Téléphone',required=True)
+    societe= forms.CharField(label='Société', max_length=50, required=True)
+    phone = forms.CharField(label='Téléphone',required=False)
     REVUE_CHOICES = (
         ('PNP', 'PNP'),
         ('La Lettre PNP', 'La Lettre PNP'),
@@ -143,6 +143,11 @@ class AskAboForm(forms.Form):
         gender = self.cleaned_data.get('gender')
         nom = self.cleaned_data.get('nom')
         revue = self.cleaned_data.get('revue')
+        phone = self.cleaned_data.get('phone')
+        if phone == "":
+            msg='Merci de remplir votre numéro de téléphone afin que nous puissions vous contacter pour finaliser votre abonnement.'
+            self.add_error('phone', msg)
+            raise forms.ValidationError("Veuillez indiquer un numéro de téléphone valide. ")
         try:
             subject= "Votre demande abonnement a bien été prise en compte"
             from_email= settings.ADMINS[1][1]

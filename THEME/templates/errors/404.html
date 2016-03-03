@@ -1,4 +1,7 @@
-{% extends "base.html" %}
+{% extends "login_base.html" %}
+{% load pages_tags mezzanine_tags i18n staticfiles %}
+{% load custom_tags %}
+{% load bootstrap3 %}
 
 {% load i18n %}
 
@@ -12,10 +15,12 @@
 
 {% block main %}
 <div class='container'>
-    <div class='col-md-10 col-md-offset-1'>
-        <div class="panel panel-danger">
-            <div class="panel-heading"><h3 class="panel-title">{% trans "Page not found" %}</h3></div>
-            <div class="panel-body">{% trans "The page you requested does not exist." %}</div>
+    <div class='row' style='margin-top:40px;'>
+        <div class='col-md-12'>
+            <div class="panel panel-danger">
+                <div class="panel-heading"><h3 class="panel-title">{% trans "Page not found" %}</h3></div>
+                <div class="panel-body">{% trans "The page you requested does not exist." %}</div>
+            </div>
         </div>
     </div>
 </div>
