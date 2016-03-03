@@ -49,11 +49,17 @@
     {% for site in all_sites %}
     {% if site.css_class != 'default' %}
 
-    .navbar-nav > .dropdown-custom.{{ site.css_class }} > a, .navbar-nav > .dropdown-custom.open.{{ site.css_class }} > a{
+    .navbar-nav > .dropdown-custom.{{ site.css_class }} > a,
+    .navbar-nav > .dropdown-custom.open.{{ site.css_class }} > a{
         border-color: {{ site.color }};
     }
 
-    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a,.navbar-default .navbar-nav > .open.{{ site.css_class }} > a:hover, .navbar-default .navbar-nav > .open.{{ site.css_class }} > a:focus
+    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a,
+    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a:hover,
+    .navbar-default .navbar-nav > .open.{{ site.css_class }} > a:focus,
+    .navbar-default .navbar-nav > .active.{{ site.css_class }} > a,
+    .navbar-default .navbar-nav > .active.{{ site.css_class }} > a:hover,
+    .navbar-default .navbar-nav > .active.{{ site.css_class }} > a:focus
     {
         background-color: {{ site.color }};
     }.navbar-nav > .active.{{ site.css_class }} > a{
@@ -61,6 +67,10 @@
     }
     .site_sub_title.{{ site.css_class }}{
         color: {{ site.color }};
+    }
+    .open .site_sub_title.{{ site.css_class }},
+    .active .site_sub_title.{{ site.css_class }}{
+        color: white;
     }
 
     .{{ site.css_class }} .last_news, .{{ site.css_class }} .dropdown-category a:hover, .{{ site.css_class }} .highlight-box:hover a{
@@ -129,7 +139,9 @@
     <div id='navbar-collapse-1' class="collapse navbar-collapse">
         <ul class='nav navbar-nav'>
             {% for site in all_sites %}
-            <li class='dropdown dropdown-custom {{ site.css_class }}'>
+            <!--{{ request.get_host }}-->
+            <!--{{ site.domain }}-->
+            <li class='dropdown dropdown-custom {{ site.css_class }} {% if site.domain == request.get_host and 'articles' in request.get_full_path %}active{% endif %}'>
                 <a class='dropdown-toggle text-center' href='//{{ site.domain }}/articles/'>
                 <div class='site_title'> {{ site.name|upper }} </div>
                 <div class='site_sub_title {{ site.css_class }}'> {{ site.title_sub }} </div>
