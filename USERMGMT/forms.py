@@ -129,7 +129,8 @@ class AskAboForm(forms.Form):
     nom = forms.CharField(label='Nom', max_length=100, required=True)
     prenom = forms.CharField(label='Prénom', max_length=50, required=True)
     email = forms.EmailField(label="Adresse e-mail",required=True)
-    societe= forms.CharField(label='société', max_length=50, required=False)
+    societe= forms.CharField(label='Société', max_length=50, required=True)
+    telephone = forms.CharField(label='Numéro Téléphone',required=True)
     REVUE_CHOICES = (
         ('PNP', 'PNP'),
         ('La Lettre PNP', 'La Lettre PNP'),
