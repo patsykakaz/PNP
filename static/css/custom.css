@@ -165,6 +165,7 @@ strong{
     min-width: 100%;
 }
 .bloc_article_title{
+    text-align: left;
     overflow: hidden;
     height: 110px;
     padding: 0 10px;
@@ -175,8 +176,9 @@ strong{
     font-weight: 600;
     color: #004b66;
 }
-.bloc-post-caption, .bloc-post-caption:hover,
-.bloc-post-caption:visited, .bloc-post-caption:active{
+.blogPost-caption, .blogPost-caption:hover,
+.blogPost-caption:visited, .blogPost-caption:active{
+    text-align: left;
     text-decoration: none;
     color: #777;
     font-size: 12px;
