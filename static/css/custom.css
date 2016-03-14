@@ -175,6 +175,12 @@ strong{
     font-weight: 600;
     color: #004b66;
 }
+.bloc-post-caption, .bloc-post-caption:hover,
+.bloc-post-caption:visited, .bloc-post-caption:active{
+    text-decoration: none;
+    color: #777;
+    font-size: 12px;
+}
 .bloc_article .label{
     position: absolute;
     z-index: 2;

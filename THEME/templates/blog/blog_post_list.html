@@ -103,7 +103,7 @@
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 300 200 %}' alt='illustration {{ blog_post.title }}' />
                 <div class='bloc_article_title'>
                     <h4>{{ blog_post.title|truncatechars:60 }}</h4>
-                    <p>{{ blog_post.description_from_content|safe|truncatechars:90 }}</p>
+                    <p class='blogPost-caption'>{{ blog_post.description_from_content|safe|truncatechars:90 }}</p>
                 </div>
             </a>
             {% if forloop.counter == 2 %}
