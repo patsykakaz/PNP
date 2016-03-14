@@ -6,11 +6,17 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import Http404
 
 from mezzanine.conf import settings
 from mezzanine.blog.models import BlogCategory, BlogPost
 from models import *
 
+
+class BlockHackMiddleware(object):
+    def process_request(self,request):
+        if request.META['QUERY_STRING'] and 'cialis' in request.get_full_path():
+            raise Http404
 
 class AuthXMiddleware(object):
     def process_request(self,request):

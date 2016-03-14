@@ -50,6 +50,7 @@
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blogPost.featured_image 300 200 %}' alt='illustration {{ blogPost.title }}' />
                 <div class='bloc_article_title'>
                     <h4>{{ blogPost.title|truncatechars:60 }}</h4>
+                    <p>{{ blogPost.content|safe|truncatechars:90 }}</p>
                 </div>
             </a>
             {% if forloop.counter == 2 %}
