@@ -34,24 +34,31 @@
 
         <div id="search-results">
         {% for result in results.object_list %}
-        {% with result.get_absolute_url as result_url %}
-        <div class='bloc_article col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-            <h3>
-                <span class='label'>{{ forloop.counter0|add:results.start_index }}</span>
-                {% if result_url %}
-                    <a href="{{ result_url }}">{{ result }}</a>
-                {% else %}
-                    {{ result }}
-                {% endif %}
-            </h3>
-            {% if result.description != result|stringformat:"s" %}
-                <p>{{ result.description|truncatewords_html:20|safe }}</p>
+            {% if forloop.counter0|divisibleby:4 %}
+            <div class='row'>
             {% endif %}
-            {% if result_url %}
-                <a href="{{ result_url }}"><strong>{% trans "read more" %}</strong></a>
+                {% with result.get_absolute_url as result_url %}
+                <div class='bloc_article col-lg-3 col-md-3 col-sm-12 col-xs-12'>
+                    <h3>
+                        <span class='label'>{{ forloop.counter0|add:results.start_index }}</span>
+                        <i class='fa fa-arrow-right' style='position:relative; bottom:4px; font-size:15px;'></i>
+                        {% if result_url %}
+                            <a href="{{ result_url }}">{{ result }}</a>
+                        {% else %}
+                            {{ result }}
+                        {% endif %}
+                    </h3>
+                    {% if result.description != result|stringformat:"s" %}
+                        <p>{{ result.description|truncatewords_html:20|safe }}</p>
+                    {% endif %}
+                    {% if result_url %}
+                        <a href="{{ result_url }}"><strong>{% trans "read more" %}</strong></a>
+                    {% endif %}
+                </div>
+                {% endwith %}
+            {% if forloop.counter|divisibleby:4 %}
+            </div>
             {% endif %}
-        </div>
-        {% endwith %}
         {% endfor %}
         </div>
 

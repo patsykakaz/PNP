@@ -176,10 +176,11 @@ strong{
     color: #004b66;
 }
 .blogPost-caption, .blogPost-caption:hover,
-.blogPost-caption:visited, .blogPost-caption:active{
+.blogPost-caption:visited, .blogPost-caption:active, .blogPost-caption strong{
     text-align: left;
     text-decoration: none;
     color: #777;
+    font-weight: normal;
     font-size: 12px;
 }
 .bloc_article .label{
