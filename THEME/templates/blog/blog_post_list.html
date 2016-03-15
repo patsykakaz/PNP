@@ -1,19 +1,43 @@
 {% extends "base.html" %}
 {% load i18n pages_tags mezzanine_tags blog_tags keyword_tags staticfiles %}
 
-{% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{{ site.domain }}{% endif %}{% endblock %}
+{% block meta_keywords %}
+    {% if request.get_host == 'pns.pnpapetier.com' %}
+        magazine, actualités, spécialiste, innovation, culture numérique
+    {% elif request.get_host == 'tendances.pnpapetier.com' %}
+        magazine, actualités, spécialiste, loisirs créatifs, beaux arts, tendance
+    {% elif request.get_host == 'lalettre.pnpapetier.com' %}
+        magazine, actualités, spécialiste, économie, distributeurs, fournisseurs, marketing, mouvement, évènement
+    {% else %}
+        magazine, actualités, spécialiste, papeterie, bureautique, fournitures de bureau
+    {% endif %}
+{% endblock %}
 
-{% block meta_keywords %}{% metablock %}
-{% keywords_for page as keywords %}
-{% for keyword in keywords %}
-    {% if not forloop.first %}, {% endif %}
-    {{ keyword }}
-{% endfor %}
-{% endmetablock %}{% endblock %}
+{% block meta_description %}
+    {% if request.get_host == 'pns.pnpapetier.com' %}
+        Retrouvez les derniers articles sur les innovations du secteur et sur l’actualité de la culture numérique.
+    {% elif request.get_host == 'tendances.pnpapetier.com' %}
+        Toute l’actualité des loisirs créatifs et des beaux arts liés au secteur de la papeterie.
+    {% elif request.get_host == 'lalettre.pnpapetier.com' %}
+        Toute l’actualité du secteur de la papeterie, de la bureautique, des fournitures de bureau et des consommables.
+    {% else %}
+        Avec le magazine PNP, retrouvez l'actualité du secteur de la papeterie, bureautique et fournitures de bureau.
+    {% endif %}
+{% endblock %}
 
-{% block meta_description %}{% metablock %}
-{{ page.description }}
-{% endmetablock %}{% endblock %}
+
+{% block meta_title %}
+    {% if request.get_host == 'pns.pnpapetier.com' %}
+        Magazine PNS, innovations et culture numérique
+    {% elif request.get_host == 'tendances.pnpapetier.com' %}
+        Magazine Tendances, beaux arts et loisirs créatifs
+    {% elif request.get_host == 'lalettre.pnpapetier.com' %}
+        La Lettre PNP, l’actualité du métier en temps réel
+    {% else %}
+        Magazine PNP, le magazine spécialiste du secteur du papier
+    {% endif %}
+{% endblock %}
+
 
     {% block extra_edited_css %}
     <style>
@@ -43,11 +67,6 @@
     <div id='logo_blog' class='{{ site.css_class }} text-center'>
         <img src='{{ MEDIA_URL }}SITES/banner/{{ site.img_banner }}' alt='logo PNP' />
     </div>
-    {# <ul class="breadcrumb"> #}
-    {# {% spaceless %} #}
-        {# {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %} #}
-    {# {% endspaceless %} #}
-    {# </ul> #}
     <div class='container'>
         <div class='col-sm-8 col-sm-offset-2 col-md-12 col-md-offset-0'>
             <h2 id='baseline' class='text-center {{ site.css_class }}'>
