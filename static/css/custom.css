@@ -166,7 +166,7 @@ strong{
 }
 .bloc_article_title{
     overflow: hidden;
-    height: 100px;
+    height: 84px;
     padding: 0 10px;
 }
 .bloc_article_title h4{
@@ -423,6 +423,14 @@ footer{
         margin-top: 22px;
         margin-bottom: 22px;
         font-size: 20px;
+    }
+}
+@media screen and (max-width: 991px){
+    .bloc_article_title{
+        height: 70px;
+    }
+    .blogPost-caption{
+        display: none;
     }
 }
 @media screen and (min-width: 1200px){
