@@ -111,18 +111,17 @@
                 {% with blog_post.categories.all as categories %}
                     <div class='label'>
                     {% if categories %}
-                        {% for category in categories %}
-                            {{ category }} {% if not forloop.last %}, {% endif %}
-                        {% endfor %}
+                        {{ categories.first }}
                     {% elif blog_post.archive %}
                         archives
                     {% endif %}
                     </div>
                 {% endwith %}
+		<div class='date'>{{ blog_post.created|date:"d/m/Y" }}</div>
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 300 200 %}' alt='illustration {{ blog_post.title }}' />
                 <div class='bloc_article_title'>
                     <h4><i class='fa fa-arrow-right'></i> {{ blog_post.title|truncatechars:60 }}</h4>
-                    <div class='blogPost-caption'>{{ blog_post.description_from_content|safe }}</div>
+                    <div class='blogPost-caption'>{{ blog_post.description_from_content|safe|striptags|truncatechars:110 }}</div>
                 </div>
             </a>
             {% if forloop.counter == 2 %}
@@ -199,4 +198,5 @@
 {% block right_panel %}
 {% include "blog/includes/filter_panel.html" %}
 {% endblock %}
+
 

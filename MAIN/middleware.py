@@ -32,8 +32,6 @@ class NavMiddleware(object):
         all_sites = list(Site.objects.exclude(pk=3).order_by('domain'))
         all_sites.extend(list(Site.objects.filter(pk=3)))
         pages_univers = PageUnivers._base_manager.all()
-        for page in pages_univers:
-            print page.slug
         mainArticles = BlogPost._base_manager.filter(highlight=True).exclude(featured_image=None).exclude(status=1)[:2]
         # fetch color code 
         for article in mainArticles:
@@ -76,4 +74,5 @@ class NavMiddleware(object):
         response.context_data['last_blogPosts'] = last_blogPosts
         response.context_data['mainArticles'] = mainArticles[:3]
         return response
+
 
