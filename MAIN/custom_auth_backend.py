@@ -37,6 +37,7 @@ class ClientAuthBackend(ModelBackend):
                     # fetch "getAbonnements"
                     xml = getAbonnements(codeClient)
                     aboList = repr(xml)
+                    active_abo = False
                     for abonnement in xml.children().children().children():
                         if int(abonnement.refTitre) == 26 and str(abonnement.obsolete) == 'false':
                             active_abo = True
@@ -69,7 +70,8 @@ class ClientAuthBackend(ModelBackend):
                             return k
                     # RED FLAG
                     else:
-                        # Shoot mail to rebuy 
+                        # Shoot mail to rebuy
+                        print 'OBSOLETE'
                         pass
                 else:
                     if user.check_password(password):
