@@ -54,7 +54,7 @@
                     {% endif %}
                     {{ blogPost.site.name|title }}
                 </div>
-		<div class='date'>{{ blogPost.created|date:"d/m/Y" }}</div>
+                <div class='date'>{{ blogPost.created|date:"d/m/Y" }}</div>
                 <img class='img-thumbnail' src='{{ MEDIA_URL }}{% thumbnail blogPost.featured_image 300 200 %}' alt='illustration {{ blogPost.title }}' />
                 <div class='bloc_article_title'>
                     <h4><i class='fa fa-arrow-right'></i> {{ blogPost.title|truncatechars:60 }}</h4>
